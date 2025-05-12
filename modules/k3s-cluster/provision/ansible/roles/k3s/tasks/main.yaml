@@ -33,6 +33,7 @@
       environment:
         INSTALL_K3S_VERSION: "{{ k3s_version }}"
         K3S_TOKEN: "{{ node_token }}"
+        K3S_URL: "{{ k3s_url | default('') }}"
       changed_when: true
 
 - name: Configure private registries
