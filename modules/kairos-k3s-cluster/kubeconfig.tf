@@ -12,6 +12,7 @@ resource "ansible_playbook" "kubeconfig" {
     ansible_ssh_common_args = join(" ", [
       "-o StrictHostKeyChecking=accept-new",
       "-o ControlPath=~/%r@%h:%p",
+      "-o UserKnownHostsFile=/dev/null",
       var.ssh_common_args
     ])
     cluster_vip     = var.cluster_vip
