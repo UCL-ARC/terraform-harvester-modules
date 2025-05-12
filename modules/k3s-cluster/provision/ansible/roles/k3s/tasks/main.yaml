@@ -8,7 +8,8 @@
 - name: Set k3s installed version
   when: k3s_version_output.rc == 0
   ansible.builtin.set_fact:
-    installed_k3s_version: "{{ k3s_version_output.stdout_lines[0].split(' ')[2] }}"
+    installed_k3s_version:
+      "{{ k3s_version_output.stdout_lines[0].split(' ')[2] }}"
 
 - name: Download artifact only if needed
   when:
