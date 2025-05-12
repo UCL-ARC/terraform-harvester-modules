@@ -8,8 +8,7 @@
 - name: Set k3s installed version
   when: k3s_version_output.rc == 0
   ansible.builtin.set_fact:
-    installed_k3s_version:
-      "{{ k3s_version_output.stdout_lines[0].split(' ')[2] }}"
+    installed_k3s_version: "{{ k3s_version_output.stdout_lines[0].split(' ')[2] }}"
 
 - name: Download artifact only if needed
   when:
@@ -33,6 +32,7 @@
       environment:
         INSTALL_K3S_VERSION: "{{ k3s_version }}"
         K3S_TOKEN: "{{ node_token }}"
+        K3S_URL: "{{ k3s_url | default('') }}"
       changed_when: true
 
 - name: Configure private registries
