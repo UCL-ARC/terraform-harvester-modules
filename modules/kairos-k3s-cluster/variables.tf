@@ -100,6 +100,12 @@ variable "root_disk_size" {
   default = "30Gi"
 }
 
+variable "ssh_admin_principals" {
+  type        = list(string)
+  description = "List of SSH principals to use for the VMs"
+  default     = []
+}
+
 variable "ssh_ca_public_key" {
   type        = string
   description = "SSH CA public key to use for the VMs"

@@ -23,16 +23,22 @@ stages:
     - name: Setup hostname
       hostname: ${hostname}
     - files:
-        %{~ if ssh_ca_public_key != "" ~}
-        - path: /etc/ssh/trusted-user-ca-key.pem
-          permissions: 644
-          content: |
-            ${ssh_ca_public_key}
+        %{~ if length(ssh_admin_principals) > 0 }
+        - path: /etc/ssh/auth_principals/kairos
+          permissions: 600
+          content: |+
+            %{~ for principal in ssh_admin_principals ~}
+            ${principal}
+            %{~ endfor ~}
+        %{~ endif ~}
         - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
           permissions: 600
           content: |+
             PubkeyAuthentication yes
             TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
+            %{~ if length(ssh_admin_principals) > 0 ~}
+            AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+            %{~ endif ~}
         %{~ endif ~}
         - path: /var/lib/connman/default.config
           permissions: 0644
