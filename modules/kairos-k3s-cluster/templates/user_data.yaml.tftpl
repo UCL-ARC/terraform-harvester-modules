@@ -23,6 +23,11 @@ stages:
     - name: Setup hostname
       hostname: ${hostname}
     - files:
+        %{~ if ssh_ca_public_key != "" ~}
+        - path: /etc/ssh/trusted-user-ca-key.pem
+          permissions: 644
+          content: |
+            ${ssh_ca_public_key~}
         %{~ if length(ssh_admin_principals) > 0 }
         - path: /etc/ssh/auth_principals/kairos
           permissions: 600
