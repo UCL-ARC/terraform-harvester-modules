@@ -110,17 +110,16 @@ variable "ssh_ca_public_key" {
   type        = string
   description = "SSH CA public key to use for the VMs"
   default     = ""
+  validation {
+      condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
+      error_message = "Set one of ssh_ca_public_key or ssh_public_key"
+  }
 }
 
 variable "ssh_public_key" {
   type        = string
   description = "SSH public key to use for the VMs"
   default     = ""
-
-  validation {
-    condition     = var.ssh_ca_public_key != "" && var.ssh_public_key != ""
-    error_message = "Set one of ssh_ca_public_key or ssh_public_key"
-  }
 }
 
 variable "ssh_common_args" {
