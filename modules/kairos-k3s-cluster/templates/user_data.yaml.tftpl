@@ -34,6 +34,16 @@ stages:
             PubkeyAuthentication yes
             TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
         %{~ endif ~}
+        - path: /var/lib/connman/default.config
+          permissions: 0644
+          content: |
+          %{~ for network in networks ~}
+            [service_${network.alias}]
+            Type = ethernet
+            IPv4 = ${network.ip}/255.255.255.0/${network.gateway}
+            IPv6 = off
+            Nameservers = ${network.dns}
+          %{ endfor }
         - path: /etc/systemd/network/01-man.network
           permissions: 644
           content: |
