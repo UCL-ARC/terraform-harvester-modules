@@ -7,8 +7,6 @@ locals {
     size       = var.root_disk_size
   }])
   ips             = var.networks[var.primary_interface].ips
-  kubeconfig      = "k3s.yaml"
-  kubeconfig_path = "./${local.kubeconfig}"
   leader_ip       = local.ips[0]
   vm_count        = var.control_nodes + var.worker_nodes
 }
