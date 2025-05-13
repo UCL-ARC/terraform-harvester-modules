@@ -1,5 +1,4 @@
 resource "ansible_playbook" "kubeconfig" {
-  depends_on              = [module.k3s_server_vm]
   name                    = "kubeconfig"
   playbook                = "${path.module}/playbook.yaml"
   groups                  = ["leader"]
