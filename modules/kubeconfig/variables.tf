@@ -3,12 +3,6 @@ variable "cluster_vip" {
   description = "KubeVip virtual IP address"
 }
 
-variable "kubeconfig_path" {
-  type        = string
-  description = "Path to the kubeconfig file"
-  default     = ""
-}
-
 variable "ssh_private_key_path" {
   type        = string
   description = "Path to the SSH private key to use for the VMs"

@@ -1,3 +1,7 @@
+locals {
+  kubeconfig_filename = "k3s_kubeconfig.yaml"
+}
+
 resource "ansible_playbook" "kubeconfig" {
   name                    = "kubeconfig"
   playbook                = "${path.module}/playbook.yaml"
@@ -15,11 +19,11 @@ resource "ansible_playbook" "kubeconfig" {
       var.ssh_common_args
     ])
     cluster_vip     = var.cluster_vip
-    kubeconfig_path = "${path.module}/${var.kubeconfig_path}"
+    kubeconfig_path = "./${local.kubeconfig_filename}"
   }
 }
 
 data "local_file" "kubeconfig" {
   depends_on = [ansible_playbook.kubeconfig]
-  filename   = "${path.module}/${var.kubeconfig_path}"
+  filename   = "${path.module}/${local.kubeconfig_filename}"
 }
