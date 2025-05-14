@@ -176,7 +176,7 @@ module "kubeconfig" {
   cluster_vip          = "10.0.0.5"
   ssh_private_key_path = local_sensitive_file.ssh_private_key.filename
   ssh_common_args = join(" ", [
-    "-o ProxyCommand=\"ssh -W %h:%p condenser\"",
+    "-o ProxyCommand=\"ssh -W %h:%p jumphost\"",
   ])
   vm_ip       = "10.0.0.2"
   vm_username = "kairos"
