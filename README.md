@@ -169,12 +169,21 @@ This module can be used to fetch the kubeconfig file for a k3s cluster deployed 
 the `k3s-cluster` or `kairos-k3s-cluster` modules. It uses the `ansible_playbook` resource from the [Terraform Ansible Provider](https://registry.terraform.io/providers/ansible/ansible/latest) to SSH into a k3s nodes and retrieve the kubeconfig file. The `kubeconfig` module requires a SSH private key and as such the consumer of the module should ensure that either the public key is present on the node or that a new public key has been signed by the CA certificate present on the node.
 
 ```hcl
+resource "tls_private_key" "ssh" {
+  algorithm = "ED25519"
+}
+
+resource "local_sensitive_file" "ssh_key" {
+  filename = "${path.root}/ssh-key"
+  content  = tls_private_key.ssh.private_key_openssh
+}
+
 module "kubeconfig" {
   depends_on = [ module.cluster ]
   source = "../modules/kubeconfig"
 
   cluster_vip          = "10.0.0.5"
-  ssh_private_key_path = local_sensitive_file.ssh_private_key.filename
+  ssh_private_key_path = local_sensitive_file.ssh_key.filename # make sure the public key is present on the node
   ssh_common_args = join(" ", [
     "-o ProxyCommand=\"ssh -W %h:%p jumphost\"",
   ])
