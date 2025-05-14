@@ -43,7 +43,7 @@ address and an SSH key:
       name       = "data"
       mount      = "/data"
       size       = "100Gi"
-      type       = "disk
+      type       = "disk"
     }
   ]
   cpu              = 2
