@@ -115,19 +115,23 @@ The `kairos-k3s-cluster` module helps you deploy a high-availablity
 deployed using an immutable operating system. [kairos](https://kairos.io/)
 provides a means to turn a Linux system, and preferred Kubernetes distribution,
 into a secure bootable image. Here users of the module can specify both the
-kairos ISO and container image to be deployed which will form the final OS
-running in the VMs. Although this supports multiple different Kubernetes
-distributions we strongly encourage the use of k3s. In the example below the
-kairos Alpine ISO is used to deploy a Rocky Linux container image which has k3s
-baked in. The
+kairos ISO and container image to be deployed, forming the final OS running in
+the VMs. Although this supports multiple different Kubernetes distributions we
+strongly encourage the use of k3s. In the example below the kairos Alpine ISO is
+used to deploy a Rocky Linux container image which has k3s baked in. The
 [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
 is installed in the cluster to provide a means to manage OS and Kubernetes
-distribution upgrades in a zero-downtime manner.
+distribution upgrades in a zero-downtime manner. A `Plan` resource needs to be
+provided by the consumer of the module to trigger the upgrade process.
 
 Here [edgevpn](https://github.com/mudler/edgevpn/tree/master) and
 [kubevip](https://kube-vip.io/) configures a peer-to-peer mesh and a virtual IP
 address for the cluster (instead of [metallb](https://metallb.io/) which is used
 in the `k3s-cluster` module).
+
+This module supports the use of certificate-based authentication for SSH. To
+enable this, the consumer of the module must provide a CA certificate, and if
+required the authorised principles via the `ssh_admin_principals` variable.
 
 ```hcl
 module "cluster" {
@@ -152,7 +156,6 @@ module "cluster" {
   }
   root_disk_container_image = "docker:quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
   ssh_public_key            = file("${path.root}/ssh-key.pub")
-  ssh_private_key_path      = file("${path.root}/ssh-key")
   vm_username               = "kairos"
   vm_tags = {
       ssh-user = "kairos"
