@@ -131,7 +131,12 @@ variable "system_upgrade_controller_version" {
   type        = string
   description = "Version of the system upgrade controller to install in the cluster."
   default     = "v0.15.2"
+}
 
+variable "vault_auth_service_account" {
+  type        = string
+  description = "Service account to use for the vault auth"
+  default     = "vault-auth"
 }
 
 variable "vm_tags" {
