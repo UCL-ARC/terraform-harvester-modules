@@ -25,6 +25,7 @@ module "k3s_server_vm" {
     cluster_vip         = var.cluster_vip
     control_nodes_count = var.control_nodes
     hostname            = "${var.cluster_name}-vm-${count.index}"
+    k3s_extra_args      = var.k3s_extra_args
     kairos_os_image     = var.root_disk_container_image
     networks = {
       for key, value in var.networks : key =>

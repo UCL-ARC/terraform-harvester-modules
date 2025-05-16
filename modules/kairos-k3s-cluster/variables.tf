@@ -61,6 +61,11 @@ variable "iso_disk_size" {
   default = "30Gi"
 }
 
+variable "k3s_extra_args" {
+  type        = list(string)
+  description = "Extra arguments to pass to k3s"
+  default     = []
+}
 variable "memory" {
   type    = string
   default = "32Gi"

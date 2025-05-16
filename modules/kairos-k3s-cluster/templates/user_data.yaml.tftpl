@@ -97,11 +97,17 @@ k3s:
   enabled: true
   args:
     - --disable=traefik,servicelb
+  %{~ if length(k3s_extra_args) > 0 ~}
+    %{ for arg in k3s_extra_args ~}
+    - ${arg}
+    %{ endfor ~}
+  %{~ endif ~}
 
 bundles:
   - targets:
       - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
 
+# system-upgrade-controller settings
 suc:
   version: v0.15.2
 
