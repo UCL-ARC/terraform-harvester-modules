@@ -98,9 +98,9 @@ k3s:
   args:
     - --disable=traefik,servicelb
   %{~ if length(k3s_extra_args) > 0 ~}
-    %{ for arg in k3s_extra_args ~}
+    %{~ for arg in k3s_extra_args ~}
     - ${arg}
-    %{ endfor ~}
+    %{~ endfor ~}
   %{~ endif ~}
 
 bundles:
