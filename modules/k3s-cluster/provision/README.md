@@ -46,6 +46,7 @@ No modules.
 | <a name="input_data_dir"></a> [data\_dir](#input\_data\_dir) | n/a | `any` | n/a | yes |
 | <a name="input_follower_names"></a> [follower\_names](#input\_follower\_names) | n/a | `any` | n/a | yes |
 | <a name="input_ips"></a> [ips](#input\_ips) | n/a | `any` | n/a | yes |
+| <a name="input_k3s_extra_install_args_control"></a> [k3s\_extra\_install\_args\_control](#input\_k3s\_extra\_install\_args\_control) | n/a | `any` | n/a | yes |
 | <a name="input_k3s_version"></a> [k3s\_version](#input\_k3s\_version) | n/a | `any` | n/a | yes |
 | <a name="input_leader_name"></a> [leader\_name](#input\_leader\_name) | n/a | `any` | n/a | yes |
 | <a name="input_local_storage_path"></a> [local\_storage\_path](#input\_local\_storage\_path) | n/a | `any` | n/a | yes |

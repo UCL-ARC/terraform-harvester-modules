@@ -29,7 +29,7 @@ resource "ansible_playbook" "k3s_leader" {
       "--tls-san=${var.cluster_api_vip}",
       "--tls-san=https://${var.cluster_api_vip}.sslip.io",
       "--cluster-init"
-    ]))
+    ], var.k3s_extra_install_args_control))
     metallb_version = var.metallb_version
   })
 }
@@ -44,11 +44,6 @@ resource "ansible_playbook" "k3s_follower" {
   replayable              = true
   extra_vars = merge(local.common_ansible_args, local.server_ansible_args, {
     ansible_host = each.value
-    k3s_install_args = join(" ", concat(local.k3s_common_install_args, [
-      "--node-ip=${each.value}",
-      "--advertise-address=${each.value}",
-      "--server=https://${var.cluster_api_vip}:6443"
-    ]))
   })
 }
 

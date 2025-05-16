@@ -66,6 +66,12 @@ variable "k3s_version" {
   default     = "v1.30.2+k3s1"
 }
 
+variable "k3s_extra_install_args_control" {
+  type        = list(string)
+  description = "a list of additional args to be added to the k3s install command on control nodes"
+  default     = []
+}
+
 variable "local_storage_path" {
   type        = string
   description = "Path to use for local storage on Harvester VMs"
