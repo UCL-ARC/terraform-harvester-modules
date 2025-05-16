@@ -4,12 +4,13 @@ module "k3s_server_vm" {
 
   additional_disks = var.additional_disks
   cpu              = var.cpu
+  disk_size        = var.root_disk_size
   efi_boot         = var.efi_boot
   memory           = var.memory
   name             = local.vm_names[count.index]
   namespace        = var.namespace
-  networks = {
-    for key, value in var.networks : key =>
+  networks = [
+    for key, value in var.networks :
     {
       cidr    = try(value.cidr, null)
       dns     = try(value.dns, "")
@@ -18,10 +19,8 @@ module "k3s_server_vm" {
       ip      = try(value.ips[count.index], "")
       network = value.network
     }
-  }
-  root_disk_size  = var.root_disk_size
+  ]
   run_strategy    = var.run_strategy
-  ssh_private_key = tls_private_key.ssh.private_key_openssh
   user_data = templatefile("${path.module}/templates/user_data.yaml.tftpl", {
     additional_disks   = try(var.additional_disks, "")
     appstream_repo_url = var.appstream_repo_url

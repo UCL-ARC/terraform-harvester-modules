@@ -5,12 +5,15 @@ variable "appstream_repo_url" {
 }
 
 variable "additional_disks" {
-  type = map(object({
-    name  = string
-    mount = string
-    size  = string
+  type = list(object({
+    boot_order = number
+    bus        = string
+    name       = string
+    mount      = string
+    size       = string
+    type       = string
   }))
-  default = {}
+  default = []
 }
 
 variable "baseos_repo_url" {

@@ -1,19 +1,19 @@
-      version: 2
-      ethernets:
+version: 2
+ethernets:
 %{ for network in networks ~}
-        ${network.iface}:
-          %{ if network.ip != "" }
-          dhcp4: false
-          addresses:
-            - ${network.ip}/${network.cidr}
-          %{ if network.gateway != "" }
-          gateway4: ${network.gateway}
-          %{ endif }
-          %{ if network.dns != "" }
-          nameservers:
-            addresses: [${network.dns}]
-          %{ endif }
-          %{ else ~}
-          dhcp4: true
-          %{ endif ~}
+  ${network.iface}:
+  %{~ if network.ip != "" ~}
+    dhcp4: false
+    addresses:
+      - ${network.ip}/${network.cidr}
+    %{~ if network.gateway != "" ~}
+    gateway4: ${network.gateway}
+    %{~ endif ~}
+    %{~ if network.dns != "" ~}
+    nameservers:
+      addresses: [${network.dns}]
+    %{ endif ~}
+  %{~ else ~}
+    dhcp4: true
+  %{~ endif ~}
 %{ endfor ~}
