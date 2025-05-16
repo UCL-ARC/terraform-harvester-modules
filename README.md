@@ -124,14 +124,38 @@ is installed in the cluster to provide a means to manage OS and Kubernetes
 distribution upgrades in a zero-downtime manner. A `Plan` resource needs to be
 provided by the consumer of the module to trigger the upgrade process.
 
+### Networking
+
 Here [edgevpn](https://github.com/mudler/edgevpn/tree/master) and
 [kubevip](https://kube-vip.io/) configures a peer-to-peer mesh and a virtual IP
 address for the cluster (instead of [metallb](https://metallb.io/) which is used
-in the `k3s-cluster` module).
+in the `k3s-cluster` module). Note that `k3s` uses
+[Flannel](https://github.com/flannel-io/flannel) as the default CNI plugin, and
+this is what is used in the module. If you would like to use a different CNI
+plugin, or something that provides a means for managing network policies (such
+as [Calico](https://www.tigera.io/project-calico/)), then you will need to
+deploy this yourself after the cluster is up and running. The `k3s` arguments
+that are required to use a different CNI plugin can be set using the
+`k3s_extra_args` variable. For example, to be able to use Calico, you would set:
+
+```hcl
+  k3s_extra_args = [
+    "--disable-network-policy",
+    "--flannel-backend=none",
+  ]
+```
+
+Note that when disabling the default CNI plugin, `k3s` can take a while to start
+as such you should make sure that the service is available before attempting to
+install any custom CNI plugin.
+
+### SSH
 
 This module supports the use of certificate-based authentication for SSH. To
 enable this, the consumer of the module must provide a CA certificate, and if
 required the authorised principles via the `ssh_admin_principals` variable.
+
+### Example usage
 
 ```hcl
 module "cluster" {
@@ -165,8 +189,16 @@ module "cluster" {
 
 ## kubeconfig module
 
-This module can be used to fetch the kubeconfig file for a k3s cluster deployed using
-the `k3s-cluster` or `kairos-k3s-cluster` modules. It uses the `ansible_playbook` resource from the [Terraform Ansible Provider](https://registry.terraform.io/providers/ansible/ansible/latest) to SSH into a k3s nodes and retrieve the kubeconfig file. The `kubeconfig` module requires a SSH private key and as such the consumer of the module should ensure that either the public key is present on the node or that a new public key has been signed by the CA certificate present on the node.
+This module can be used to fetch the kubeconfig file for a k3s cluster deployed
+using the `k3s-cluster` or `kairos-k3s-cluster` modules. It uses the
+`ansible_playbook` resource from the [Terraform Ansible
+Provider](https://registry.terraform.io/providers/ansible/ansible/latest) to SSH
+into a k3s nodes and retrieve the kubeconfig file. The `kubeconfig` module
+requires a SSH private key and as such the consumer of the module should ensure
+that either the public key is present on the node or that a new public key has
+been signed by the CA certificate present on the node.
+
+### Example usage
 
 ```hcl
 resource "tls_private_key" "ssh" {
