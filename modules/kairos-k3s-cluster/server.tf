@@ -22,11 +22,14 @@ module "k3s_server_vm" {
   ]
   network_data = null
   user_data = templatefile("${path.module}/templates/user_data.yaml.tftpl", {
-    cluster_vip         = var.cluster_vip
-    control_nodes_count = var.control_nodes
-    hostname            = "${var.cluster_name}-vm-${count.index}"
-    k3s_extra_args      = var.k3s_extra_args
-    kairos_os_image     = var.root_disk_container_image
+    cluster_vip                 = var.cluster_vip
+    control_nodes_count         = var.control_nodes - 1
+    hostname                    = "${var.cluster_name}-vm-${count.index}"
+    k3s_extra_args              = var.k3s_extra_args
+    k3s_oidc_args               = var.k3s_oidc_args
+    k3s_oidc_admin_binding_name = var.k3s_oidc_admin_binding_name
+    k3s_oidc_admin_group        = var.k3s_oidc_admin_group
+    kairos_os_image             = var.root_disk_container_image
     networks = {
       for key, value in var.networks : key =>
       {

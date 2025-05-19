@@ -66,6 +66,25 @@ variable "k3s_extra_args" {
   description = "Extra arguments to pass to k3s"
   default     = []
 }
+
+variable "k3s_oidc_admin_binding_name" {
+  type        = string
+  description = "OIDC admin binding name to use for the cluster"
+  default     = "cluster-admin"
+}
+
+variable "k3s_oidc_admin_group" {
+  type        = string
+  description = "OIDC admin group to use for the cluster"
+  default     = ""
+}
+
+variable "k3s_oidc_args" {
+  type        = list(string)
+  description = "Extra arguments to pass to k3s"
+  default     = []
+}
+
 variable "memory" {
   type    = string
   default = "32Gi"
