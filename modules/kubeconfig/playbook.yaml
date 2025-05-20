@@ -9,7 +9,7 @@
         timeout: 120
 
     - name: Check that the kubeconfig exists
-      stat:
+      ansible.builtin.stat:
         path: /etc/rancher/k3s/k3s.yaml
       register: kubeconfig_result
       until: kubeconfig_result.stat.exists
