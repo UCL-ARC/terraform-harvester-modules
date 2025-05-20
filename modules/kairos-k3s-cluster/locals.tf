@@ -6,5 +6,5 @@ locals {
     type       = "disk"
     size       = var.root_disk_size
   }])
-  vm_count  = var.control_nodes + var.worker_nodes
+  vm_count = var.control_nodes + var.worker_nodes
 }
