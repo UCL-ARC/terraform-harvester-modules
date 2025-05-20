@@ -70,9 +70,15 @@ stages:
           %{~ for network in networks ~}
             [service_${network.alias}]
             Type = ethernet
+            %{~ if network.ip != "" && network.gateway != "" ~}
             IPv4 = ${network.ip}/255.255.255.0/${network.gateway}
+            %{~ else ~}
+            IPv4 = dhcp
+            %{~ endif ~}
             IPv6 = off
+            %{~ if network.dns != "" ~}
             Nameservers = ${network.dns}
+            %{~ endif ~}
           %{ endfor }
         - path: /etc/systemd/network/01-man.network
           permissions: 644
