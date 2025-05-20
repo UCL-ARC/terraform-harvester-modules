@@ -94,7 +94,7 @@ stages:
             DHCP=yes
             %{ endif ~}
           %{ endfor ~}
-
+%{ if control_nodes_count > 1}
 p2p:
   disable_dht: false
   network_id: ${p2p_network_id}
@@ -111,7 +111,7 @@ p2p:
 kubevip:
   enabled: true
   eip: ${cluster_vip}
-
+%{ endif }
 k3s:
   enabled: true
   args:
