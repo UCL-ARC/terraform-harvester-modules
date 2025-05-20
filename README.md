@@ -110,7 +110,7 @@ module "k3s_cluster" {
 
 ## kairos-k3s-cluster module
 
-The `kairos-k3s-cluster` module helps you deploy a high-availablity
+The `kairos-k3s-cluster` module helps you deploy a high-availability
 [k3s](https://k3s.io/) Kubernetes cluster on Harvester with virtual machines
 deployed using an immutable operating system. [kairos](https://kairos.io/)
 provides a means to turn a Linux system, and preferred Kubernetes distribution,
@@ -155,8 +155,6 @@ This module supports the use of certificate-based authentication for SSH. To
 enable this, the consumer of the module must provide a CA certificate, and if
 required the authorised principles via the `ssh_admin_principals` variable.
 
-### Example usage
-
 ```hcl
 module "cluster" {
   source = "github.com/UCL-ARC/terraform-harvester-modules//modules/kairos-k3s-cluster"
@@ -197,8 +195,6 @@ into a k3s nodes and retrieve the kubeconfig file. The `kubeconfig` module
 requires a SSH private key and as such the consumer of the module should ensure
 that either the public key is present on the node or that a new public key has
 been signed by the CA certificate present on the node.
-
-### Example usage
 
 ```hcl
 resource "tls_private_key" "ssh" {
