@@ -169,6 +169,7 @@ module "cluster" {
   iso_disk_size            = "10Gi"
   networks = {
     eth0 = {
+      alias   = "enp1s0"
       ips     = ["10.0.0.2", "10.0.0.3", "10.0.0.4"]
       cidr    = 24
       gateway = "10.0.0.1"
