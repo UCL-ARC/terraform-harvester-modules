@@ -6,13 +6,13 @@ variable "name" {
 variable "additional_disks" {
   type = list(object({
     auto_delete = optional(bool, true)
-    boot_order = number
-    bus        = string
-    hot_plug   = optional(bool, false)
-    name       = string
-    mount      = optional(string, "")
-    size       = string
-    type       = string
+    boot_order  = number
+    bus         = string
+    hot_plug    = optional(bool, false)
+    name        = string
+    mount       = optional(string, "")
+    size        = string
+    type        = string
   }))
   default = []
 }
@@ -97,7 +97,7 @@ variable "run_strategy" {
 }
 
 variable "ssh_public_key" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -109,7 +109,7 @@ variable "timeout" {
 variable "user_data" {
   type        = string
   description = "Data for cloud-init to use"
-  default = ""
+  default     = ""
 }
 
 variable "vm_description" {

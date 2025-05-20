@@ -20,7 +20,7 @@ module "k3s_server_vm" {
       network = value.network
     }
   ]
-  run_strategy    = var.run_strategy
+  run_strategy = var.run_strategy
   user_data = templatefile("${path.module}/templates/user_data.yaml.tftpl", {
     additional_disks   = try(var.additional_disks, "")
     appstream_repo_url = var.appstream_repo_url

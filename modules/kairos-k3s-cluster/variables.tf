@@ -135,8 +135,8 @@ variable "ssh_ca_public_key" {
   description = "SSH CA public key to use for the VMs"
   default     = ""
   validation {
-      condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
-      error_message = "Set one of ssh_ca_public_key or ssh_public_key"
+    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
+    error_message = "Set one of ssh_ca_public_key or ssh_public_key"
   }
 }
 

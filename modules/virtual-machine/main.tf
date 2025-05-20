@@ -68,7 +68,7 @@ resource "harvester_virtualmachine" "vm" {
   cloudinit {
     type                  = var.cloudinit_type
     user_data_secret_name = harvester_cloudinit_secret.user_data_secret.name
-    network_data          = var.network_data != "" ? var.network_data : templatefile("${path.module}/templates/network_data.yaml.tftpl", {
+    network_data = var.network_data != "" ? var.network_data : templatefile("${path.module}/templates/network_data.yaml.tftpl", {
       networks = var.networks
     })
   }
