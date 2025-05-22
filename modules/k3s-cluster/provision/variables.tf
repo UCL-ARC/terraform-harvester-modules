@@ -15,6 +15,8 @@ variable "ips" {}
 
 variable "k3s_version" {}
 
+variable "k3s_extra_install_args_control" {}
+
 variable "leader_name" {}
 
 variable "follower_names" {}

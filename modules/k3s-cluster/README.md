@@ -42,6 +42,7 @@
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `4` | no |
 | <a name="input_data_dir"></a> [data\_dir](#input\_data\_dir) | n/a | `string` | `"/var/lib/rancher/k3s"` | no |
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |
+| <a name="input_k3s_extra_install_args_control"></a> [k3s\_extra\_install\_args\_control](#input\_k3s\_extra\_install\_args\_control) | a list of additional args to be added to the k3s install command on control nodes | `list(string)` | `[]` | no |
 | <a name="input_k3s_version"></a> [k3s\_version](#input\_k3s\_version) | Version of k3s to install on Harvester VMs. See: https://github.com/k3s-io/k3s/releases | `string` | `"v1.30.2+k3s1"` | no |
 | <a name="input_local_storage_path"></a> [local\_storage\_path](#input\_local\_storage\_path) | Path to use for local storage on Harvester VMs | `string` | `"/var/lib/rancher/k3s/storage"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
