@@ -82,7 +82,7 @@ variable "memory" {
 
 variable "networks" {
   type = map(object({
-    ips     = list(string)
+    ips     = optional(list(string), [])
     cidr    = number
     gateway = string
     dns     = string
