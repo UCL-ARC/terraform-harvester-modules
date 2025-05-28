@@ -31,7 +31,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>map(object({<br/>    name  = string<br/>    mount = string<br/>    size  = string<br/>  }))</pre> | `{}` | no |
+| <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    boot_order = number<br/>    bus        = string<br/>    name       = string<br/>    mount      = string<br/>    size       = string<br/>    type       = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_appstream_repo_url"></a> [appstream\_repo\_url](#input\_appstream\_repo\_url) | URL to use to obtain AppStream repository for yum/dnf | `string` | `""` | no |
 | <a name="input_baseos_repo_url"></a> [baseos\_repo\_url](#input\_baseos\_repo\_url) | URL to use to obtain BaseOS repository for yum/dnf | `string` | `""` | no |
 | <a name="input_calico_version"></a> [calico\_version](#input\_calico\_version) | Version of Calico to install. See: https://github.com/projectcalico/calico/releases | `string` | `"v3.28.1"` | no |
@@ -48,7 +48,7 @@
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
 | <a name="input_metallb_version"></a> [metallb\_version](#input\_metallb\_version) | Version of metallb to install on Harvester VMs. | `string` | `"v0.14.8"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the namespace into which the VMs with be delployed. It must exist | `string` | n/a | yes |
-| <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    ips     = list(string)<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_openiscsi_version"></a> [openiscsi\_version](#input\_openiscsi\_version) | Version of openiscsi to install on Harvester VMs. | `string` | `""` | no |
 | <a name="input_primary_interface"></a> [primary\_interface](#input\_primary\_interface) | Name of the primary network interface | `string` | `"eth0"` | no |
 | <a name="input_private_registries"></a> [private\_registries](#input\_private\_registries) | List of private container image registries to use in the cluster | `list(map(string))` | `[]` | no |

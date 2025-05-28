@@ -1,0 +1,197 @@
+#cloud-config
+
+install:
+  device: auto
+  auto: true
+  reboot: true
+  %{ if kairos_os_image != "" }
+  source: ${kairos_os_image}
+  %{ endif ~}
+
+users:
+  - name: kairos
+    passwd: kairos
+    groups:
+      - admin # This user needs to be part of the admin group
+    %{~ if ssh_public_key != "" ~}
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+    %{~ endif ~}
+
+stages:
+  %{ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
+  boot:
+    - name: OIDC Config
+      files:
+        - path: /var/lib/rancher/k3s/server/manifests/oidc-cluster-role-binding.yaml
+          content: |
+            apiVersion: rbac.authorization.k8s.io/v1
+            kind: ClusterRoleBinding
+            metadata:
+              name: ${k3s_oidc_admin_binding_name}
+            roleRef:
+              apiGroup: rbac.authorization.k8s.io
+              kind: ClusterRole
+              name: cluster-admin
+            subjects:
+            - apiGroup: rbac.authorization.k8s.io
+              kind: Group
+              name: ${k3s_oidc_admin_group}
+  %{ endif ~}
+  initramfs:
+    - name: Setup hostname
+      hostname: ${hostname}
+    - files:
+        %{~ if ssh_ca_public_key != "" ~}
+        - path: /etc/ssh/trusted-user-ca-key.pem
+          permissions: 644
+          content: |
+            ${ssh_ca_public_key~}
+        %{~ if length(ssh_admin_principals) > 0 }
+        - path: /etc/ssh/auth_principals/kairos
+          permissions: 600
+          content: |+
+            %{~ for principal in ssh_admin_principals ~}
+            ${principal}
+            %{~ endfor ~}
+        %{~ endif ~}
+        - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
+          permissions: 600
+          content: |+
+            PubkeyAuthentication yes
+            TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
+            %{~ if length(ssh_admin_principals) > 0 ~}
+            AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+            %{~ endif ~}
+        %{~ endif ~}
+        - path: /var/lib/connman/default.config
+          permissions: 0644
+          content: |
+          %{~ for network in networks ~}
+            [service_${network.alias}]
+            Type = ethernet
+            %{~ if network.ip != "" && network.gateway != "" ~}
+            IPv4 = ${network.ip}/255.255.255.0/${network.gateway}
+            %{~ else ~}
+            IPv4 = dhcp
+            %{~ endif ~}
+            IPv6 = off
+            %{~ if network.dns != "" ~}
+            Nameservers = ${network.dns}
+            %{~ endif ~}
+          %{ endfor }
+        - path: /etc/systemd/network/01-man.network
+          permissions: 644
+          content: |
+          %{~ for network in networks ~}
+            [Match]
+            Name=${network.alias}
+
+            [Network]
+            %{~ if network.ip != "" ~}
+            Address=${network.ip}/${network.cidr}
+            %{~ if network.gateway != "" ~}
+            Gateway=${network.gateway}
+            %{~ endif ~}
+            %{~ if network.dns != "" ~}
+            DNS=${network.dns}
+            %{ endif ~}
+            %{ else ~}
+            DHCP=yes
+            %{ endif ~}
+          %{ endfor ~}
+%{ if control_nodes_count > 1}
+p2p:
+  disable_dht: false
+  network_id: ${p2p_network_id}
+  network_token: ${p2p_network_token}
+  auto:
+    enable: true
+    ha:
+      enable: true
+      master_nodes: ${control_nodes_count}
+  vpn:
+    create: true
+    enable: true
+
+kubevip:
+  enabled: true
+  eip: ${cluster_vip}
+%{ endif }
+k3s:
+  enabled: true
+  args:
+    - --disable=traefik,servicelb
+  %{~ if length(k3s_extra_args) > 0 ~}
+    %{~ for arg in k3s_extra_args ~}
+    - ${arg}
+    %{~ endfor ~}
+  %{~ endif ~}
+  %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
+    %{~ for arg in k3s_oidc_args ~}
+    - ${arg}
+    %{~ endfor ~}
+  %{~ endif ~}
+
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
+
+# system-upgrade-controller settings
+suc:
+  version: v0.15.2
+
+write_files:
+- path: /var/lib/rancher/k3s/server/manifests/${vault_auth_sa}.yaml
+  permissions: "0644"
+  content: |
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: ${vault_auth_sa}
+    ---
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: ${vault_auth_sa}
+      namespace: ${vault_auth_sa}
+    ---
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: ${vault_auth_sa}
+      namespace: ${vault_auth_sa}
+      annotations:
+        kubernetes.io/service-account.name: ${vault_auth_sa}
+    type: kubernetes.io/service-account-token
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: ${vault_auth_sa}-cluster-role
+    rules:
+      - apiGroups: [""]
+        resources: ["namespaces"]
+        verbs: ["get"]
+      - apiGroups: [""]
+        resources: ["serviceaccounts", "serviceaccounts/token"]
+        verbs: ["create", "get", "update", "delete"]
+      - apiGroups: ["rbac.authorization.k8s.io"]
+        resources: ["rolebindings", "clusterrolebindings"]
+        verbs: ["create", "update", "delete"]
+      - apiGroups: ["rbac.authorization.k8s.io"]
+        resources: ["roles", "clusterroles"]
+        verbs: ["bind", "escalate", "get", "create", "update", "delete"]
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: ${vault_auth_sa}-binding
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: ${vault_auth_sa}-cluster-role
+    subjects:
+      - kind: ServiceAccount
+        name: ${vault_auth_sa}
+        namespace: ${vault_auth_sa}
