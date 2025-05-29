@@ -62,6 +62,7 @@ stages:
           permissions: 600
           content: |+
             PubkeyAuthentication yes
+            PasswordAuthentication no
             TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
             %{~ if length(ssh_admin_principals) > 0 ~}
             AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
