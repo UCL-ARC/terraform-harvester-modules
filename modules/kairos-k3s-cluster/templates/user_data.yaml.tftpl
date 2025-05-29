@@ -19,7 +19,7 @@ users:
     %{~ endif ~}
 
 stages:
-  %{ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
+  %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
   boot:
     - name: OIDC Config
       files:
@@ -37,10 +37,13 @@ stages:
             - apiGroup: rbac.authorization.k8s.io
               kind: Group
               name: ${k3s_oidc_admin_group}
-  %{ endif ~}
+  %{~ endif ~}
   initramfs:
     - name: Setup hostname
       hostname: ${hostname}
+    - name: Disallow root login
+      commands:
+        - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
     - files:
         %{~ if ssh_ca_public_key != "" ~}
         - path: /etc/ssh/trusted-user-ca-key.pem
@@ -59,6 +62,7 @@ stages:
           permissions: 600
           content: |+
             PubkeyAuthentication yes
+            PasswordAuthentication no
             TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
             %{~ if length(ssh_admin_principals) > 0 ~}
             AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
@@ -93,12 +97,12 @@ stages:
             %{~ if network.gateway != "" ~}
             Gateway=${network.gateway}
             %{~ endif ~}
+            %{~ else ~}
+            DHCP=yes
+            %{~ endif ~}
             %{~ if network.dns != "" ~}
             DNS=${network.dns}
-            %{ endif ~}
-            %{ else ~}
-            DHCP=yes
-            %{ endif ~}
+            %{~ endif ~}
           %{ endfor ~}
 %{ if control_nodes_count > 1}
 p2p:
