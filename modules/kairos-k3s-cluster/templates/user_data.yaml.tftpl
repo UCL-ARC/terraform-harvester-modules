@@ -47,19 +47,19 @@ stages:
     - files:
         %{~ if ssh_ca_public_key != "" ~}
         - path: /etc/ssh/trusted-user-ca-key.pem
-          permissions: 644
+          permissions: 0644
           content: |
             ${ssh_ca_public_key~}
         %{~ if length(ssh_admin_principals) > 0 }
         - path: /etc/ssh/auth_principals/kairos
-          permissions: 600
+          permissions: 0555
           content: |+
             %{~ for principal in ssh_admin_principals ~}
             ${principal}
             %{~ endfor ~}
         %{~ endif ~}
         - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
-          permissions: 600
+          permissions: 0644
           content: |+
             PubkeyAuthentication yes
             PasswordAuthentication no
@@ -85,7 +85,7 @@ stages:
             %{~ endif ~}
           %{ endfor }
         - path: /etc/systemd/network/01-man.network
-          permissions: 644
+          permissions: 0644
           content: |
           %{~ for network in networks ~}
             [Match]
@@ -147,7 +147,7 @@ suc:
 
 write_files:
 - path: /var/lib/rancher/k3s/server/manifests/${vault_auth_sa}.yaml
-  permissions: "0644"
+  permissions: 0644
   content: |
     apiVersion: v1
     kind: Namespace
