@@ -41,6 +41,9 @@ stages:
   initramfs:
     - name: Setup hostname
       hostname: ${hostname}
+    - name: Disallow root login
+      commands:
+        - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
     - files:
         %{~ if ssh_ca_public_key != "" ~}
         - path: /etc/ssh/trusted-user-ca-key.pem
