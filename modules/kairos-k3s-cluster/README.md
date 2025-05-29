@@ -3,7 +3,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.2 |
 | <a name="requirement_remote"></a> [remote](#requirement\_remote) | 0.1.3 |
@@ -46,10 +46,12 @@
 | <a name="input_iso_disk_image_namespace"></a> [iso\_disk\_image\_namespace](#input\_iso\_disk\_image\_namespace) | OS image  namespace to use | `string` | n/a | yes |
 | <a name="input_iso_disk_name"></a> [iso\_disk\_name](#input\_iso\_disk\_name) | n/a | `string` | `"iso-cdrom"` | no |
 | <a name="input_iso_disk_size"></a> [iso\_disk\_size](#input\_iso\_disk\_size) | n/a | `string` | `"30Gi"` | no |
+| <a name="input_k3s_extra_args"></a> [k3s\_extra\_args](#input\_k3s\_extra\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
+| <a name="input_k3s_oidc_admin_binding_name"></a> [k3s\_oidc\_admin\_binding\_name](#input\_k3s\_oidc\_admin\_binding\_name) | OIDC admin binding name to use for the cluster | `string` | `"cluster-admin"` | no |
 | <a name="input_k3s_oidc_admin_group"></a> [k3s\_oidc\_admin\_group](#input\_k3s\_oidc\_admin\_group) | OIDC admin group to use for the cluster | `string` | `""` | no |
 | <a name="input_k3s_oidc_args"></a> [k3s\_oidc\_args](#input\_k3s\_oidc\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
-| <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    alias   = string<br/>    ips     = list(string)<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    alias   = string<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_primary_interface"></a> [primary\_interface](#input\_primary\_interface) | Name of the primary network interface | `string` | `"eth0"` | no |
 | <a name="input_private_registries"></a> [private\_registries](#input\_private\_registries) | List of private container image registries to use in the cluster | `list(map(string))` | `[]` | no |
 | <a name="input_root_disk_container_image"></a> [root\_disk\_container\_image](#input\_root\_disk\_container\_image) | n/a | `string` | `""` | no |
@@ -59,6 +61,7 @@
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | n/a | `string` | `""` | no |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | SSH public key to use for the VMs | `string` | `""` | no |
 | <a name="input_system_upgrade_controller_version"></a> [system\_upgrade\_controller\_version](#input\_system\_upgrade\_controller\_version) | Version of the system upgrade controller to install in the cluster. | `string` | `"v0.15.2"` | no |
+| <a name="input_vault_auth_service_account"></a> [vault\_auth\_service\_account](#input\_vault\_auth\_service\_account) | Service account to use for the vault auth | `string` | `"vault-auth"` | no |
 | <a name="input_vm_tags"></a> [vm\_tags](#input\_vm\_tags) | n/a | `map(any)` | n/a | yes |
 | <a name="input_vm_username"></a> [vm\_username](#input\_vm\_username) | n/a | `string` | n/a | yes |
 | <a name="input_worker_nodes"></a> [worker\_nodes](#input\_worker\_nodes) | Number of worker nodes to deploy | `number` | `0` | no |
