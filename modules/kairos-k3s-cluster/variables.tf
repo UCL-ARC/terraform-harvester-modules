@@ -93,7 +93,7 @@ variable "memory" {
 variable "networks" {
   type = map(object({
     alias   = string
-    ips     = list(string)
+    ips     = optional(list(string), [])
     cidr    = number
     gateway = string
     dns     = string
