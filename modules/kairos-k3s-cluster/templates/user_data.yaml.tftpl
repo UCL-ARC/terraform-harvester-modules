@@ -19,7 +19,7 @@ users:
     %{~ endif ~}
 
 stages:
-  %{ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
+  %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
   boot:
     - name: OIDC Config
       files:
@@ -37,7 +37,7 @@ stages:
             - apiGroup: rbac.authorization.k8s.io
               kind: Group
               name: ${k3s_oidc_admin_group}
-  %{ endif ~}
+  %{~ endif ~}
   initramfs:
     - name: Setup hostname
       hostname: ${hostname}
@@ -97,12 +97,12 @@ stages:
             %{~ if network.gateway != "" ~}
             Gateway=${network.gateway}
             %{~ endif ~}
+            %{~ else ~}
+            DHCP=yes
+            %{~ endif ~}
             %{~ if network.dns != "" ~}
             DNS=${network.dns}
-            %{ endif ~}
-            %{ else ~}
-            DHCP=yes
-            %{ endif ~}
+            %{~ endif ~}
           %{ endfor ~}
 %{ if control_nodes_count > 1}
 p2p:
