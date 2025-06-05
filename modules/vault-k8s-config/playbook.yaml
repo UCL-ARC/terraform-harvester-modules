@@ -57,7 +57,7 @@
         data:
           default_lease_ttl_seconds: 43200
           max_lease_ttl_seconds: 86400
-          kubernetes_host: "https://{{ cluster_vip }}:6443"
+          kubernetes_host: https://{{ cluster_vip }}:6443
           kubernetes_ca_cert: "{{ k3s_ca_cert }}"
           service_account_jwt: "{{ k3s_sa_token }}"
           disable_local_ca_jwt: false
