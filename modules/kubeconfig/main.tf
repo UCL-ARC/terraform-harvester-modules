@@ -2,6 +2,17 @@ locals {
   kubeconfig_filename = "k3s_kubeconfig.yaml"
 }
 
+resource "local_sensitive_file" "ssh_private_key" {
+  content  = var.ssh_private_key
+  filename = "${path.module}/ssh-key"
+}
+
+resource "local_file" "ssh_signed_public_key" {
+  count    = var.ssh_signed_public_key != "" ? 1 : 0
+  content  = var.ssh_signed_public_key
+  filename = "${path.module}/ssh-key-cert.pub"
+}
+
 resource "ansible_playbook" "kubeconfig" {
   name                    = "kubeconfig"
   playbook                = "${path.module}/playbook.yaml"
@@ -11,7 +22,7 @@ resource "ansible_playbook" "kubeconfig" {
   extra_vars = {
     ansible_host                 = var.vm_ip
     ansible_user                 = var.vm_username
-    ansible_ssh_private_key_file = var.ssh_private_key_path
+    ansible_ssh_private_key_file = local_sensitive_file.ssh_private_key.filename
     ansible_ssh_common_args = join(" ", [
       "-o StrictHostKeyChecking=accept-new",
       "-o ControlPath=~/%r@%h:%p",

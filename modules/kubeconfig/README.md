@@ -23,6 +23,8 @@ No modules.
 | Name | Type |
 |------|------|
 | [ansible_playbook.kubeconfig](https://registry.terraform.io/providers/ansible/ansible/1.3.0/docs/resources/playbook) | resource |
+| [local_file.ssh_signed_public_key](https://registry.terraform.io/providers/hashicorp/local/2.5.1/docs/resources/file) | resource |
+| [local_sensitive_file.ssh_private_key](https://registry.terraform.io/providers/hashicorp/local/2.5.1/docs/resources/sensitive_file) | resource |
 | [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/2.5.1/docs/data-sources/file) | data source |
 
 ## Inputs
@@ -30,9 +32,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | KubeVip virtual IP address | `string` | n/a | yes |
-| <a name="input_kubeconfig_path"></a> [kubeconfig\_path](#input\_kubeconfig\_path) | Path to the kubeconfig file | `string` | `""` | no |
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | n/a | `string` | `""` | no |
-| <a name="input_ssh_private_key_path"></a> [ssh\_private\_key\_path](#input\_ssh\_private\_key\_path) | Path to the SSH private key to use for the VMs | `string` | `""` | no |
+| <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Path to the SSH private key to use for the VMs | `string` | n/a | yes |
+| <a name="input_ssh_signed_public_key"></a> [ssh\_signed\_public\_key](#input\_ssh\_signed\_public\_key) | SSH signed public key content for accessing the VM | `string` | `""` | no |
 | <a name="input_vm_ip"></a> [vm\_ip](#input\_vm\_ip) | IP address of the VM | `string` | n/a | yes |
 | <a name="input_vm_username"></a> [vm\_username](#input\_vm\_username) | n/a | `string` | n/a | yes |
 

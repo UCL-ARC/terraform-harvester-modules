@@ -1,5 +1,5 @@
 ---
-- name: Test that image server VM is ready
+- name: Test that VMs are ready
   hosts: k3s
   gather_facts: false
   tasks:
