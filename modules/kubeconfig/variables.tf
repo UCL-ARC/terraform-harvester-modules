@@ -3,10 +3,9 @@ variable "cluster_vip" {
   description = "KubeVip virtual IP address"
 }
 
-variable "ssh_private_key_path" {
+variable "ssh_private_key" {
   type        = string
   description = "Path to the SSH private key to use for the VMs"
-  default     = ""
 }
 
 variable "ssh_common_args" {
