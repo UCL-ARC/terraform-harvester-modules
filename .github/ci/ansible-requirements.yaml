@@ -1,2 +1,0 @@
-- include: ../../modules/k3s-cluster/provision/ansible/requirements.yaml
-- include: ../../modules/vault-k8s-config/requirements.yaml
