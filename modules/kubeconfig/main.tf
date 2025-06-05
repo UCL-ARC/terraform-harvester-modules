@@ -4,7 +4,13 @@ locals {
 
 resource "local_sensitive_file" "ssh_private_key" {
   content  = var.ssh_private_key
-  filename = "${path.module}/ssh-private-key"
+  filename = "${path.module}/ssh-key"
+}
+
+resource "local_file" "ssh_signed_public_key" {
+  count    = var.ssh_signed_public_key != "" ? 1 : 0
+  content  = var.ssh_signed_public_key
+  filename = "${path.module}/ssh-key-cert.pub"
 }
 
 resource "ansible_playbook" "kubeconfig" {
