@@ -1,0 +1,64 @@
+---
+- name: Test that leader VM is ready
+  hosts: leader
+  gather_facts: false
+  tasks:
+    - name: Wait for VM
+      ansible.builtin.wait_for_connection:
+        timeout: 60
+
+    - name: Wait for k3s.service to be running
+      ansible.builtin.service_facts:
+      register: result
+      until: result.ansible_facts.services['k3s.service'].state == 'running'
+      retries: 50
+      delay: 5
+
+- name: Create Vault Kubernetes secrets engine configuration
+  hosts: leader
+  become: true
+  environment:
+    KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+  tasks:
+    - name: Install python kubernetes client
+      ansible.builtin.pip:
+        name: kubernetes
+        state: present
+
+    - name: Install hvac
+      ansible.builtin.pip:
+        name: hvac
+        state: present
+
+    - name: Get service accout secret
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Secret
+        namespace: "{{ vault_sa_namespace }}"
+        name: "{{ vault_sa_secret }}"
+      register: vault_sa_secret_data
+
+    - name: Get the jwt token
+      ansible.builtin.set_fact:
+        k3s_sa_token:
+          "{{ vault_sa_secret_data.resources[0].data.token | b64decode }}"
+      no_log: true
+
+    - name: Get the CA certificate
+      ansible.builtin.set_fact:
+        k3s_ca_cert:
+          "{{ vault_sa_secret_data.resources[0].data['ca.crt'] | b64decode }}"
+      no_log: true
+
+    - name: Write kubernetes secrets engine configuration
+      become: false
+      community.hashi_vault.vault_write:
+        path: "{{ vault_kubernetes_secrets_engine_path }}/config"
+        data:
+          default_lease_ttl_seconds: 43200
+          max_lease_ttl_seconds: 86400
+          kubernetes_host: "https://{{ cluster_vip }}:6443"
+          kubernetes_ca_cert: "{{ k3s_ca_cert }}"
+          service_account_jwt: "{{ k3s_sa_token }}"
+          disable_local_ca_jwt: false
+      register: result
