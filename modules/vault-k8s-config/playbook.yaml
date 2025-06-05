@@ -30,7 +30,7 @@
         name: hvac
         state: present
 
-    - name: Get service accout secret
+    - name: Get service account secret
       kubernetes.core.k8s_info:
         api_version: v1
         kind: Secret
@@ -52,7 +52,7 @@
 
     - name: Write kubernetes secrets engine configuration
       become: false
-      community.hashi_vault.vault_write:
+      community.hashi_vault.vault_write: # spellchecker:disable-line
         path: "{{ vault_kubernetes_secrets_engine_path }}/config"
         data:
           default_lease_ttl_seconds: 43200

@@ -2,5 +2,5 @@
 collections:
   - name: kubernetes.core
     version: 5.0.0
-  - name: community.hashi_vault
+  - name: community.hashi_vault # spellchecker:disable-line
     version: 6.2.0
