@@ -7,6 +7,12 @@ install:
   %{ if kairos_os_image != "" }
   source: ${kairos_os_image}
   %{ endif ~}
+  %{~ if length(bind_mounts) > 0 ~}
+  bind_mounts:
+    %{~ for mount in bind_mounts ~}
+    - ${mount}
+    %{~ endfor ~}
+  %{~ endif ~}
 
 users:
   - name: kairos
