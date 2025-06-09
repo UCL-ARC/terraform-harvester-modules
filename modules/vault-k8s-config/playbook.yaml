@@ -52,6 +52,7 @@
 
     - name: Write kubernetes secrets engine configuration
       become: false
+      delegate_to: localhost
       community.hashi_vault.vault_write: # spellchecker:disable-line
         path: "{{ vault_kubernetes_secrets_engine_path }}/config"
         data:
