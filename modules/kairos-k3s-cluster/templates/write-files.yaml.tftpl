@@ -1,0 +1,7 @@
+write_files:
+%{for file in files}
+- path: ${file.path}
+  permissions: ${file.permissions}
+  content: |
+  ${file.content}
+%{endfor}

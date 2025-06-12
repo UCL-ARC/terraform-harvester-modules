@@ -1,0 +1,7 @@
+install:
+  device: auto
+  auto: true
+  reboot: true
+  %{ if kairos_os_image != "" }
+  source: ${kairos_os_image}
+  %{ endif ~}

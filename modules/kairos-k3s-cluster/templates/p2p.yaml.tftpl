@@ -1,0 +1,18 @@
+%{ if control_nodes_count > 1}
+p2p:
+  disable_dht: false
+  network_id: ${p2p_network_id}
+  network_token: ${p2p_network_token}
+  auto:
+    enable: true
+    ha:
+      enable: true
+      master_nodes: ${control_nodes_count}
+  vpn:
+    create: true
+    enable: true
+
+kubevip:
+  enabled: true
+  eip: ${cluster_vip}
+%{ endif }
