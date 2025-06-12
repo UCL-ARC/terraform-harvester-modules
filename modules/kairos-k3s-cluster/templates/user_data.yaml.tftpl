@@ -16,7 +16,6 @@ install:
 
 users:
   - name: kairos
-    passwd: kairos
     groups:
       - admin # This user needs to be part of the admin group
     %{~ if ssh_public_key != "" ~}
