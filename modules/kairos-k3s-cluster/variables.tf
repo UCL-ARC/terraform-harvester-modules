@@ -85,6 +85,12 @@ variable "k3s_oidc_args" {
   default     = []
 }
 
+variable "kairos_bind_mounts" {
+  type        = list(string)
+  description = "List paths to make persistent on the hosts."
+  default     = []
+}
+
 variable "memory" {
   type    = string
   default = "32Gi"

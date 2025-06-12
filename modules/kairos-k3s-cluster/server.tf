@@ -22,6 +22,7 @@ module "k3s_server_vm" {
   ]
   network_data = null
   user_data = templatefile("${path.module}/templates/user_data.yaml.tftpl", {
+    bind_mounts                 = var.kairos_bind_mounts
     cluster_vip                 = var.cluster_vip
     control_nodes_count         = var.control_nodes - 1
     hostname                    = "${var.cluster_name}-vm-${count.index}"
