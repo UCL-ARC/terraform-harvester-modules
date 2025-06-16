@@ -1,0 +1,7 @@
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
+
+# system-upgrade-controller settings
+suc:
+  version: v0.15.2
