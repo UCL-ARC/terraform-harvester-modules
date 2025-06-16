@@ -5,6 +5,10 @@
     - name: Disallow root login
       commands:
         - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
+    - name: Enable and start vault-fetch-ca.timer
+      commands:
+        - systemctl enable vault-fetch-ca.timer
+        - systemctl start vault-fetch-ca.timer
     - files:
         %{~ if ssh_ca_public_key != "" ~}
         - path: /etc/ssh/trusted-user-ca-key.pem
