@@ -23,6 +23,7 @@ module "k3s_server_vm" {
   network_data = null
   user_data = templatefile("${path.module}/templates/user-data/user-data.yaml.tftpl", {
     install = templatefile("${path.module}/templates/user-data/install.yaml.tftpl", {
+      bind_mounts     = var.kairos_bind_mounts
       kairos_os_image = var.root_disk_container_image
     })
     users = templatefile("${path.module}/templates/user-data/users.yaml.tftpl", {
