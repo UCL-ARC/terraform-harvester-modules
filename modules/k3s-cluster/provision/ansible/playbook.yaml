@@ -21,12 +21,6 @@
     - role: k3s
     - role: calico
     - role: metallb
-      vars:
-        metallb_addresses:
-          - name: api-server
-            ip: "{{ cluster_api_vip }}"
-          - name: ingress
-            ip: "{{ cluster_ingress_vip }}"
     - role: endpoint_copier
   environment:
     KUBECONFIG: /etc/rancher/k3s/k3s.yaml
