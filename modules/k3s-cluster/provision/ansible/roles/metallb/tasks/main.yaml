@@ -41,27 +41,56 @@
       type: Available
     wait_timeout: 90
 
-- name: Metallb AddressPool
+- name: Metallb kube-apiserver AddressPool
   kubernetes.core.k8s:
     state: present
     definition:
       apiVersion: metallb.io/v1beta1
       kind: IPAddressPool
       metadata:
-        name: "{{ item.name }}"
+        name: api-pool
         namespace: metallb-system
       spec:
         addresses:
-          - "{{ item.ip }}/32"
-  loop: "{{ metallb_addresses }}"
+          - "{{ cluster_api_vip }}/32"
 
-- name: Metallb L2Advertisement
+- name: Metallb Ingress AddressPool
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: IPAddressPool
+      metadata:
+        name: ingress-pool
+        namespace: metallb-system
+      spec:
+        addresses:
+          - "{{ cluster_ingress_vip }}/32"
+  when: cluster_ingress_vip != ""
+
+- name: Metallb kube-apiserver L2Advertisement
   kubernetes.core.k8s:
     state: present
     definition:
       apiVersion: metallb.io/v1beta1
       kind: L2Advertisement
       metadata:
-        name: "{{ item.name }}"
+        name: api-advertisement
         namespace: metallb-system
-  loop: "{{ metallb_addresses }}"
+      spec:
+        ipAddressPools:
+          - api-pool
+
+- name: Metallb Ingress L2Advertisement
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: ingress-advertisement
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+          - ingress-pool
+  when: cluster_ingress_vip != ""
