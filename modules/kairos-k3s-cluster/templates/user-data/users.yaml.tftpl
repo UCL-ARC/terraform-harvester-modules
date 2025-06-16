@@ -1,0 +1,8 @@
+users:
+  - name: kairos
+    groups:
+      - admin # This user needs to be part of the admin group
+    %{~ if ssh_public_key != "" ~}
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+    %{~ endif ~}
