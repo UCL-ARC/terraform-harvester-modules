@@ -199,12 +199,13 @@ write_files:
       - kind: ServiceAccount
         name: ${vault_auth_sa}
         namespace: ${vault_auth_sa}
-%{~ if length(additional_manifests) > 0 ~}
+    ---
+%{ if length(additional_manifests) > 0 }
 - path: /var/lib/rancher/k3s/server/manifests/additional-manifests.yaml
   permissions: 0644
   content: |
-  %{~ for arg in additional_manifests ~}
-  ${arg}
-  ---
+  %{~ for arg in additional_manifests~}
+    ${indent(4, arg)}
+    ---
   %{~ endfor ~}
 %{~ endif ~}
