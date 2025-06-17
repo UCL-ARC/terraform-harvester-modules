@@ -97,5 +97,10 @@ module "k3s_server_vm" {
     ssh_ca_public_key    = var.ssh_ca_public_key
     ssh_public_key       = var.ssh_public_key
     vault_auth_sa        = var.vault_auth_service_account
-    additional_manifests = local.yaml_contents
+    additional_manifests = local.additional_manifests_contents
+  })
+  vm_image           = var.iso_disk_image
+  vm_image_namespace = var.iso_disk_image_namespace
+  vm_tags            = var.vm_tags
+  vm_username        = var.vm_username
 }

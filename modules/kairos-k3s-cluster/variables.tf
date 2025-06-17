@@ -182,3 +182,9 @@ variable "worker_nodes" {
   description = "Number of worker nodes to deploy"
   default     = 0
 }
+
+variable "additional_manifests" {
+  type = list(string)
+  description = "paths to additional manifests to deploy during k3s startup, may be absolute or relative to the root module"
+  default = []
+}
