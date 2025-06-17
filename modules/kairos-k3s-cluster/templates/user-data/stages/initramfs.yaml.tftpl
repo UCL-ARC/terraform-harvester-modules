@@ -9,8 +9,8 @@
       commands:
         - systemctl enable vault-fetch-ca.timer
         - systemctl start vault-fetch-ca.timer
+    %{~ if ssh_ca_public_key != "" ~}
     - files:
-        %{~ if ssh_ca_public_key != "" ~}
         - path: /etc/ssh/trusted-user-ca-key.pem
           permissions: 0644
           content: |
@@ -32,7 +32,8 @@
             %{~ if length(ssh_admin_principals) > 0 ~}
             AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
             %{~ endif ~}
-        %{~ endif ~}
+      %{~ endif ~}
+      - files:
         - path: /var/lib/connman/default.config
           permissions: 0644
           content: |
