@@ -72,6 +72,14 @@ module "k3s_server_vm" {
         content = templatefile("${path.module}/templates/user-data/write-files/vault-auth.yaml.tftpl", {
           vault_auth_sa = var.vault_auth_service_account
         })
+      },
+      {
+        path       = "/var/lib/rancher/k3s/server/manifests/additional-manifests.yaml"
+        permissions = 0644
+        content = templatefile("${path.module}/templates/user-data/write-files/additional-manifests.yaml.tftpl",
+            {
+              additional_manifests = local.additional_manifests_contents
+            })
       }]
     })
   })
