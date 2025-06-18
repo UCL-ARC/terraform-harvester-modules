@@ -75,6 +75,27 @@
         [Install]
         WantedBy=multi-user.target
 
+- name: Write sshd config
+  files:
+    %{~ if length(ssh_admin_principals) > 0 }
+    - path: /etc/ssh/auth_principals/kairos
+      permissions: 0555
+      content: |+
+        %{~ for principal in ssh_admin_principals ~}
+        ${principal}
+        %{~ endfor ~}
+    %{~ endif ~}
+    - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
+      permissions: 0644
+      content: |+
+        PubkeyAuthentication yes
+        PasswordAuthentication no
+        TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
+        RevokedKeys /etc/ssh/sshd_revoked_keys
+        %{~ if length(ssh_admin_principals) > 0 ~}
+        AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+        %{~ endif ~}
+
   commands:
     - systemctl enable vault-fetch-ca.timer
     - systemctl start vault-fetch-ca.timer
