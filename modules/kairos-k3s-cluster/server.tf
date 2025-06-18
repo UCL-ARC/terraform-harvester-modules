@@ -51,6 +51,14 @@ module "k3s_server_vm" {
         }
         ssh_admin_principals = var.ssh_admin_principals
         ssh_ca_public_key    = var.ssh_ca_public_key
+        vault_auto_ca        = var.vault_auto_ca.enabled
+        vault_ca_service = templatefile("${path.module}/templates/user-data/stages/vault-ca-service.tftpl", {
+          default_ca           = var.vault_auto_ca.default_ca
+          krl_url              = var.vault_auto_ca.krl_url
+          ssh_admin_principals = var.ssh_admin_principals
+          vault_addr           = var.vault_auto_ca.vault_addr
+          vault_mount          = var.vault_auto_ca.vault_ssh_mount_path
+        })
       })
     })
     p2p = templatefile("${path.module}/templates/user-data/p2p.yaml.tftpl", {

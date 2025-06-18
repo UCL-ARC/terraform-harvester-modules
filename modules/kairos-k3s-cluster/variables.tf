@@ -141,8 +141,8 @@ variable "ssh_ca_public_key" {
   description = "SSH CA public key to use for the VMs"
   default     = ""
   validation {
-    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
-    error_message = "Set one of ssh_ca_public_key or ssh_public_key"
+    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != "" || var.vault_auto_ca.enabled
+    error_message = "Set ssh_ca_public_key or ssh_public_key or enable auto fetching CA from Vault."
   }
 }
 
@@ -167,6 +167,17 @@ variable "vault_auth_service_account" {
   type        = string
   description = "Service account to use for the vault auth"
   default     = "vault-auth"
+}
+
+variable "vault_auto_ca" {
+  type = map(any)
+  default = {
+    enabled              = false
+    default_ca           = ""
+    krl_url              = ""
+    vault_addr           = ""
+    vault_ssh_mount_path = ""
+  }
 }
 
 variable "vm_tags" {

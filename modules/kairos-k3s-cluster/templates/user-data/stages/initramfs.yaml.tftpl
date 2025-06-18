@@ -1,71 +1,74 @@
-# note: extra indent is required here
-  initramfs:
-    - name: Setup hostname
-      hostname: ${hostname}
-    - name: Disallow root login
-      commands:
-        - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
-    - name: Enable and start vault-fetch-ca.timer
-      commands:
-        - systemctl enable vault-fetch-ca.timer
-        - systemctl start vault-fetch-ca.timer
-    - files:
-        %{~ if ssh_ca_public_key != "" ~}
-        - path: /etc/ssh/trusted-user-ca-key.pem
-          permissions: 0644
-          content: |
-            ${ssh_ca_public_key~}
-        %{~ if length(ssh_admin_principals) > 0 }
-        - path: /etc/ssh/auth_principals/kairos
-          permissions: 0555
-          content: |+
-            %{~ for principal in ssh_admin_principals ~}
-            ${principal}
-            %{~ endfor ~}
-        %{~ endif ~}
-        - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
-          permissions: 0644
-          content: |+
-            PubkeyAuthentication yes
-            PasswordAuthentication no
-            TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
-            %{~ if length(ssh_admin_principals) > 0 ~}
-            AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
-            %{~ endif ~}
-        %{~ endif ~}
-        - path: /var/lib/connman/default.config
-          permissions: 0644
-          content: |
-          %{~ for network in networks ~}
-            [service_${network.alias}]
-            Type = ethernet
-            %{~ if network.ip != "" && network.gateway != "" ~}
-            IPv4 = ${network.ip}/255.255.255.0/${network.gateway}
-            %{~ else ~}
-            IPv4 = dhcp
-            %{~ endif ~}
-            IPv6 = off
-            %{~ if network.dns != "" ~}
-            Nameservers = ${network.dns}
-            %{~ endif ~}
-          %{ endfor }
-        - path: /etc/systemd/network/01-man.network
-          permissions: 0644
-          content: |
-          %{~ for network in networks ~}
-            [Match]
-            Name=${network.alias}
+initramfs:
+  - name: Setup hostname
+    hostname: ${hostname}
+  - name: Disallow root login
+    commands:
+      - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
+  - name: Write the network config
+    files:
+      - path: /var/lib/connman/default.config
+        permissions: 0644
+        content: |
+        %{~ for network in networks ~}
+          [service_${network.alias}]
+          Type = ethernet
+          %{~ if network.ip != "" && network.gateway != "" ~}
+          IPv4 = ${network.ip}/255.255.255.0/${network.gateway}
+          %{~ else ~}
+          IPv4 = dhcp
+          %{~ endif ~}
+          IPv6 = off
+          %{~ if network.dns != "" ~}
+          Nameservers = ${network.dns}
+          %{~ endif ~}
+        %{ endfor }
+      - path: /etc/systemd/network/01-man.network
+        permissions: 0644
+        content: |
+        %{~ for network in networks ~}
+          [Match]
+          Name=${network.alias}
 
-            [Network]
-            %{~ if network.ip != "" ~}
-            Address=${network.ip}/${network.cidr}
-            %{~ if network.gateway != "" ~}
-            Gateway=${network.gateway}
-            %{~ endif ~}
-            %{~ else ~}
-            DHCP=yes
-            %{~ endif ~}
-            %{~ if network.dns != "" ~}
-            DNS=${network.dns}
-            %{~ endif ~}
-          %{ endfor ~}
+          [Network]
+          %{~ if network.ip != "" ~}
+          Address=${network.ip}/${network.cidr}
+          %{~ if network.gateway != "" ~}
+          Gateway=${network.gateway}
+          %{~ endif ~}
+          %{~ else ~}
+          DHCP=yes
+          %{~ endif ~}
+          %{~ if network.dns != "" ~}
+          DNS=${network.dns}
+          %{~ endif ~}
+        %{~ endfor ~}
+
+  %{~ if ssh_ca_public_key != "" ~}
+  - name: Write sshd config
+    files:
+      - path: /etc/ssh/trusted_users_ca.pub
+        permissions: 0644
+        content: |
+          ${ssh_ca_public_key~}
+      %{~ if length(ssh_admin_principals) > 0 }
+      - path: /etc/ssh/auth_principals/kairos
+        permissions: 0555
+        content: |+
+          %{~ for principal in ssh_admin_principals ~}
+          ${principal}
+          %{~ endfor ~}
+      %{~ endif ~}
+      - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
+        permissions: 0644
+        content: |+
+          PubkeyAuthentication yes
+          PasswordAuthentication no
+          TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
+          %{~ if length(ssh_admin_principals) > 0 ~}
+          AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+          %{~ endif ~}
+  %{~ endif ~}
+
+%{ if vault_auto_ca ~}
+  ${indent(2, vault_ca_service)}
+%{~ endif ~}
