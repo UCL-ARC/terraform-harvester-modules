@@ -1,6 +1,6 @@
 - name: Write auto fetch CA service
   files:
-    - path: /etc/systemd/system/vault-fetch-ca.sh
+    - path: /etc/systemd/system/vault-ca.sh
       permissions: 0755
       content: |
         #!/bin/bash
@@ -42,7 +42,7 @@
         echo "Server ready"
         systemctl reload sshd
 
-    - path: /etc/systemd/system/vault-fetch-ca.env
+    - path: /etc/systemd/system/vault-ca.env
       permissions: 0644
       content: |
         CURL_TIMEOUT=10
@@ -50,7 +50,8 @@
         KRL_URL=${krl_url}
         VAULT_ADDR=${vault_addr}
         VAULT_MOUNT=${vault_mount}
-    - path: /etc/systemd/system/vault-fetch-ca.timer
+
+    - path: /etc/systemd/system/vault-ca.timer
       permissions: 0644
       content: |
         [Unit]
@@ -62,15 +63,15 @@
         [Install]
         WantedBy=timers.target
 
-    - path: /etc/systemd/system/vault-fetch-ca.service
+    - path: /etc/systemd/system/vault-ca.service
       permissions: 0644
       content: |
         [Unit]
         Description=Fetch CA from Vault
 
         [Service]
-        ExecStart=/etc/systemd/system/vault-fetch-ca.sh
-        EnvironmentFile=/etc/systemd/system/vault-fetch-ca.env
+        ExecStart=/etc/systemd/system/vault-ca.sh
+        EnvironmentFile=/etc/systemd/system/vault-ca.env
 
         [Install]
         WantedBy=multi-user.target
@@ -90,7 +91,7 @@
       content: |+
         PubkeyAuthentication yes
         PasswordAuthentication no
-        TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
+        TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
         RevokedKeys /etc/ssh/sshd_revoked_keys
         %{~ if length(ssh_admin_principals) > 0 ~}
         AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u

@@ -46,7 +46,7 @@ initramfs:
   %{~ if ssh_ca_public_key != "" ~}
   - name: Write sshd config
     files:
-      - path: /etc/ssh/trusted-user-ca-key.pem
+      - path: /etc/ssh/trusted_users_ca.pub
         permissions: 0644
         content: |
           ${ssh_ca_public_key~}
@@ -63,7 +63,7 @@ initramfs:
         content: |+
           PubkeyAuthentication yes
           PasswordAuthentication no
-          TrustedUserCAKeys /etc/ssh/trusted-user-ca-key.pem
+          TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
           %{~ if length(ssh_admin_principals) > 0 ~}
           AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
           %{~ endif ~}
