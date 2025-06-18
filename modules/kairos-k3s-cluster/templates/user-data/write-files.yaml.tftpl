@@ -3,5 +3,5 @@ write_files:
   - path: ${file.path}
     permissions: ${file.permissions}
     content: |
-    ${indent(4, file.content)}
+      ${indent(6, file.content)}
 %{~endfor~}
