@@ -1,7 +1,7 @@
 - name: Write auto fetch CA service
   files:
     - path: /etc/systemd/system/vault-fetch-ca.sh
-      permissions: 0644
+      permissions: 0755
       content: |
         #!/bin/bash
         set -o errexit
