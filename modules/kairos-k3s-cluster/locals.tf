@@ -10,6 +10,6 @@ locals {
 
   additional_manifests_contents = [
     for manifest in var.additional_manifests :
-    startswith(manifest.path, "/") ? templatefile(manifest.path, manifest.vars) : templatefile("${path.root}/${manifest.path}", manifest.vars)
+    startswith(manifest.path, "/") ? templatefile(manifest.path, manifest.templatevars) : templatefile("${path.root}/${manifest.path}", manifest.templatevars)
   ]
 }
