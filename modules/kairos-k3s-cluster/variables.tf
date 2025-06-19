@@ -188,6 +188,6 @@ variable "additional_manifests" {
     path = string
     templatevars = optional(map(string), {})
   }))
-  description = "Additional manifests to deploy during k3s startup, rendered using terraform templatefile."
+  description = "Additional manifests to deploy during k3s startup, rendered using terraform templatefile. Can either be absolute or relative to the root module"
   default = []
 }
