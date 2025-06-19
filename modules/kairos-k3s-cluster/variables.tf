@@ -185,9 +185,9 @@ variable "worker_nodes" {
 
 variable "additional_manifests" {
   type = list(object({
-    path = string
+    path         = string
     templatevars = optional(map(string), {})
   }))
   description = "Additional manifests to deploy during k3s startup, rendered using terraform templatefile. Can either be absolute or relative to the root module"
-  default = []
+  default     = []
 }

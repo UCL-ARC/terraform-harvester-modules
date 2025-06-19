@@ -72,32 +72,16 @@ module "k3s_server_vm" {
         content = templatefile("${path.module}/templates/user-data/write-files/vault-auth.yaml.tftpl", {
           vault_auth_sa = var.vault_auth_service_account
         })
-      },
-      {
-        path       = "/var/lib/rancher/k3s/server/manifests/additional-manifests.yaml"
-        permissions = 0644
-        content = templatefile("${path.module}/templates/user-data/write-files/additional-manifests.yaml.tftpl",
+        },
+        {
+          path        = "/var/lib/rancher/k3s/server/manifests/additional-manifests.yaml"
+          permissions = 0644
+          content = templatefile("${path.module}/templates/user-data/write-files/additional-manifests.yaml.tftpl",
             {
               additional_manifests = local.additional_manifests_contents
-            })
+          })
       }]
-    }),
-        alias   = try(value.alias, "")
-        cidr    = try(value.cidr, null)
-        dns     = try(value.dns, "")
-        gateway = try(value.gateway, "")
-        iface   = key
-        ip      = try(value.ips[count.index], "")
-        network = value.network
-      }
-    }
-    p2p_network_id       = local.p2p_network_id
-    p2p_network_token    = local.p2p_network_token
-    ssh_admin_principals = var.ssh_admin_principals
-    ssh_ca_public_key    = var.ssh_ca_public_key
-    ssh_public_key       = var.ssh_public_key
-    vault_auth_sa        = var.vault_auth_service_account
-    additional_manifests = local.additional_manifests_contents
+    })
   })
   vm_image           = var.iso_disk_image
   vm_image_namespace = var.iso_disk_image_namespace
