@@ -1,4 +1,4 @@
 %{~ for arg in additional_manifests~}
-    ${arg}
+    ${indent(4, arg)}
     ---
 %{ endfor ~}
