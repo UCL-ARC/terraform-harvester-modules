@@ -13,6 +13,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_harvester"></a> [harvester](#provider\_harvester) | 0.6.6 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
 
 ## Modules
 
@@ -24,6 +25,7 @@ No modules.
 |------|------|
 | [harvester_cloudinit_secret.user_data_secret](https://registry.terraform.io/providers/harvester/harvester/0.6.6/docs/resources/cloudinit_secret) | resource |
 | [harvester_virtualmachine.vm](https://registry.terraform.io/providers/harvester/harvester/0.6.6/docs/resources/virtualmachine) | resource |
+| [random_string.suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [harvester_image.vm_image](https://registry.terraform.io/providers/harvester/harvester/0.6.6/docs/data-sources/image) | data source |
 
 ## Inputs

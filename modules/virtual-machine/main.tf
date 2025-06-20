@@ -3,14 +3,23 @@ data "harvester_image" "vm_image" {
   namespace    = var.vm_image_namespace
 }
 
+resource "random_string" "suffix" {
+  length  = 5
+  upper   = false
+  numeric = false
+  lower   = true
+  special = false
+}
+
 resource "harvester_cloudinit_secret" "user_data_secret" {
-  name      = "${var.name}-cloudinit"
+  name      = "${var.name}-cloudinit-${random_string.suffix.result}"
   namespace = var.namespace
   user_data = var.user_data != "" ? var.user_data : templatefile("${path.module}/templates/user_data.yaml.tftpl", {
     ssh_public_key   = var.ssh_public_key
     additional_disks = var.additional_disks
   })
 }
+
 resource "harvester_virtualmachine" "vm" {
   name                 = var.name
   namespace            = var.namespace
