@@ -11,6 +11,7 @@ resource "harvester_cloudinit_secret" "user_data_secret" {
     additional_disks = var.additional_disks
   })
 }
+
 resource "harvester_virtualmachine" "vm" {
   name                 = var.name
   namespace            = var.namespace
