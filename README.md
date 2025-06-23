@@ -193,9 +193,8 @@ the module using the `additional_manifests` variable:
 
 ```hcl
   additional_manifests = [{
-    dest        = "/var/lib/rancher/k3s/server/manifests/upgrade-plan.yaml"
-    permissions = 0644
-    content = templatefile("${path.module}/templates/upgrade-plan.yaml.tftpl", {
+    name = "upgrade-plan.yaml"
+    content = templatefile("${path.root}/templates/upgrade-plan.yaml.tftpl", {
       image: "9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
       version: latest
     })
@@ -204,6 +203,8 @@ the module using the `additional_manifests` variable:
 
 The example shows how a user of the module might create a template manifest and
 and pass the rendered result as a manifest for the `kairos-k3s-module` to use.
+The manifest will get written to `/var/lib/rancher/k3s/server/manifests/` and
+be applied automatically after the cluster is created.
 
 ## kubeconfig module
 
