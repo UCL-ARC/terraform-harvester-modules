@@ -10,6 +10,15 @@ variable "additional_disks" {
   default = []
 }
 
+variable "additional_manifests" {
+  type = list(object({
+    content     = string
+    dest        = string
+    permissions = number
+  }))
+  default = []
+}
+
 variable "control_nodes" {
   type        = number
   default     = 3
