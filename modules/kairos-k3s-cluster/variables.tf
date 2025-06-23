@@ -13,10 +13,11 @@ variable "additional_disks" {
 variable "additional_manifests" {
   type = list(object({
     content     = string
-    dest        = string
-    permissions = number
+    name        = string
+    permissions = optional(number)
   }))
-  default = []
+  default     = []
+  description = "Additional manifests for k3s to deploy on startup, written to /var/lib/rancher/k3s/server/manifests/{name}.yaml"
 }
 
 variable "control_nodes" {
