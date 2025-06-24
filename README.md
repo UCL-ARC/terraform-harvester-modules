@@ -186,6 +186,26 @@ module "cluster" {
 }
 ```
 
+### k8s manifests
+
+Additional manifests to be deployed when creating the cluster can be passed to
+the module using the `additional_manifests` variable:
+
+```hcl
+  additional_manifests = [{
+    name = "upgrade-plan"
+    content = templatefile("${path.root}/templates/upgrade-plan.yaml.tftpl", {
+      image: "9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
+      version: latest
+    })
+  }]
+```
+
+The example shows how a user of the module might create a template manifest and
+and pass the rendered result as a manifest for the `kairos-k3s-module` to use.
+The manifest will get written to `/var/lib/rancher/k3s/server/manifests/` and
+be applied automatically after the cluster is created.
+
 ## kubeconfig module
 
 This module can be used to fetch the kubeconfig file for a k3s cluster deployed
