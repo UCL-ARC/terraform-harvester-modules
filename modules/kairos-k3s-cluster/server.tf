@@ -66,13 +66,13 @@ module "k3s_server_vm" {
     })
     bundles = file("${path.module}/files/bundles.yaml")
     write_files = templatefile("${path.module}/templates/user-data/write-files.yaml.tftpl", {
-      files = [{
-        path        = "/var/lib/rancher/k3s/server/manifests/${var.vault_auth_service_account}.yaml"
-        permissions = 0644
-        content = templatefile("${path.module}/templates/user-data/write-files/vault-auth.yaml.tftpl", {
-          vault_auth_sa = var.vault_auth_service_account
-        })
-      }]
+      files = [
+        for m in local.manifests : {
+          dest        = "${local.k3s_manifest_dir}/${m.name}.yaml"
+          permissions = 0644
+          content     = m.content
+        }
+      ]
     })
   })
   vm_image           = var.iso_disk_image

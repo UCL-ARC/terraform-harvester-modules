@@ -6,13 +6,13 @@
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.2 |
 | <a name="requirement_remote"></a> [remote](#requirement\_remote) | 0.1.3 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.5 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.5 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.1.0 |
 
 ## Modules
 
@@ -25,7 +25,7 @@
 
 | Name | Type |
 |------|------|
-| [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/4.0.5/docs/resources/private_key) | resource |
+| [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/4.1.0/docs/resources/private_key) | resource |
 
 ## Inputs
 

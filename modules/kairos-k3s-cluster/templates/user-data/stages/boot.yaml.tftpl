@@ -1,20 +1,19 @@
-# note: extra indent is required here
-  %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
-  boot:
-    - name: OIDC Config
-      files:
-        - path: /var/lib/rancher/k3s/server/manifests/oidc-cluster-role-binding.yaml
-          content: |
-            apiVersion: rbac.authorization.k8s.io/v1
-            kind: ClusterRoleBinding
-            metadata:
-              name: ${k3s_oidc_admin_binding_name}
-            roleRef:
-              apiGroup: rbac.authorization.k8s.io
-              kind: ClusterRole
-              name: cluster-admin
-            subjects:
-            - apiGroup: rbac.authorization.k8s.io
-              kind: Group
-              name: ${k3s_oidc_admin_group}
-  %{~ endif ~}
+%{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
+boot:
+  - name: OIDC Config
+    files:
+      - path: /var/lib/rancher/k3s/server/manifests/oidc-cluster-role-binding.yaml
+        content: |
+          apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: ${k3s_oidc_admin_binding_name}
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: cluster-admin
+          subjects:
+          - apiGroup: rbac.authorization.k8s.io
+            kind: Group
+            name: ${k3s_oidc_admin_group}
+%{~ endif ~}
