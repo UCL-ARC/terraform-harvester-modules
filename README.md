@@ -193,7 +193,7 @@ the module using the `additional_manifests` variable:
 
 ```hcl
   additional_manifests = [{
-    name = "upgrade-plan.yaml"
+    name = "upgrade-plan"
     content = templatefile("${path.root}/templates/upgrade-plan.yaml.tftpl", {
       image: "9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
       version: latest
