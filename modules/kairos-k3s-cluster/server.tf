@@ -67,7 +67,7 @@ module "k3s_server_vm" {
     bundles = templatefile("${path.module}/templates/user-data/bundles.yaml.tftpl", {
       bundles = [
         for b in local.bundles : {
-          target = "run://${local.bundles_community_repo}:${b.target}"
+          target = "run://${b.target}"
           values = replace(yamlencode(b.values != null ? b.values : {}), "/((?:^|\n)[\\s-]*)\"([\\w-]+)\":/", "$1$2:")
         }
       ]

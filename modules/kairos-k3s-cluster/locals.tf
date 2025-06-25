@@ -7,10 +7,9 @@ locals {
     size       = var.root_disk_size
   }])
 
-  bundles_community_repo = "quay.io/kairos/community-bundles"
   bundles = concat(var.additional_bundles, [
     {
-      target = "system-upgrade-controller_latest"
+      target = "quay.io/kairos/community-bundles/system-upgrade-controller_latest"
       values = {
         suc = {
           version = "v0.15.2"
