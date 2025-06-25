@@ -1,3 +1,12 @@
+variable "additional_bundles" {
+  type = list(object({
+    target = string
+    values = map(map(any))
+  }))
+  default     = []
+  description = "List of additional kairos community bundles to install in the cluster"
+}
+
 variable "additional_disks" {
   type = list(object({
     boot_order = number
