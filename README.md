@@ -220,7 +220,7 @@ cluster, you can use the `additional_bundles` variable:
 ```hcl
   additional_bundles = [
     {
-      target = "nginx_latest"
+      target = "quay.io/kairos/community-bundles/nginx_latest"
       values = {
         nginx = {
           version = "4.12.3"
