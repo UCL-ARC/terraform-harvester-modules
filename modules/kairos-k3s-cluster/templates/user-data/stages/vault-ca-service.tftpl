@@ -98,8 +98,9 @@
         AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
         %{~ endif ~}
 
+- name: Enable and start vault-ca service
   commands:
-    - systemctl enable vault-fetch-ca.timer
-    - systemctl start vault-fetch-ca.timer
-    - systemctl enable vault-fetch-ca.service
-    - systemctl start vault-fetch-ca.service
+    - systemctl enable vault-ca.timer
+    - systemctl start vault-ca.timer
+    - systemctl enable vault-ca.service
+    - systemctl start vault-ca.service
