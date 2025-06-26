@@ -36,6 +36,7 @@
 
         # Fetch KRL on schedule if the URL exists
         if [ "$${KRL_URL}" != "" ]; then
+            touch /etc/ssh/sshd_revoked_keys
             keep_fetching_krl &
         fi
 
