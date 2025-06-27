@@ -203,8 +203,32 @@ the module using the `additional_manifests` variable:
 
 The example shows how a user of the module might create a template manifest and
 and pass the rendered result as a manifest for the `kairos-k3s-module` to use.
-The manifest will get written to `/var/lib/rancher/k3s/server/manifests/` and
-be applied automatically after the cluster is created.
+The manifest will get written to `/var/lib/rancher/k3s/server/manifests/` and be
+applied automatically after the cluster is created.
+
+Manifests can also be passed to the cluster using [Kairos
+bundles](https://kairos.io/docs/advanced/bundles/). These are container images
+that can be applied on first boot, before Kubernetes starts, to provide a way to
+customise the cluster (i.e. deployed manifests or Helm charts). Several popular
+Kubernetes tools are provided by the [Kairos community
+bundles](https://github.com/kairos-io/community-bundles/tree/main) repository.
+The
+[system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
+is installed to the cluster using this mechanism. To add more bundles to the
+cluster, you can use the `additional_bundles` variable:
+
+```hcl
+  additional_bundles = [
+    {
+      target = "quay.io/kairos/community-bundles/nginx_latest"
+      values = {
+        nginx = {
+          version = "4.12.3"
+        }
+      }
+    }
+  ]
+```
 
 ## kubeconfig module
 

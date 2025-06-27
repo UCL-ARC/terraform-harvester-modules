@@ -72,7 +72,14 @@ module "k3s_server_vm" {
       k3s_oidc_args        = var.k3s_oidc_args
       k3s_oidc_admin_group = var.k3s_oidc_admin_group
     })
-    bundles = file("${path.module}/files/bundles.yaml")
+    bundles = templatefile("${path.module}/templates/user-data/bundles.yaml.tftpl", {
+      bundles = [
+        for b in local.bundles : {
+          target = "run://${b.target}"
+          values = b.values != null ? replace(yamlencode(b.values), "/((?:^|\n)[\\s-]*)\"([\\w-]+)\":/", "$1$2:") : ""
+        }
+      ]
+    })
     write_files = templatefile("${path.module}/templates/user-data/write-files.yaml.tftpl", {
       files = [
         for m in local.manifests : {

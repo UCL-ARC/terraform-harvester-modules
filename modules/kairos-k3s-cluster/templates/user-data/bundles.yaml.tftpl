@@ -1,0 +1,9 @@
+bundles:
+  - targets:
+  %{for bundle in bundles~}
+    - ${bundle.target}
+  %{endfor~}
+
+%{for bundle in bundles~}
+${bundle.values}
+%{endfor~}

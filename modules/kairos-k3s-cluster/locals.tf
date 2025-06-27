@@ -7,6 +7,17 @@ locals {
     size       = var.root_disk_size
   }])
 
+  bundles = concat(var.additional_bundles, [
+    {
+      target = "quay.io/kairos/community-bundles/system-upgrade-controller_latest"
+      values = {
+        suc = {
+          version = "v0.15.2"
+        }
+      }
+    }
+  ])
+
   k3s_manifest_dir = "/var/lib/rancher/k3s/server/manifests"
 
   manifests = concat(var.additional_manifests, [{
