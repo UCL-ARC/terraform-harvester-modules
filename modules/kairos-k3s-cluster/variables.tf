@@ -28,6 +28,16 @@ variable "additional_manifests" {
   description = "Additional manifests for k3s to deploy on startup, written to /var/lib/rancher/k3s/server/manifests/{name}.yaml"
 }
 
+variable "additional_files" {
+  type = list(object({
+    dest        = string
+    permissions = string
+    content     = string
+  }))
+  default     = []
+  description = "Additional manifests files to mutable paths during cloud-init"
+}
+
 variable "control_nodes" {
   type        = number
   default     = 3

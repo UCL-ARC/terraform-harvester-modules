@@ -73,13 +73,13 @@ module "k3s_server_vm" {
       ]
     })
     write_files = templatefile("${path.module}/templates/user-data/write-files.yaml.tftpl", {
-      files = [
+      files = concat([
         for m in local.manifests : {
           dest        = "${local.k3s_manifest_dir}/${m.name}.yaml"
           permissions = 0644
           content     = m.content
         }
-      ]
+      ], var.additional_files)
     })
   })
   vm_image           = var.iso_disk_image
