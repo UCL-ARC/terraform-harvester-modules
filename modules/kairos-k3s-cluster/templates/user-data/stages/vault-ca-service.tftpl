@@ -8,25 +8,25 @@
         set -o nounset
 
         function fetch_ca_from_vault(){
-            curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
-                --max-time "$${CURL_TIMEOUT}" \
-                -k "$VAULT_ADDR/v1/$VAULT_MOUNT/public_key" -o /etc/ssh/trusted_users_ca.pub
+          curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
+            --max-time "$${CURL_TIMEOUT}" \
+            -k "$VAULT_ADDR/v1/$VAULT_MOUNT/public_key" -o /etc/ssh/trusted_users_ca.pub
         }
 
         function set_default_ca(){
-            [[ -n "$${DEFAULT_CA_PUB_KEY}" ]] && echo "$${DEFAULT_CA_PUB_KEY}" > /etc/ssh/trusted_users_ca.pub
+          [[ -n "$${DEFAULT_CA_PUB_KEY}" ]] && echo "$${DEFAULT_CA_PUB_KEY}" > /etc/ssh/trusted_users_ca.pub
         }
 
         function keep_fetching_krl(){
-            while /bin/true; do
-              echo -n "Fetching KRL from $${KRL_URL}..."
-              curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
-                  --max-time "$${CURL_TIMEOUT}" \
-                  -k "$${KRL_URL}" -o /etc/ssh/sshd_revoked_serials
-              /usr/bin/ssh-keygen -s /etc/ssh/users_ca.pub -k -f /etc/ssh/sshd_revoked_keys /etc/ssh/sshd_revoked_serials && echo "Revocation checked" || echo "Revocation check failed"
-              echo "done"
-              sleep "$${KRL_INTERVAL}"
-            done
+          while /bin/true; do
+            echo -n "Fetching KRL from $${KRL_URL}..."
+            curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
+              --max-time "$${CURL_TIMEOUT}" \
+              -k "$${KRL_URL}" -o /etc/ssh/sshd_revoked_serials
+            /usr/bin/ssh-keygen -s /etc/ssh/users_ca.pub -k -f /etc/ssh/sshd_revoked_keys /etc/ssh/sshd_revoked_serials && echo "Revocation checked" || echo "Revocation check failed"
+            echo "done"
+            sleep "$${KRL_INTERVAL}"
+          done
         }
 
         # Fetch CA - This temporarily adds our default key if curl fails
@@ -36,8 +36,8 @@
 
         # Fetch KRL on schedule if the URL exists
         if [ "$${KRL_URL}" != "" ]; then
-            touch /etc/ssh/sshd_revoked_keys
-            keep_fetching_krl &
+          touch /etc/ssh/sshd_revoked_keys
+          keep_fetching_krl &
         fi
 
         echo "Server ready"
