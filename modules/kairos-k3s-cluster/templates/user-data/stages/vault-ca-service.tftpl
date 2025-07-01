@@ -1,0 +1,106 @@
+- name: Write auto fetch CA service
+  files:
+    - path: /etc/systemd/system/vault-ca.sh
+      permissions: 0755
+      content: |
+        #!/bin/bash
+        set -o errexit
+        set -o nounset
+
+        function fetch_ca_from_vault(){
+          curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
+            --max-time "$${CURL_TIMEOUT}" \
+            -k "$VAULT_ADDR/v1/$VAULT_MOUNT/public_key" -o /etc/ssh/trusted_users_ca.pub
+        }
+
+        function set_default_ca(){
+          [[ -n "$${DEFAULT_CA_PUB_KEY}" ]] && echo "$${DEFAULT_CA_PUB_KEY}" > /etc/ssh/trusted_users_ca.pub
+        }
+
+        function keep_fetching_krl(){
+          while /bin/true; do
+            echo -n "Fetching KRL from $${KRL_URL}..."
+            curl --silent --connect-timeout "$${CURL_TIMEOUT}" \
+              --max-time "$${CURL_TIMEOUT}" \
+              -k "$${KRL_URL}" -o /etc/ssh/sshd_revoked_serials
+            /usr/bin/ssh-keygen -s /etc/ssh/users_ca.pub -k -f /etc/ssh/sshd_revoked_keys /etc/ssh/sshd_revoked_serials && echo "Revocation checked" || echo "Revocation check failed"
+            echo "done"
+            sleep "$${KRL_INTERVAL}"
+          done
+        }
+
+        # Fetch CA - This temporarily adds our default key if curl fails
+        echo -n "Fetching CA..."
+        fetch_ca_from_vault || set_default_ca
+        echo "done fetching CA"
+
+        # Fetch KRL on schedule if the URL exists
+        if [ "$${KRL_URL}" != "" ]; then
+          touch /etc/ssh/sshd_revoked_keys
+          keep_fetching_krl &
+        fi
+
+        echo "Server ready"
+        systemctl reload sshd
+
+    - path: /etc/systemd/system/vault-ca.env
+      permissions: 0644
+      content: |
+        CURL_TIMEOUT=10
+        DEFAULT_CA_PUB_KEY=${default_ca}
+        KRL_URL=${krl_url}
+        VAULT_ADDR=${vault_addr}
+        VAULT_MOUNT=${vault_mount}
+
+    - path: /etc/systemd/system/vault-ca.timer
+      permissions: 0644
+      content: |
+        [Unit]
+        Description=Timer for fetching CA from Vault
+
+        [Timer]
+        OnCalendar=*-*-* 03:00:00
+
+        [Install]
+        WantedBy=timers.target
+
+    - path: /etc/systemd/system/vault-ca.service
+      permissions: 0644
+      content: |
+        [Unit]
+        Description=Fetch CA from Vault
+
+        [Service]
+        ExecStart=/etc/systemd/system/vault-ca.sh
+        EnvironmentFile=/etc/systemd/system/vault-ca.env
+
+        [Install]
+        WantedBy=multi-user.target
+
+- name: Write sshd config
+  files:
+    %{~ if length(ssh_admin_principals) > 0 }
+    - path: /etc/ssh/auth_principals/kairos
+      permissions: 0555
+      content: |+
+        %{~ for principal in ssh_admin_principals ~}
+        ${principal}
+        %{~ endfor ~}
+    %{~ endif ~}
+    - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
+      permissions: 0644
+      content: |+
+        PubkeyAuthentication yes
+        PasswordAuthentication no
+        TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
+        RevokedKeys /etc/ssh/sshd_revoked_keys
+        %{~ if length(ssh_admin_principals) > 0 ~}
+        AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+        %{~ endif ~}
+
+- name: Enable and start vault-ca service
+  commands:
+    - systemctl enable vault-ca.timer
+    - systemctl start vault-ca.timer
+    - systemctl enable vault-ca.service
+    - systemctl start vault-ca.service

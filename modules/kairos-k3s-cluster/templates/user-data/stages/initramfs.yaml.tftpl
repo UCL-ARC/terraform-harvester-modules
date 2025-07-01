@@ -68,3 +68,7 @@ initramfs:
           AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
           %{~ endif ~}
   %{~ endif ~}
+
+%{ if vault_auto_ca ~}
+  ${indent(2, vault_ca_service)}
+%{~ endif ~}
