@@ -1,7 +1,7 @@
 variable "additional_bundles" {
   type = list(object({
     target = string
-    values = optional(map(map(any)))
+    values = optional(map(any))
   }))
   default     = []
   description = "List of additional kairos community bundles to install in the cluster"
