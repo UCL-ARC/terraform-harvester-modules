@@ -5,7 +5,6 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.2 |
-| <a name="requirement_remote"></a> [remote](#requirement\_remote) | 0.1.3 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.1.0 |
 
 ## Providers

@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/UCL-MIRSG/.github
-    rev: v0.209.0
+    rev: v0.214.0
     hooks:
       - id: mirsg-hooks
   - repo: https://github.com/Yelp/detect-secrets
@@ -12,7 +12,7 @@ repos:
           - --baseline
           - .secrets.baseline
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.99.1
+    rev: v1.99.5
     hooks:
       - id: terraform_fmt
         args:
@@ -35,6 +35,12 @@ repos:
           - --output-file
           - README.md
           - modules/k3s-cluster/provision
+      - id: terraform-docs-go
+        args:
+          - markdown
+          - --output-file
+          - README.md
+          - modules/kairos-k3s-cluster
       - id: terraform-docs-go
         args:
           - markdown
