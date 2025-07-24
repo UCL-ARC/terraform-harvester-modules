@@ -6,8 +6,7 @@
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.2 |
-| <a name="requirement_remote"></a> [remote](#requirement\_remote) | 0.1.3 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.5 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.1.0 |
 
 ## Providers
 
@@ -35,7 +34,9 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_bundles"></a> [additional\_bundles](#input\_additional\_bundles) | List of additional kairos community bundles to install in the cluster | <pre>list(object({<br/>    target = string<br/>    values = optional(map(any))<br/>  }))</pre> | `[]` | no |
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    boot_order = number<br/>    bus        = string<br/>    name       = string<br/>    mount      = string<br/>    size       = string<br/>    type       = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_additional_manifests"></a> [additional\_manifests](#input\_additional\_manifests) | Additional manifests for k3s to deploy on startup, written to /var/lib/rancher/k3s/server/manifests/{name}.yaml | <pre>list(object({<br/>    content = string<br/>    name    = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster used to uniqify the vm names | `string` | n/a | yes |
 | <a name="input_cluster_namespace"></a> [cluster\_namespace](#input\_cluster\_namespace) | Name of the namespace into which the VMs with be delployed. It must exist | `string` | n/a | yes |
 | <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | KubeVip virtual IP address | `string` | n/a | yes |
@@ -50,6 +51,7 @@
 | <a name="input_k3s_oidc_admin_binding_name"></a> [k3s\_oidc\_admin\_binding\_name](#input\_k3s\_oidc\_admin\_binding\_name) | OIDC admin binding name to use for the cluster | `string` | `"cluster-admin"` | no |
 | <a name="input_k3s_oidc_admin_group"></a> [k3s\_oidc\_admin\_group](#input\_k3s\_oidc\_admin\_group) | OIDC admin group to use for the cluster | `string` | `""` | no |
 | <a name="input_k3s_oidc_args"></a> [k3s\_oidc\_args](#input\_k3s\_oidc\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
+| <a name="input_kairos_bind_mounts"></a> [kairos\_bind\_mounts](#input\_kairos\_bind\_mounts) | List paths to make persistent on the hosts. | `list(string)` | `[]` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
 | <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    alias   = string<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_primary_interface"></a> [primary\_interface](#input\_primary\_interface) | Name of the primary network interface | `string` | `"eth0"` | no |
@@ -62,6 +64,7 @@
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | SSH public key to use for the VMs | `string` | `""` | no |
 | <a name="input_system_upgrade_controller_version"></a> [system\_upgrade\_controller\_version](#input\_system\_upgrade\_controller\_version) | Version of the system upgrade controller to install in the cluster. | `string` | `"v0.15.2"` | no |
 | <a name="input_vault_auth_service_account"></a> [vault\_auth\_service\_account](#input\_vault\_auth\_service\_account) | Service account to use for the vault auth | `string` | `"vault-auth"` | no |
+| <a name="input_vault_auto_ca"></a> [vault\_auto\_ca](#input\_vault\_auto\_ca) | n/a | `map(any)` | <pre>{<br/>  "default_ca": "",<br/>  "enabled": false,<br/>  "krl_url": "",<br/>  "vault_addr": "",<br/>  "vault_ssh_mount_path": ""<br/>}</pre> | no |
 | <a name="input_vm_tags"></a> [vm\_tags](#input\_vm\_tags) | n/a | `map(any)` | n/a | yes |
 | <a name="input_vm_username"></a> [vm\_username](#input\_vm\_username) | n/a | `string` | n/a | yes |
 | <a name="input_worker_nodes"></a> [worker\_nodes](#input\_worker\_nodes) | Number of worker nodes to deploy | `number` | `0` | no |

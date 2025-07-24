@@ -40,6 +40,12 @@ repos:
           - markdown
           - --output-file
           - README.md
+          - modules/kairos-k3s-cluster
+      - id: terraform-docs-go
+        args:
+          - markdown
+          - --output-file
+          - README.md
           - modules/virtual-machine
       - id: terraform-docs-go
         args:
