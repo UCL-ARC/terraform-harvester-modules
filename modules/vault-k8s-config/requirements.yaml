@@ -4,7 +4,8 @@ collections:
     source: https://github.com/ansible-collections/kubernetes.core.git
     type: git
     version: 6.0.0
-  - name: community.hashi_vault # spellchecker:disable-line
+  # typos: ignore-next-line
+  - name: community.hashi_vault
     source: https://github.com/ansible-collections/community.hashi_vault.git
     type: git
     version: 6.2.0
