@@ -15,7 +15,7 @@
 |------|---------|
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.3.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
 
 ## Modules
