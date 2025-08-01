@@ -8,4 +8,4 @@ collections:
   - name: community.hashi_vault
     source: https://github.com/ansible-collections/community.hashi_vault.git
     type: git
-    version: 6.2.0
+    version: 7.0.0
