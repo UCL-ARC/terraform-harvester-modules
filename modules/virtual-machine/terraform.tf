@@ -4,7 +4,7 @@ terraform {
   required_providers {
     harvester = {
       source  = "harvester/harvester"
-      version = "0.6.6"
+      version = "0.6.7"
     }
 
     local = {
@@ -14,7 +14,7 @@ terraform {
 
     null = {
       source  = "hashicorp/null"
-      version = "3.2.2"
+      version = "3.2.4"
     }
   }
 }
