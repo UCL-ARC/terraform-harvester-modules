@@ -18,6 +18,3 @@ terraform {
     }
   }
 }
-
-provider "harvester" {
-}
