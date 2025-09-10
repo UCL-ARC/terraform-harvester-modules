@@ -5,7 +5,6 @@ initramfs:
     commands:
       - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
   - name: Write the connman network config
-    if: systemctl list-units --type=service | grep -Fq connman.service &> /dev/null
     files:
       - path: /var/lib/connman/default.config
         permissions: 0644
@@ -24,7 +23,6 @@ initramfs:
           %{~ endif ~}
         %{ endfor }
   - name: Write the systemd-networkd config
-    if: systemctl list-units --type=service | grep -Fq systemd-networkd.service &> /dev/null
     files:
       - path: /etc/systemd/network/01-man.network
         permissions: 0644
@@ -49,7 +47,6 @@ initramfs:
   %{~ for network in networks ~}
   %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
-    if: systemctl list-units --type=service | grep -Fq NetworkManager.service &> /dev/null
     files:
       - path: /etc/sysconfig/network-scripts/ifcfg-${network.alias}
         permissions: 0644
