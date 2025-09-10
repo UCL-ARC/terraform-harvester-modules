@@ -4,7 +4,8 @@ initramfs:
   - name: Disallow root login
     commands:
       - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
-  - name: Write the network config
+  - name: Write the connman network config
+    if: systemctl list-units --type=service | grep -Fq connman.service &> /dev/null
     files:
       - path: /var/lib/connman/default.config
         permissions: 0644
@@ -22,6 +23,9 @@ initramfs:
           Nameservers = ${network.dns}
           %{~ endif ~}
         %{ endfor }
+  - name: Write the systemd-networkd config
+    if: systemctl list-units --type=service | grep -Fq systemd-networkd.service &> /dev/null
+    files:
       - path: /etc/systemd/network/01-man.network
         permissions: 0644
         content: |
@@ -42,6 +46,23 @@ initramfs:
           DNS=${network.dns}
           %{~ endif ~}
         %{~ endfor ~}
+  %{~ for network in networks ~}
+  %{~ if network.ip != "" ~}
+  - name: Write the ${network.alias} NetworkManager config
+    if: systemctl list-units --type=service | grep -Fq NetworkManager.service &> /dev/null
+    files:
+      - path: /etc/sysconfig/network-scripts/ifcfg-${network.alias}
+        permissions: 0644
+        content: |
+          BOOTPROTO=none
+          ONBOOT=yes
+          IPADDR=${network.ip}
+          PREFIX=${network.cidr}
+          GATEWAY=${network.gateway}
+          DNS1=${network.dns}
+          DEVICE=${network.alias}
+  %{~ endif ~}
+  %{~ endfor ~}
 
   %{~ if ssh_ca_public_key != "" ~}
   - name: Write sshd config
