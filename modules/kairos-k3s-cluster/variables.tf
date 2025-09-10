@@ -85,6 +85,12 @@ variable "k3s_extra_args" {
   default     = []
 }
 
+variable "kairos_bind_mounts" {
+  type        = list(string)
+  description = "List paths to make persistent on the hosts."
+  default     = []
+}
+
 variable "k3s_oidc_admin_binding_name" {
   type        = string
   description = "OIDC admin binding name to use for the cluster"
@@ -103,10 +109,10 @@ variable "k3s_oidc_args" {
   default     = []
 }
 
-variable "kairos_bind_mounts" {
-  type        = list(string)
-  description = "List paths to make persistent on the hosts."
-  default     = []
+variable "kairos_operator_version" {
+  type        = string
+  description = "Version of the kairos operator to install in the cluster."
+  default     = "v0.0.3"
 }
 
 variable "memory" {
@@ -173,12 +179,6 @@ variable "ssh_public_key" {
 variable "ssh_common_args" {
   type    = string
   default = ""
-}
-
-variable "system_upgrade_controller_version" {
-  type        = string
-  description = "Version of the system upgrade controller to install in the cluster."
-  default     = "v0.15.2"
 }
 
 variable "vault_auth_service_account" {

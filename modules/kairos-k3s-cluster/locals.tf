@@ -12,7 +12,7 @@ locals {
       target = "quay.io/kairos/community-bundles:kairos-operator_latest"
       values = {
         suc = {
-          version = "v0.0.3"
+          version = var.kairos_operator_version
         }
       }
     }

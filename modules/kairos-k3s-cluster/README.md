@@ -52,6 +52,7 @@
 | <a name="input_k3s_oidc_admin_group"></a> [k3s\_oidc\_admin\_group](#input\_k3s\_oidc\_admin\_group) | OIDC admin group to use for the cluster | `string` | `""` | no |
 | <a name="input_k3s_oidc_args"></a> [k3s\_oidc\_args](#input\_k3s\_oidc\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
 | <a name="input_kairos_bind_mounts"></a> [kairos\_bind\_mounts](#input\_kairos\_bind\_mounts) | List paths to make persistent on the hosts. | `list(string)` | `[]` | no |
+| <a name="input_kairos_operator_version"></a> [kairos\_operator\_version](#input\_kairos\_operator\_version) | Version of the kairos operator to install in the cluster. | `string` | `"v0.0.3"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
 | <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    alias   = string<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_primary_interface"></a> [primary\_interface](#input\_primary\_interface) | Name of the primary network interface | `string` | `"eth0"` | no |
@@ -62,7 +63,6 @@
 | <a name="input_ssh_ca_public_key"></a> [ssh\_ca\_public\_key](#input\_ssh\_ca\_public\_key) | SSH CA public key to use for the VMs | `string` | `""` | no |
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | n/a | `string` | `""` | no |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | SSH public key to use for the VMs | `string` | `""` | no |
-| <a name="input_system_upgrade_controller_version"></a> [system\_upgrade\_controller\_version](#input\_system\_upgrade\_controller\_version) | Version of the system upgrade controller to install in the cluster. | `string` | `"v0.15.2"` | no |
 | <a name="input_vault_auth_service_account"></a> [vault\_auth\_service\_account](#input\_vault\_auth\_service\_account) | Service account to use for the vault auth | `string` | `"vault-auth"` | no |
 | <a name="input_vault_auto_ca"></a> [vault\_auto\_ca](#input\_vault\_auto\_ca) | n/a | `map(any)` | <pre>{<br/>  "default_ca": "",<br/>  "enabled": false,<br/>  "krl_url": "",<br/>  "vault_addr": "",<br/>  "vault_ssh_mount_path": ""<br/>}</pre> | no |
 | <a name="input_vm_tags"></a> [vm\_tags](#input\_vm\_tags) | n/a | `map(any)` | n/a | yes |
