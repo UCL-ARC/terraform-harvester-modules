@@ -48,16 +48,20 @@ initramfs:
   %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
     files:
-      - path: /etc/sysconfig/network-scripts/ifcfg-${network.alias}
+      - path: /etc/NetworkManager/system-connections/${network.alias}.nmconnection
         permissions: 0644
         content: |
-          BOOTPROTO=none
-          ONBOOT=yes
-          IPADDR=${network.ip}
-          PREFIX=${network.cidr}
-          GATEWAY=${network.gateway}
-          DNS1=${network.dns}
-          DEVICE=${network.alias}
+          [connection]
+          autoconnect=true
+          id=${network.alias}
+          interface-name=${network.alias}
+          type=ethernet
+
+          [ipv4]
+          address1=${network.ip}/${network.cidr}
+          dns=${network.dns};
+          method=manual
+
   %{~ endif ~}
   %{~ endfor ~}
 
