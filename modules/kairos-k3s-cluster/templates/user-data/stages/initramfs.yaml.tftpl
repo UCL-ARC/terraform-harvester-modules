@@ -51,7 +51,7 @@ initramfs:
       - nmcli connection reload
     files:
       - path: /etc/NetworkManager/system-connections/${network.alias}.nmconnection
-        permissions: 0644
+        permissions: 0600
         content: |
           [connection]
           autoconnect=true
