@@ -51,7 +51,7 @@ initramfs:
       - path: /etc/sysconfig/network-scripts/ifcfg-${network.alias}
         permissions: 0644
         content: |
-          BOOTPROTO=static
+          BOOTPROTO=none
           ONBOOT=yes
           IPADDR=${network.ip}
           PREFIX=${network.cidr}
