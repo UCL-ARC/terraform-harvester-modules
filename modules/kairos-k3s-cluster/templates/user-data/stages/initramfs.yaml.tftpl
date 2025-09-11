@@ -47,6 +47,8 @@ initramfs:
   %{~ for network in networks ~}
   %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
+    commands:
+      - nmcli connection reload
     files:
       - path: /etc/NetworkManager/system-connections/${network.alias}.nmconnection
         permissions: 0644
