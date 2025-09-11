@@ -47,23 +47,17 @@ initramfs:
   %{~ for network in networks ~}
   %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
-    commands:
-      - nmcli connection reload
     files:
-      - path: /etc/NetworkManager/system-connections/${network.alias}.nmconnection
+      - path: /etc/NetworkManager${network.alias}
         permissions: 0644
         content: |
-          [connection]
-          autoconnect=true
-          id=${network.alias}
-          interface-name=${network.alias}
-          type=ethernet
-
-          [ipv4]
-          address1=${network.ip}/${network.cidr}
-          dns=${network.dns};
-          method=manual
-
+          BOOTPROTO=static
+          ONBOOT=yes
+          IPADDR=${network.ip}
+          PREFIX=${network.cidr}
+          GATEWAY=${network.gateway}
+          DNS1=${network.dns}
+          DEVICE=${network.alias}
   %{~ endif ~}
   %{~ endfor ~}
 
