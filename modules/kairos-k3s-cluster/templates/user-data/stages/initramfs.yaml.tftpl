@@ -48,7 +48,7 @@ initramfs:
   %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
     files:
-      - path: /etc/NetworkManager${network.alias}
+      - path: /etc/sysconfig/network-scripts/ifcfg-${network.alias}
         permissions: 0644
         content: |
           BOOTPROTO=static
