@@ -60,9 +60,13 @@ initramfs:
           type=ethernet
 
           [ipv4]
-          address1=${network.ip}/${network.cidr}
+          addresses=${network.ip}/${network.cidr}
           dns=${network.dns};
+          %{~ if network.gateway != "" ~}
+          gateway=${network.gateway}
+          %{~ endif ~}
           method=manual
+
   %{~ endif ~}
   %{~ endfor ~}
 
