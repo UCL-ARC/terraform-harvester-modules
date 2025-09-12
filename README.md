@@ -119,10 +119,10 @@ kairos ISO and container image to be deployed, forming the final OS running in
 the VMs. Although this supports multiple different Kubernetes distributions we
 strongly encourage the use of k3s. In the example below the kairos Alpine ISO is
 used to deploy a Rocky Linux container image which has k3s baked in. The
-[system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
-is installed in the cluster to provide a means to manage OS and Kubernetes
-distribution upgrades in a zero-downtime manner. A `Plan` resource needs to be
-provided by the consumer of the module to trigger the upgrade process.
+[kairos-operator](https://github.com/kairos-io/kairos-operator) is installed in
+the cluster to provide a means to manage OS and Kubernetes distribution upgrades
+in a zero-downtime manner. Either a `NodeOp` or `NodeOpUpgrade` resource needs
+to be provided by the consumer of the module to trigger the upgrade process.
 
 ### Networking
 

@@ -76,7 +76,7 @@ module "k3s_server_vm" {
       bundles = [
         for b in local.bundles : {
           target = "run://${b.target}"
-          values = b.values != null ? replace(yamlencode(b.values), "/((?:^|\n)[\\s-]*)\"([\\w-]+)\":/", "$1$2:") : ""
+          values = try(b.values, null) != null ? replace(yamlencode(b.values), "/((?:^|\n)[\\s-]*)\"([\\w-]+)\":/", "$1$2:") : ""
         }
       ]
     })
