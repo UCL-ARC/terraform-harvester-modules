@@ -181,6 +181,12 @@ variable "ssh_common_args" {
   default = ""
 }
 
+variable "suc_version" {
+  type        = string
+  description = "Version of the system-upgrade-controller to install in the cluster."
+  default     = "v0.16.3"
+}
+
 variable "vault_auth_service_account" {
   type        = string
   description = "Service account to use for the vault auth"

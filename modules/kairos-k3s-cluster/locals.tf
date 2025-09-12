@@ -10,9 +10,12 @@ locals {
   bundles = concat(var.additional_bundles, [
     {
       target = "quay.io/kairos/community-bundles:kairos-operator_latest"
+    },
+    {
+      target = "quay.io/kairos/community-bundles:system-upgrade-controller_latest"
       values = {
         suc = {
-          version = var.kairos_operator_version
+          version = var.suc_version
         }
       }
     }
