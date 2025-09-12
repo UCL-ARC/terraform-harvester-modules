@@ -60,7 +60,7 @@ initramfs:
           type=ethernet
 
           [ipv4]
-          addresses=${network.ip}/${network.cidr}
+          address1=${network.ip}/${network.cidr}
           dns=${network.dns};
           method=manual
   %{~ endif ~}
