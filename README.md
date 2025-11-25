@@ -124,6 +124,33 @@ the cluster to provide a means to manage OS and Kubernetes distribution upgrades
 in a zero-downtime manner. Either a `NodeOp` or `NodeOpUpgrade` resource needs
 to be provided by the consumer of the module to trigger the upgrade process.
 
+### k3s arguments
+
+Arguments to be passed to the `k3s` server can be provided using the `k3s_args`
+variable. This allows users of the module to disable default components such as
+`traefik` and `servicelb`, or to configure a different CNI plugin. See the [k3s
+documentation](https://docs.k3s.io/installation/configuration) for a full list
+of available options. Note that `k3s_args` defaults to disabling `traefik` and
+`servicelb`:
+
+```hcl
+  k3s_args = [
+    "--disable=traefik,servicelb",
+  ]
+```
+
+OIDC authentication can be configured through the `k3s_oidc_args` variable. This
+should contain the necessary arguments to configure OIDC authentication for the
+cluster. The `k3s_oidc_admin_group` variable should also be set to the name of
+the group in the OIDC provider that should be granted admin privileges on the
+cluster. The options set in the `k3s_oidc_args` list is merged with the
+`k3s_args` list and passed to the `k3s` block in the `cloud-config` user data.
+
+```hcl
+  k3s_oidc_args = [
+    "--oidc-issuer-url=https://accounts.google.com",
+    "--oidc-client-id
+
 ### Networking
 
 Here [edgevpn](https://github.com/mudler/edgevpn/tree/master) and
@@ -135,11 +162,11 @@ this is what is used in the module. If you would like to use a different CNI
 plugin, or something that provides a means for managing network policies (such
 as [Calico](https://www.tigera.io/project-calico/)), then you will need to
 deploy this yourself after the cluster is up and running. The `k3s` arguments
-that are required to use a different CNI plugin can be set using the
-`k3s_extra_args` variable. For example, to be able to use Calico, you would set:
+that are required can be set using the `k3s_args` variable. For example, to be
+able to use Calico as the CNI plugin, you would set:
 
 ```hcl
-  k3s_extra_args = [
+  k3s_args = [
     "--disable-network-policy",
     "--flannel-backend=none",
   ]

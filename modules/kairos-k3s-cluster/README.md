@@ -47,7 +47,7 @@
 | <a name="input_iso_disk_image_namespace"></a> [iso\_disk\_image\_namespace](#input\_iso\_disk\_image\_namespace) | OS image  namespace to use | `string` | n/a | yes |
 | <a name="input_iso_disk_name"></a> [iso\_disk\_name](#input\_iso\_disk\_name) | n/a | `string` | `"iso-cdrom"` | no |
 | <a name="input_iso_disk_size"></a> [iso\_disk\_size](#input\_iso\_disk\_size) | n/a | `string` | `"30Gi"` | no |
-| <a name="input_k3s_extra_args"></a> [k3s\_extra\_args](#input\_k3s\_extra\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
+| <a name="input_k3s_args"></a> [k3s\_args](#input\_k3s\_args) | Arguments to pass to k3s | `list(string)` | <pre>[<br/>  "--disable=traefik,servicelb"<br/>]</pre> | no |
 | <a name="input_k3s_oidc_admin_binding_name"></a> [k3s\_oidc\_admin\_binding\_name](#input\_k3s\_oidc\_admin\_binding\_name) | OIDC admin binding name to use for the cluster | `string` | `"cluster-admin"` | no |
 | <a name="input_k3s_oidc_admin_group"></a> [k3s\_oidc\_admin\_group](#input\_k3s\_oidc\_admin\_group) | OIDC admin group to use for the cluster | `string` | `""` | no |
 | <a name="input_k3s_oidc_args"></a> [k3s\_oidc\_args](#input\_k3s\_oidc\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |

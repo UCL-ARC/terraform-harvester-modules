@@ -1,12 +1,9 @@
 k3s:
   enabled: true
   args:
-    - --disable=traefik,servicelb
-  %{~ if length(k3s_extra_args) > 0 ~}
-    %{~ for arg in k3s_extra_args ~}
+  %{~ for arg in k3s_args ~}
     - ${arg}
-    %{~ endfor ~}
-  %{~ endif ~}
+  %{~ endfor ~}
   %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
     %{~ for arg in k3s_oidc_args ~}
     - ${arg}

@@ -68,7 +68,7 @@ module "k3s_server_vm" {
       p2p_network_token   = local.p2p_network_token
     })
     k3s = templatefile("${path.module}/templates/user-data/k3s-args.yaml.tftpl", {
-      k3s_extra_args       = var.k3s_extra_args
+      k3s_args             = var.k3s_args
       k3s_oidc_args        = var.k3s_oidc_args
       k3s_oidc_admin_group = var.k3s_oidc_admin_group
     })
