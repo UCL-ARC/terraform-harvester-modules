@@ -145,11 +145,19 @@ cluster. The `k3s_oidc_admin_group` variable should also be set to the name of
 the group in the OIDC provider that should be granted admin privileges on the
 cluster. The options set in the `k3s_oidc_args` list is merged with the
 `k3s_args` list and passed to the `k3s` block in the `cloud-config` user data.
+For example to use an app registration in Azure AD as the OIDC provider, you
+would set:
 
 ```hcl
   k3s_oidc_args = [
-    "--oidc-issuer-url=https://accounts.google.com",
-    "--oidc-client-id
+    "--kube-apiserver-arg=oidc-issuer-url=https://login.microsoftonline.com/<tenant-id>/v2.0",
+    "--kube-apiserver-arg=oidc-client-id=<app-registration-client-id>",
+    "--kube-apiserver-arg=oidc-username-claim=email",
+    "--kube-apiserver-arg=oidc-groups-claim=groups",
+    "--kube-apiserver-arg=oidc-groups-prefix='odic:'",
+    "--kube-apiserver-arg=oidc-username-prefix='odic:'",
+  ]
+```
 
 ### Networking
 
@@ -167,6 +175,7 @@ able to use Calico as the CNI plugin, you would set:
 
 ```hcl
   k3s_args = [
+    "--disable=traefik,servicelb", # this is the default
     "--disable-network-policy",
     "--flannel-backend=none",
   ]
