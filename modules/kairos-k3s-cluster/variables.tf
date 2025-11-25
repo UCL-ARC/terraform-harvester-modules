@@ -79,10 +79,10 @@ variable "iso_disk_size" {
   default = "30Gi"
 }
 
-variable "k3s_extra_args" {
+variable "k3s_args" {
   type        = list(string)
-  description = "Extra arguments to pass to k3s"
-  default     = []
+  description = "Arguments to pass to k3s"
+  default     = ["--disable=traefik,servicelb"]
 }
 
 variable "kairos_bind_mounts" {
