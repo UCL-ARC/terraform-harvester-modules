@@ -19,6 +19,11 @@
   become: true
   roles:
     - role: k3s
+
+- name: Install k3s leader
+  hosts: leader
+  become: true
+  roles:
     - role: calico
     - role: metallb
     - role: endpoint_copier

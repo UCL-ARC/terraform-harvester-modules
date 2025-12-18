@@ -41,6 +41,11 @@
       type: Available
     wait_timeout: 90
 
+- name: Combine cluster VIPs
+  ansible.builtin.set_fact:
+    cluster_vips:
+      "{{ [cluster_api_vip] + (cluster_additional_vips | from_yaml) }}"
+
 - name: Metallb kube-apiserver AddressPool
   kubernetes.core.k8s:
     state: present
@@ -48,25 +53,14 @@
       apiVersion: metallb.io/v1beta1
       kind: IPAddressPool
       metadata:
-        name: api-pool
+        name: addresspool-{{ idx }}
         namespace: metallb-system
       spec:
         addresses:
-          - "{{ cluster_api_vip }}/32"
-
-- name: Metallb Ingress AddressPool
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: metallb.io/v1beta1
-      kind: IPAddressPool
-      metadata:
-        name: ingress-pool
-        namespace: metallb-system
-      spec:
-        addresses:
-          - "{{ cluster_ingress_vip }}/32"
-  when: cluster_ingress_vip != ""
+          - "{{ item }}/32"
+  loop: "{{ cluster_vips | from_yaml }}"
+  loop_control:
+    index_var: idx
 
 - name: Metallb kube-apiserver L2Advertisement
   kubernetes.core.k8s:
@@ -75,22 +69,11 @@
       apiVersion: metallb.io/v1beta1
       kind: L2Advertisement
       metadata:
-        name: api-advertisement
+        name: advertisement-{{ idx }}
         namespace: metallb-system
       spec:
         ipAddressPools:
-          - api-pool
-
-- name: Metallb Ingress L2Advertisement
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: metallb.io/v1beta1
-      kind: L2Advertisement
-      metadata:
-        name: ingress-advertisement
-        namespace: metallb-system
-      spec:
-        ipAddressPools:
-          - ingress-pool
-  when: cluster_ingress_vip != ""
+          - addresspool-{{ idx }}
+  loop: "{{ cluster_vips | from_yaml }}"
+  loop_control:
+    index_var: idx

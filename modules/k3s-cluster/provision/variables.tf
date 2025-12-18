@@ -7,7 +7,7 @@ variable "cluster_cidr" {
 
 variable "cluster_api_vip" {}
 
-variable "cluster_ingress_vip" {}
+variable "cluster_additional_vips" {}
 
 variable "data_dir" {}
 
