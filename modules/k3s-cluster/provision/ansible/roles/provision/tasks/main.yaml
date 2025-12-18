@@ -23,7 +23,7 @@
 
 - name: Install python kubernetes client
   ansible.builtin.pip:
-    name: kubernetes
+    name: kubernetes==33.1.0
     state: present
 
 - name: Download Helm install script
