@@ -40,9 +40,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_calico_version"></a> [calico\_version](#input\_calico\_version) | n/a | `any` | n/a | yes |
+| <a name="input_cluster_additional_vips"></a> [cluster\_additional\_vips](#input\_cluster\_additional\_vips) | n/a | `any` | n/a | yes |
 | <a name="input_cluster_api_vip"></a> [cluster\_api\_vip](#input\_cluster\_api\_vip) | n/a | `any` | n/a | yes |
 | <a name="input_cluster_cidr"></a> [cluster\_cidr](#input\_cluster\_cidr) | n/a | `string` | `"192.168.0.0/16"` | no |
-| <a name="input_cluster_ingress_vip"></a> [cluster\_ingress\_vip](#input\_cluster\_ingress\_vip) | n/a | `any` | n/a | yes |
 | <a name="input_data_dir"></a> [data\_dir](#input\_data\_dir) | n/a | `any` | n/a | yes |
 | <a name="input_follower_names"></a> [follower\_names](#input\_follower\_names) | n/a | `any` | n/a | yes |
 | <a name="input_ips"></a> [ips](#input\_ips) | n/a | `any` | n/a | yes |

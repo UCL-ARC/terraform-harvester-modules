@@ -89,9 +89,9 @@ Example usage which would deploy a 3-node cluster:
 module "k3s_cluster" {
   source = "github.com/UCL-ARC/terraform-harvester-modules//modules/k3s-cluster"
 
-  cluster_name        = "my-cluster"
-  cluster_api_vip     = "10.0.0.5"
-  cluster_ingress_vip = "10.0.0.6"
+  cluster_name            = "my-cluster"
+  cluster_api_vip         = "10.0.0.5"
+  cluster_additional_vips = ["10.0.0.6"] # additional VIPs for services like ingress
   namespace           = "default"
   networks = {
     eth0 = {

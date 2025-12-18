@@ -20,10 +20,8 @@ resource "ansible_playbook" "k3s_leader" {
   ignore_playbook_failure = false
   replayable              = true
   extra_vars = merge(local.common_ansible_args, local.server_ansible_args, {
-    ansible_host        = local.leader_ip
-    cluster_api_vip     = var.cluster_api_vip
-    cluster_ingress_vip = var.cluster_ingress_vip
-    calico_version      = var.calico_version
+    ansible_host   = local.leader_ip
+    calico_version = var.calico_version
     k3s_install_args = join(" ", concat(local.k3s_common_install_args, [
       "--node-ip=${local.leader_ip}",
       "--tls-san=${var.cluster_api_vip}",

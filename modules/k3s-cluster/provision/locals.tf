@@ -36,17 +36,18 @@ locals {
     ansible_ssh_common_args = join(" ", [
       "-o StrictHostKeyChecking=accept-new",
       "-o ControlPath=~/%r@%h:%p",
+      "-o UserKnownHostsFile=/dev/null",
       var.ssh_common_args
     ])
-    ansible_user        = var.vm_username
-    cluster_api_vip     = var.cluster_api_vip
-    cluster_ingress_vip = var.cluster_ingress_vip
-    k3s_version         = var.k3s_version
-    kubeconfig_path     = local.kubeconfig_path
-    leader_ip           = local.leader_ip
-    node_token          = local.node_token
-    openiscsi_version   = var.openiscsi_version
-    private_registries  = yamlencode(var.private_registries)
+    ansible_user            = var.vm_username
+    cluster_api_vip         = var.cluster_api_vip
+    cluster_additional_vips = yamlencode(var.cluster_additional_vips)
+    k3s_version             = var.k3s_version
+    kubeconfig_path         = local.kubeconfig_path
+    leader_ip               = local.leader_ip
+    node_token              = local.node_token
+    openiscsi_version       = var.openiscsi_version
+    private_registries      = yamlencode(var.private_registries)
   }
 
   server_ansible_args = {
