@@ -38,8 +38,8 @@ module "install_k3s" {
   source     = "./provision"
 
   calico_version                 = var.calico_version
+  cluster_additional_vips        = var.cluster_additional_vips
   cluster_api_vip                = var.cluster_api_vip
-  cluster_ingress_vip            = var.cluster_ingress_vip
   data_dir                       = var.data_dir
   follower_names                 = local.follower_names
   ips                            = module.k3s_server_vm.*.ip

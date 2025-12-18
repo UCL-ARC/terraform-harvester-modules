@@ -34,10 +34,10 @@
 | <a name="input_appstream_repo_url"></a> [appstream\_repo\_url](#input\_appstream\_repo\_url) | URL to use to obtain AppStream repository for yum/dnf | `string` | `""` | no |
 | <a name="input_baseos_repo_url"></a> [baseos\_repo\_url](#input\_baseos\_repo\_url) | URL to use to obtain BaseOS repository for yum/dnf | `string` | `""` | no |
 | <a name="input_calico_version"></a> [calico\_version](#input\_calico\_version) | Version of Calico to install. See: https://github.com/projectcalico/calico/releases | `string` | `"v3.28.1"` | no |
+| <a name="input_cluster_additional_vips"></a> [cluster\_additional\_vips](#input\_cluster\_additional\_vips) | List of MetalLB Virtual IP addresses to assign for additional services like the Ingress controller | `list(string)` | `[]` | no |
 | <a name="input_cluster_api_vip"></a> [cluster\_api\_vip](#input\_cluster\_api\_vip) | MetalLB Virtual IP address to assign for the API server | `string` | n/a | yes |
-| <a name="input_cluster_ingress_vip"></a> [cluster\_ingress\_vip](#input\_cluster\_ingress\_vip) | MetalLB Virtual IP address to assign for the Ingress controller | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster used to uniqify the vm names | `string` | n/a | yes |
-| <a name="input_control_nodes"></a> [control\_nodes](#input\_control\_nodes) | Number of control plane nodes to deploy | `number` | n/a | yes |
+| <a name="input_control_nodes"></a> [control\_nodes](#input\_control\_nodes) | Number of control plane nodes to deploy | `number` | `3` | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `4` | no |
 | <a name="input_data_dir"></a> [data\_dir](#input\_data\_dir) | n/a | `string` | `"/var/lib/rancher/k3s"` | no |
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |

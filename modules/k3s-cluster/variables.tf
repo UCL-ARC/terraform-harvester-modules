@@ -30,6 +30,7 @@ variable "calico_version" {
 
 variable "control_nodes" {
   type        = number
+  default     = 3
   description = "Number of control plane nodes to deploy"
 }
 
@@ -43,9 +44,10 @@ variable "cluster_api_vip" {
   description = "MetalLB Virtual IP address to assign for the API server"
 }
 
-variable "cluster_ingress_vip" {
-  type        = string
-  description = "MetalLB Virtual IP address to assign for the Ingress controller"
+variable "cluster_additional_vips" {
+  type        = list(string)
+  description = "List of MetalLB Virtual IP addresses to assign for additional services like the Ingress controller"
+  default     = []
 }
 
 variable "cpu" {
