@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
-| <a name="requirement_harvester"></a> [harvester](#requirement\_harvester) | 1.6.0 |
+| <a name="requirement_harvester"></a> [harvester](#requirement\_harvester) | >= 0.6.4 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.6.1 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.4 |
 
@@ -22,9 +22,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [harvester_cloudinit_secret.user_data_secret](https://registry.terraform.io/providers/harvester/harvester/1.6.0/docs/resources/cloudinit_secret) | resource |
-| [harvester_virtualmachine.vm](https://registry.terraform.io/providers/harvester/harvester/1.6.0/docs/resources/virtualmachine) | resource |
-| [harvester_image.vm_image](https://registry.terraform.io/providers/harvester/harvester/1.6.0/docs/data-sources/image) | data source |
+| [harvester_cloudinit_secret.user_data_secret](https://registry.terraform.io/providers/harvester/harvester/latest/docs/resources/cloudinit_secret) | resource |
+| [harvester_virtualmachine.vm](https://registry.terraform.io/providers/harvester/harvester/latest/docs/resources/virtualmachine) | resource |
+| [harvester_image.vm_image](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/image) | data source |
 
 ## Inputs
 
