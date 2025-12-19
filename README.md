@@ -6,8 +6,10 @@ clusters on Harvester.
 ## virtual-machine module
 
 The `virtual-machine` module allows you to create and manage virtual machines on
-Harvester. To deploy a basic VM with a single boot disk and an IP provided by
-DHCP:
+Harvester. The minimum supported version of the [Harvester Terraform
+Provider](https://registry.terraform.io/providers/harvester/harvester/latest/docs)
+is `0.6.6` and the minimum Harvester version supported is `1.3.0`. To deploy a
+basic VM with a single boot disk and an IP provided by DHCP:
 
 ```hcl
 module "vm" {
