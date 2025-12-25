@@ -62,10 +62,11 @@ module "k3s_server_vm" {
       })
     })
     p2p = templatefile("${path.module}/templates/user-data/p2p.yaml.tftpl", {
-      cluster_vip         = var.cluster_vip
-      control_nodes_count = var.control_nodes - 1
-      p2p_network_id      = local.p2p_network_id
-      p2p_network_token   = local.p2p_network_token
+      cluster_vip             = var.cluster_vip
+      control_nodes_count     = var.control_nodes - 1
+      kubevip_manage_services = var.kubevip_manage_services
+      p2p_network_id          = local.p2p_network_id
+      p2p_network_token       = local.p2p_network_token
     })
     k3s = templatefile("${path.module}/templates/user-data/k3s-args.yaml.tftpl", {
       k3s_args             = var.k3s_args
