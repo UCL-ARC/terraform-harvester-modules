@@ -94,8 +94,4 @@ module "k3s_server_vm" {
   vm_image_namespace = var.iso_disk_image_namespace
   vm_tags            = var.vm_tags
   vm_username        = var.vm_username
-
-  providers = {
-    harvester = harvester
-  }
 }
