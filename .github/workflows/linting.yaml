@@ -39,11 +39,23 @@ jobs:
           python-version: 3.14
 
       - name: Install prek
-        shell: bash
         run: uv pip install prek
+
+      - name: Install ansible
+        run: uv pip install ansible
+
+      - name: Install k3s-cluster ansible requirements
+        run:
+          uv run ansible-galaxy install -r
+          ./modules/k3s-cluster/provision/ansible/requirements.yaml --force
+
+      - name: Install vault-k8s-config ansible requirements
+        run:
+          uv run ansible-galaxy install -r
+          ./modules/vault-k8s-config/requirements.yaml --force
+
       - name: Set up terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
 
       - name: Run prek
-        shell: bash
         run: uv run prek run --all-files --color always --verbose
