@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/UCL-MIRSG/.github
-    rev: v0.225.0
+    rev: v0.227.0
     hooks:
       - id: mirsg-hooks
   - repo: https://github.com/Yelp/detect-secrets
@@ -12,7 +12,7 @@ repos:
           - --baseline
           - .secrets.baseline
   - repo: https://github.com/terraform-docs/terraform-docs
-    rev: v0.20.0
+    rev: v0.21.0
     hooks:
       - id: terraform-docs-go
         args:
