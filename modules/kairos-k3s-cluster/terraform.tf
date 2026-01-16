@@ -7,6 +7,11 @@ terraform {
       version = "1.3.0"
     }
 
+    harvester = {
+      source  = "harvester/harvester"
+      version = ">= 0.6.6"
+    }
+
     random = {
       source  = "hashicorp/random"
       version = "3.7.2"
