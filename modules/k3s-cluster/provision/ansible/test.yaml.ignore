@@ -1,0 +1,11 @@
+---
+- name: Modify kubeconfig file
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Replace IP in kubeconfig
+      ansible.builtin.lineinfile:
+        path: "{{ kubeconfig_path }}"
+        regexp: "server:"
+        line: "    server: https://{{ leader_ip }}:6443"
+        state: present
