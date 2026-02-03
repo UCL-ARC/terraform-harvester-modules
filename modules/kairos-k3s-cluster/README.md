@@ -5,14 +5,14 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.3.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | 3.7.2 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.8.1 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
 
 ## Modules
 
@@ -24,11 +24,11 @@
 
 | Name | Type |
 |------|------|
-| [random_string.crypto_key](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
-| [random_string.dht_key](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
-| [random_string.mdns](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
-| [random_string.rendezvous](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
-| [random_string.room](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/string) | resource |
+| [random_string.crypto_key](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
+| [random_string.dht_key](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
+| [random_string.mdns](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
+| [random_string.rendezvous](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
+| [random_string.room](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
 
 ## Inputs
 
