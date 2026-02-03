@@ -5,14 +5,14 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.3.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | 2.6.1 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | 2.6.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.3.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | 2.6.1 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.6.2 |
 
 ## Modules
 
@@ -23,9 +23,9 @@ No modules.
 | Name | Type |
 |------|------|
 | [ansible_playbook.kubeconfig](https://registry.terraform.io/providers/ansible/ansible/1.3.0/docs/resources/playbook) | resource |
-| [local_file.ssh_signed_public_key](https://registry.terraform.io/providers/hashicorp/local/2.6.1/docs/resources/file) | resource |
-| [local_sensitive_file.ssh_private_key](https://registry.terraform.io/providers/hashicorp/local/2.6.1/docs/resources/sensitive_file) | resource |
-| [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/2.6.1/docs/data-sources/file) | data source |
+| [local_file.ssh_signed_public_key](https://registry.terraform.io/providers/hashicorp/local/2.6.2/docs/resources/file) | resource |
+| [local_sensitive_file.ssh_private_key](https://registry.terraform.io/providers/hashicorp/local/2.6.2/docs/resources/sensitive_file) | resource |
+| [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/2.6.2/docs/data-sources/file) | data source |
 
 ## Inputs
 
