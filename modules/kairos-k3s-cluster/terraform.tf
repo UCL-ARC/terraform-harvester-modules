@@ -4,7 +4,7 @@ terraform {
   required_providers {
     ansible = {
       source  = "ansible/ansible"
-      version = "1.3.0"
+      version = "1.4.0"
     }
 
     random = {
