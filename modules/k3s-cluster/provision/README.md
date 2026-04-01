@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
-| <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.3.0 |
+| <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.4.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.7.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.4 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.8.1 |
@@ -13,7 +13,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.3.0 |
+| <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.4.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.7.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
@@ -26,9 +26,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ansible_playbook.k3s_follower](https://registry.terraform.io/providers/ansible/ansible/1.3.0/docs/resources/playbook) | resource |
-| [ansible_playbook.k3s_leader](https://registry.terraform.io/providers/ansible/ansible/1.3.0/docs/resources/playbook) | resource |
-| [ansible_playbook.k3s_worker](https://registry.terraform.io/providers/ansible/ansible/1.3.0/docs/resources/playbook) | resource |
+| [ansible_playbook.k3s_follower](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
+| [ansible_playbook.k3s_leader](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
+| [ansible_playbook.k3s_worker](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
 | [local_sensitive_file.ssh_key](https://registry.terraform.io/providers/hashicorp/local/2.7.0/docs/resources/sensitive_file) | resource |
 | [null_resource.galaxy](https://registry.terraform.io/providers/hashicorp/null/3.2.4/docs/resources/resource) | resource |
 | [random_string.token_id](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
