@@ -41,7 +41,7 @@ variable "cluster_name" {
 
 variable "cluster_namespace" {
   type        = string
-  description = "Name of the namespace into which the VMs with be delployed. It must exist"
+  description = "Name of the namespace into which the VMs with be deployed. It must exist"
 }
 
 variable "cluster_vip" {

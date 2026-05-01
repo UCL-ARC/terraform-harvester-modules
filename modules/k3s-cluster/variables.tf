@@ -101,7 +101,7 @@ variable "networks" {
 
 variable "namespace" {
   type        = string
-  description = "Name of the namespace into which the VMs with be delployed. It must exist"
+  description = "Name of the namespace into which the VMs with be deployed. It must exist"
 }
 
 variable "metallb_version" {

@@ -42,7 +42,7 @@ No modules.
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"16Gi"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the vm | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the namespace into which the VMs with be delployed. It must exist | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the namespace into which the VMs with be deployed. It must exist | `string` | n/a | yes |
 | <a name="input_network_data"></a> [network\_data](#input\_network\_data) | Data for cloud-init to use | `string` | `""` | no |
 | <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for | <pre>list(object({<br/>    cidr    = optional(string, "")<br/>    dns     = optional(string, "")<br/>    gateway = optional(string, "")<br/>    iface   = string<br/>    ip      = optional(string, "")<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_run_strategy"></a> [run\_strategy](#input\_run\_strategy) | n/a | `string` | `"RerunOnFailure"` | no |
