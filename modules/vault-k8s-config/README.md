@@ -13,7 +13,7 @@
 | ---- | ------- |
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.4.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.8.0 |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
 
 ## Modules
 
