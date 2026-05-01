@@ -2,7 +2,7 @@
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_harvester"></a> [harvester](#requirement\_harvester) | >= 0.6.6 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.8.1 |
@@ -11,26 +11,26 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.2.1 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_install_k3s"></a> [install\_k3s](#module\_install\_k3s) | ./provision | n/a |
 | <a name="module_k3s_server_vm"></a> [k3s\_server\_vm](#module\_k3s\_server\_vm) | ../virtual-machine | n/a |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/4.2.1/docs/resources/private_key) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    boot_order = number<br/>    bus        = string<br/>    name       = string<br/>    mount      = string<br/>    size       = string<br/>    type       = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_appstream_repo_url"></a> [appstream\_repo\_url](#input\_appstream\_repo\_url) | URL to use to obtain AppStream repository for yum/dnf | `string` | `""` | no |
 | <a name="input_baseos_repo_url"></a> [baseos\_repo\_url](#input\_baseos\_repo\_url) | URL to use to obtain BaseOS repository for yum/dnf | `string` | `""` | no |
@@ -65,7 +65,7 @@
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_ips"></a> [ips](#output\_ips) | n/a |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | n/a |
 | <a name="output_leader_ip"></a> [leader\_ip](#output\_leader\_ip) | n/a |

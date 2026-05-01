@@ -2,7 +2,7 @@
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_harvester"></a> [harvester](#requirement\_harvester) | >= 0.6.6 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.8.0 |
@@ -11,7 +11,7 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_harvester"></a> [harvester](#provider\_harvester) | 1.8.0 |
 
 ## Modules
@@ -21,7 +21,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [harvester_cloudinit_secret.user_data_secret](https://registry.terraform.io/providers/harvester/harvester/latest/docs/resources/cloudinit_secret) | resource |
 | [harvester_virtualmachine.vm](https://registry.terraform.io/providers/harvester/harvester/latest/docs/resources/virtualmachine) | resource |
 | [harvester_image.vm_image](https://registry.terraform.io/providers/harvester/harvester/latest/docs/data-sources/image) | data source |
@@ -29,7 +29,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    auto_delete = optional(bool, true)<br/>    boot_order  = number<br/>    bus         = string<br/>    hot_plug    = optional(bool, false)<br/>    name        = string<br/>    mount       = optional(string, "")<br/>    size        = string<br/>    type        = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cloudinit_type"></a> [cloudinit\_type](#input\_cloudinit\_type) | n/a | `string` | `"noCloud"` | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `2` | no |
@@ -58,6 +58,6 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_ip"></a> [ip](#output\_ip) | n/a |
 <!-- END_TF_DOCS -->
