@@ -2,7 +2,7 @@
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.4.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.8.1 |
@@ -11,19 +11,19 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.8.1 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_k3s_server_vm"></a> [k3s\_server\_vm](#module\_k3s\_server\_vm) | ../virtual-machine | n/a |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [random_string.crypto_key](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
 | [random_string.dht_key](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
 | [random_string.mdns](https://registry.terraform.io/providers/hashicorp/random/3.8.1/docs/resources/string) | resource |
@@ -33,7 +33,7 @@
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_bundles"></a> [additional\_bundles](#input\_additional\_bundles) | List of additional kairos community bundles to install in the cluster | <pre>list(object({<br/>    target = string<br/>    values = optional(map(any))<br/>  }))</pre> | `[]` | no |
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    boot_order = number<br/>    bus        = string<br/>    name       = string<br/>    mount      = string<br/>    size       = string<br/>    type       = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_additional_manifests"></a> [additional\_manifests](#input\_additional\_manifests) | Additional manifests for k3s to deploy on startup, written to /var/lib/rancher/k3s/server/manifests/{name}.yaml | <pre>list(object({<br/>    content = string<br/>    name    = string<br/>  }))</pre> | `[]` | no |
@@ -73,7 +73,7 @@
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_ips"></a> [ips](#output\_ips) | n/a |
 | <a name="output_leader_ip"></a> [leader\_ip](#output\_leader\_ip) | n/a |
 <!-- END_TF_DOCS -->

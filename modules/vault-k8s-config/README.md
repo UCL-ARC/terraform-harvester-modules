@@ -2,7 +2,7 @@
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.4.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.8.0 |
@@ -10,7 +10,7 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.4.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.8.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
@@ -22,7 +22,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ansible_playbook.vault_sa](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
 | [local_file.ssh_signed_public_key](https://registry.terraform.io/providers/hashicorp/local/2.8.0/docs/resources/file) | resource |
 | [local_sensitive_file.ssh_private_key](https://registry.terraform.io/providers/hashicorp/local/2.8.0/docs/resources/sensitive_file) | resource |
@@ -31,7 +31,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cluster_leader_ip"></a> [cluster\_leader\_ip](#input\_cluster\_leader\_ip) | IP address of the k3s cluster leader | `string` | n/a | yes |
 | <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | Cluster VIP for the k3s cluster | `string` | n/a | yes |
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | Common SSH arguments for Ansible | `string` | `""` | no |

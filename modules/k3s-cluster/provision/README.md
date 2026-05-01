@@ -2,7 +2,7 @@
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.4.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.8.0 |
@@ -12,7 +12,7 @@
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.4.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.8.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
@@ -25,7 +25,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ansible_playbook.k3s_follower](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
 | [ansible_playbook.k3s_leader](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
 | [ansible_playbook.k3s_worker](https://registry.terraform.io/providers/ansible/ansible/1.4.0/docs/resources/playbook) | resource |
@@ -38,7 +38,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_calico_version"></a> [calico\_version](#input\_calico\_version) | n/a | `any` | n/a | yes |
 | <a name="input_cluster_additional_vips"></a> [cluster\_additional\_vips](#input\_cluster\_additional\_vips) | n/a | `any` | n/a | yes |
 | <a name="input_cluster_api_vip"></a> [cluster\_api\_vip](#input\_cluster\_api\_vip) | n/a | `any` | n/a | yes |
@@ -62,6 +62,6 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | n/a |
 <!-- END_TF_DOCS -->
