@@ -12,7 +12,7 @@
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_harvester"></a> [harvester](#provider\_harvester) | 1.8.0 |
+| <a name="provider_harvester"></a> [harvester](#provider\_harvester) | >= 0.6.6 |
 
 ## Modules
 
