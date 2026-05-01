@@ -5,14 +5,14 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_harvester"></a> [harvester](#requirement\_harvester) | >= 0.6.6 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | 2.7.0 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | 2.8.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_harvester"></a> [harvester](#provider\_harvester) | 1.7.1 |
+| <a name="provider_harvester"></a> [harvester](#provider\_harvester) | 1.8.0 |
 
 ## Modules
 
