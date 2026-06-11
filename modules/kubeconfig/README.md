@@ -12,7 +12,7 @@
 | Name | Version |
 | ---- | ------- |
 | <a name="provider_ansible"></a> [ansible](#provider\_ansible) | 1.4.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | 2.8.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.9.0 |
 
 ## Modules
 
