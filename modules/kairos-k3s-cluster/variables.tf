@@ -115,6 +115,12 @@ variable "kairos_operator_version" {
   default     = "v0.0.3"
 }
 
+variable "kubevip_manage_services" {
+  type        = bool
+  description = "Use kubevip to manage Loadbalancer IP address assignment"
+  default     = false
+}
+
 variable "memory" {
   type    = string
   default = "32Gi"
