@@ -9,7 +9,7 @@ locals {
 
   bundles = concat(var.additional_bundles, [
     {
-      target = "quay.io/kairos/community-bundles:kairos-operator_latest"
+      target = "ghcr.io/ucl-arc-environments/kairos-operator-bundle:0.0.1"
     },
     {
       target = "quay.io/kairos/community-bundles:system-upgrade-controller_latest"
