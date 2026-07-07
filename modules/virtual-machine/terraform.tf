@@ -4,7 +4,7 @@ terraform {
   required_providers {
     harvester = {
       source  = "harvester/harvester"
-      version = ">= 0.6.6"
+      version = ">= 1.6.0"
     }
 
     local = {
