@@ -27,34 +27,25 @@ variable "cpu" {
   default = 2
 }
 
-variable "disk_auto_delete" {
-  type    = bool
-  default = true
-}
+variable "disks" {
+  type = list(object({
+    auto_delete     = optional(bool, true)
+    boot_order      = number
+    bus             = string
+    hot_plug        = optional(bool, false)
+    image           = optional(string, "")
+    image_namespace = optional(string, "")
+    name            = string
+    mount           = optional(string, "")
+    size            = string
+    type            = string
+  }))
+  default = []
 
-variable "disk_boot_order" {
-  type    = number
-  default = 1
-}
-
-variable "disk_bus" {
-  type    = string
-  default = "virtio"
-}
-
-variable "disk_name" {
-  type    = string
-  default = "rootdisk"
-}
-
-variable "disk_size" {
-  type    = string
-  default = "30Gi"
-}
-
-variable "disk_type" {
-  type    = string
-  default = "disk"
+  validation {
+    condition     = length(var.disks) > 0 && length([for k, v in var.disks : v if try(var.disks[k].image, "") != ""]) == 1
+    error_message = "At least one disk must be specified and exactly one disk must have an image specified"
+  }
 }
 
 variable "efi_boot" {

@@ -33,12 +33,7 @@ No modules.
 | <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    auto_delete = optional(bool, true)<br/>    boot_order  = number<br/>    bus         = string<br/>    hot_plug    = optional(bool, false)<br/>    name        = string<br/>    mount       = optional(string, "")<br/>    size        = string<br/>    type        = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cloudinit_type"></a> [cloudinit\_type](#input\_cloudinit\_type) | n/a | `string` | `"noCloud"` | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `2` | no |
-| <a name="input_disk_auto_delete"></a> [disk\_auto\_delete](#input\_disk\_auto\_delete) | n/a | `bool` | `true` | no |
-| <a name="input_disk_boot_order"></a> [disk\_boot\_order](#input\_disk\_boot\_order) | n/a | `number` | `1` | no |
-| <a name="input_disk_bus"></a> [disk\_bus](#input\_disk\_bus) | n/a | `string` | `"virtio"` | no |
-| <a name="input_disk_name"></a> [disk\_name](#input\_disk\_name) | n/a | `string` | `"rootdisk"` | no |
-| <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | n/a | `string` | `"30Gi"` | no |
-| <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | n/a | `string` | `"disk"` | no |
+| <a name="input_disks"></a> [disks](#input\_disks) | n/a | <pre>list(object({<br/>    auto_delete     = optional(bool, true)<br/>    boot_order      = number<br/>    bus             = string<br/>    hot_plug        = optional(bool, false)<br/>    image           = optional(string, "")<br/>    image_namespace = optional(string, "")<br/>    name            = string<br/>    mount           = optional(string, "")<br/>    size            = string<br/>    type            = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"16Gi"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the vm | `string` | n/a | yes |

@@ -1,6 +1,14 @@
 data "harvester_image" "vm_image" {
-  display_name = var.vm_image
-  namespace    = var.vm_image_namespace
+  for_each = {
+    for disk in var.disks :
+    disk.image => {
+      image           = disk.image
+      image_namespace = disk.image_namespace
+    } if disk.image != ""
+  }
+
+  display_name = each.value.image
+  namespace    = each.value.image_namespace
 }
 
 resource "harvester_cloudinit_secret" "user_data_secret" {
@@ -17,7 +25,7 @@ resource "harvester_virtualmachine" "vm" {
   namespace            = var.namespace
   restart_after_update = true
   run_strategy         = var.run_strategy
-  description          = var.vm_description != "" ? var.vm_description : "${data.harvester_image.vm_image.display_name}"
+  description          = var.vm_description != "" ? var.vm_description : "${var.name} created by Terraform"
   tags                 = var.vm_tags
 
   cpu    = var.cpu
@@ -41,15 +49,19 @@ resource "harvester_virtualmachine" "vm" {
     }
   }
 
-  disk {
-    name       = var.disk_name
-    type       = var.disk_type
-    size       = var.disk_size
-    bus        = var.disk_bus
-    boot_order = var.disk_boot_order
+  dynamic "disk" {
+    for_each = var.disks
 
-    image       = data.harvester_image.vm_image.id
-    auto_delete = var.disk_auto_delete
+    content {
+      auto_delete = disk.value.auto_delete
+      boot_order  = disk.value.boot_order
+      bus         = disk.value.bus
+      hot_plug    = disk.value.hot_plug
+      image       = disk.value.image != "" ? data.harvester_image.vm_image[disk.value.image].id : null
+      name        = disk.value.name
+      size        = disk.value.size
+      type        = disk.value.type
+    }
   }
 
   dynamic "disk" {
