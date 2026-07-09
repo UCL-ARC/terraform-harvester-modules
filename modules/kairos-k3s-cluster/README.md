@@ -34,14 +34,12 @@
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_bundles"></a> [additional\_bundles](#input\_additional\_bundles) | List of additional kairos community bundles to install in the cluster | <pre>list(object({<br/>    target = string<br/>    values = optional(map(any))<br/>  }))</pre> | `[]` | no |
-| <a name="input_additional_disks"></a> [additional\_disks](#input\_additional\_disks) | n/a | <pre>list(object({<br/>    boot_order = number<br/>    bus        = string<br/>    name       = string<br/>    mount      = string<br/>    size       = string<br/>    type       = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_additional_manifests"></a> [additional\_manifests](#input\_additional\_manifests) | Additional manifests for k3s to deploy on startup, written to /var/lib/rancher/k3s/server/manifests/{name}.yaml | <pre>list(object({<br/>    content = string<br/>    name    = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the cluster used to uniqify the vm names | `string` | n/a | yes |
 | <a name="input_cluster_namespace"></a> [cluster\_namespace](#input\_cluster\_namespace) | Name of the namespace into which the VMs with be deployed. It must exist | `string` | n/a | yes |
 | <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | KubeVip virtual IP address | `string` | n/a | yes |
 | <a name="input_control_nodes"></a> [control\_nodes](#input\_control\_nodes) | Number of control plane nodes to deploy | `number` | `3` | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `4` | no |
-| <a name="input_disks"></a> [disks](#input\_disks) | List of disks to attach to the VMs | <pre>map(object({<br/>    boot_order      = number<br/>    bus             = string<br/>    image           = optional(string, "")<br/>    image_namespace = optional(string, "")<br/>    name            = string<br/>    mount           = string<br/>    size            = string<br/>    type            = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |
 | <a name="input_iso_disk_image"></a> [iso\_disk\_image](#input\_iso\_disk\_image) | OS image to use | `string` | `""` | no |
 | <a name="input_iso_disk_image_namespace"></a> [iso\_disk\_image\_namespace](#input\_iso\_disk\_image\_namespace) | OS image  namespace to use | `string` | `""` | no |

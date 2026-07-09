@@ -7,18 +7,6 @@ variable "additional_bundles" {
   description = "List of additional kairos community bundles to install in the cluster"
 }
 
-variable "additional_disks" {
-  type = list(object({
-    boot_order = number
-    bus        = string
-    name       = string
-    mount      = string
-    size       = string
-    type       = string
-  }))
-  default = []
-}
-
 variable "additional_manifests" {
   type = list(object({
     content = string
@@ -52,20 +40,6 @@ variable "cluster_vip" {
 variable "cpu" {
   type    = number
   default = 4
-}
-
-variable "disks" {
-  type = map(object({
-    boot_order      = number
-    bus             = string
-    image           = optional(string, "")
-    image_namespace = optional(string, "")
-    name            = string
-    mount           = string
-    size            = string
-    type            = string
-  }))
-  description = "List of disks to attach to the VMs"
 }
 
 variable "efi_boot" {
