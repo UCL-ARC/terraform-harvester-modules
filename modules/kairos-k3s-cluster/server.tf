@@ -2,17 +2,12 @@ module "k3s_server_vm" {
   count  = local.vm_count
   source = "../virtual-machine"
 
-  additional_disks = local.additional_disks
-  cpu              = var.cpu
-  disk_boot_order  = 2
-  disk_bus         = "scsi"
-  disk_name        = var.iso_disk_name
-  disk_size        = var.iso_disk_size
-  disk_type        = "cd-rom"
-  efi_boot         = var.efi_boot
-  memory           = var.memory
-  name             = "${var.cluster_name}-vm-${count.index}"
-  namespace        = var.cluster_namespace
+  cpu       = var.cpu
+  disks     = local.disks
+  efi_boot  = var.efi_boot
+  memory    = var.memory
+  name      = "${var.cluster_name}-vm-${count.index}"
+  namespace = var.cluster_namespace
   networks = [
     for key, value in var.networks :
     {
@@ -24,7 +19,7 @@ module "k3s_server_vm" {
   user_data = templatefile("${path.module}/templates/user-data/user-data.yaml.tftpl", {
     install = templatefile("${path.module}/templates/user-data/install.yaml.tftpl", {
       bind_mounts     = var.kairos_bind_mounts
-      kairos_os_image = var.root_disk_container_image
+      kairos_os_image = var.iso_disk_image != "" ? var.root_disk_image : ""
     })
     users = templatefile("${path.module}/templates/user-data/users.yaml.tftpl", {
       ssh_public_key = var.ssh_public_key

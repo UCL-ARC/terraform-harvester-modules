@@ -54,6 +54,20 @@ variable "cpu" {
   default = 4
 }
 
+variable "disks" {
+  type = map(object({
+    boot_order      = number
+    bus             = string
+    image           = optional(string, "")
+    image_namespace = optional(string, "")
+    name            = string
+    mount           = string
+    size            = string
+    type            = string
+  }))
+  description = "List of disks to attach to the VMs"
+}
+
 variable "efi_boot" {
   type    = bool
   default = false
@@ -62,11 +76,13 @@ variable "efi_boot" {
 variable "iso_disk_image" {
   type        = string
   description = "OS image to use"
+  default     = ""
 }
 
 variable "iso_disk_image_namespace" {
   type        = string
   description = "OS image  namespace to use"
+  default     = ""
 }
 
 variable "iso_disk_name" {
@@ -132,21 +148,14 @@ variable "networks" {
   description = "Map of harvester VM networks to add NICs for. Key should be interface name."
 }
 
-variable "primary_interface" {
-  type        = string
-  description = "Name of the primary network interface"
-  default     = "eth0"
-}
-
-variable "private_registries" {
-  type        = list(map(string))
-  description = "List of private container image registries to use in the cluster"
-  default     = []
-}
-
-variable "root_disk_container_image" {
+variable "root_disk_image" {
   type    = string
   default = ""
+}
+
+variable "root_disk_image_namespace" {
+  type    = string
+  default = "harvester-public"
 }
 
 variable "root_disk_size" {
