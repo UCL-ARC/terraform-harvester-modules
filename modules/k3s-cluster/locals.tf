@@ -1,4 +1,13 @@
 locals {
+  disks = [
+    {
+      boot_order      = 1
+      image           = var.vm_image
+      image_namespace = var.vm_image_namespace
+      name            = "rootdisk"
+      size            = var.root_disk_size
+    }
+  ]
   ips = var.networks[var.primary_interface].ips
 
   leader_name = "${var.cluster_name}-control-0"
