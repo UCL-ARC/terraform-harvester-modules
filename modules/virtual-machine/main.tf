@@ -1,14 +1,6 @@
-data "harvester_image" "vm_image" {
-  for_each = {
-    for disk in var.disks :
-    disk.image => {
-      image           = disk.image
-      image_namespace = disk.image_namespace
-    } if disk.image != ""
-  }
-
-  display_name = each.value.image
-  namespace    = each.value.image_namespace
+data "harvester_image" "primary_disk" {
+  display_name = var.primary_disk.image
+  namespace    = var.primary_disk.image_namespace
 }
 
 resource "harvester_cloudinit_secret" "user_data_secret" {
@@ -49,19 +41,15 @@ resource "harvester_virtualmachine" "vm" {
     }
   }
 
-  dynamic "disk" {
-    for_each = var.disks
+  disk {
+    name       = var.primary_disk.name
+    type       = var.primary_disk.type
+    size       = var.primary_disk.size
+    bus        = var.primary_disk.bus
+    boot_order = var.primary_disk.boot_order
 
-    content {
-      auto_delete = disk.value.auto_delete
-      boot_order  = disk.value.boot_order
-      bus         = disk.value.bus
-      hot_plug    = disk.value.hot_plug
-      image       = disk.value.image != "" ? data.harvester_image.vm_image[disk.value.image].id : null
-      name        = disk.value.name
-      size        = disk.value.size
-      type        = disk.value.type
-    }
+    image       = data.harvester_image.primary_disk.id
+    auto_delete = var.primary_disk.auto_delete
   }
 
   dynamic "disk" {

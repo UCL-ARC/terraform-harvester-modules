@@ -27,27 +27,6 @@ variable "cpu" {
   default = 2
 }
 
-variable "disks" {
-  type = list(object({
-    auto_delete     = optional(bool, true)
-    boot_order      = number
-    bus             = optional(string, "virtio")
-    hot_plug        = optional(bool, false)
-    image           = optional(string, "")
-    image_namespace = optional(string, "")
-    name            = string
-    mount           = optional(string, "")
-    size            = string
-    type            = optional(string, "disk")
-  }))
-  default = []
-
-  validation {
-    condition     = length(var.disks) > 0 && length([for k, v in var.disks : v if try(var.disks[k].image, "") != ""]) == 1
-    error_message = "At least one disk must be specified and exactly one disk must have an image specified"
-  }
-}
-
 variable "efi_boot" {
   type    = bool
   default = false
@@ -82,6 +61,19 @@ variable "memory" {
   default = "16Gi"
 }
 
+variable "primary_disk" {
+  type = object({
+    auto_delete     = optional(bool, true)
+    boot_order      = optional(number, 1)
+    bus             = optional(string, "virtio")
+    image           = optional(string, "")
+    image_namespace = optional(string, "")
+    name            = optional(string, "rootdisk")
+    size            = optional(string, "30Gi")
+    type            = optional(string, "disk")
+  })
+}
+
 variable "run_strategy" {
   type    = string
   default = "RerunOnFailure"
@@ -107,16 +99,6 @@ variable "vm_description" {
   type        = string
   description = "Description of the VM"
   default     = ""
-}
-
-variable "vm_image" {
-  type        = string
-  description = "OS image to use"
-}
-
-variable "vm_image_namespace" {
-  type        = string
-  description = "OS image namespace to use"
 }
 
 variable "vm_tags" {
