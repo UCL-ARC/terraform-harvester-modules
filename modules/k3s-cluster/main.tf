@@ -3,7 +3,6 @@ module "k3s_server_vm" {
   source = "../virtual-machine"
 
   cpu       = var.cpu
-  disks     = local.disks
   efi_boot  = var.efi_boot
   memory    = var.memory
   name      = local.vm_names[count.index]
@@ -19,16 +18,21 @@ module "k3s_server_vm" {
       network = value.network
     }
   ]
+  primary_disk = {
+    boot_order      = 1
+    image           = var.vm_image
+    image_namespace = var.vm_image_namespace
+    name            = "rootdisk"
+    size            = var.root_disk_size
+  }
   run_strategy = var.run_strategy
   user_data = templatefile("${path.module}/templates/user_data.yaml.tftpl", {
     appstream_repo_url = var.appstream_repo_url
     baseos_repo_url    = var.baseos_repo_url
     ssh_public_key     = tls_private_key.ssh.public_key_openssh
   })
-  vm_image           = var.vm_image
-  vm_image_namespace = var.vm_image_namespace
-  vm_tags            = var.vm_tags
-  vm_username        = var.vm_username
+  vm_tags     = var.vm_tags
+  vm_username = var.vm_username
 }
 
 module "install_k3s" {
