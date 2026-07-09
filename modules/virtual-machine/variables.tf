@@ -31,14 +31,14 @@ variable "disks" {
   type = list(object({
     auto_delete     = optional(bool, true)
     boot_order      = number
-    bus             = string
+    bus             = optional(string, "virtio")
     hot_plug        = optional(bool, false)
     image           = optional(string, "")
     image_namespace = optional(string, "")
     name            = string
     mount           = optional(string, "")
     size            = string
-    type            = string
+    type            = optional(string, "disk")
   }))
   default = []
 
