@@ -7,18 +7,6 @@ variable "additional_bundles" {
   description = "List of additional kairos community bundles to install in the cluster"
 }
 
-variable "additional_disks" {
-  type = list(object({
-    boot_order = number
-    bus        = string
-    name       = string
-    mount      = string
-    size       = string
-    type       = string
-  }))
-  default = []
-}
-
 variable "additional_manifests" {
   type = list(object({
     content = string
@@ -62,11 +50,13 @@ variable "efi_boot" {
 variable "iso_disk_image" {
   type        = string
   description = "OS image to use"
+  default     = ""
 }
 
 variable "iso_disk_image_namespace" {
   type        = string
   description = "OS image  namespace to use"
+  default     = ""
 }
 
 variable "iso_disk_name" {
@@ -132,21 +122,14 @@ variable "networks" {
   description = "Map of harvester VM networks to add NICs for. Key should be interface name."
 }
 
-variable "primary_interface" {
-  type        = string
-  description = "Name of the primary network interface"
-  default     = "eth0"
-}
-
-variable "private_registries" {
-  type        = list(map(string))
-  description = "List of private container image registries to use in the cluster"
-  default     = []
-}
-
-variable "root_disk_container_image" {
+variable "root_disk_image" {
   type    = string
   default = ""
+}
+
+variable "root_disk_image_namespace" {
+  type    = string
+  default = "harvester-public"
 }
 
 variable "root_disk_size" {

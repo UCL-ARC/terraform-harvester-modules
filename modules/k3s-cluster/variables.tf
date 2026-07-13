@@ -4,18 +4,6 @@ variable "appstream_repo_url" {
   description = "URL to use to obtain AppStream repository for yum/dnf"
 }
 
-variable "additional_disks" {
-  type = list(object({
-    boot_order = number
-    bus        = string
-    name       = string
-    mount      = string
-    size       = string
-    type       = string
-  }))
-  default = []
-}
-
 variable "baseos_repo_url" {
   type        = string
   default     = ""

@@ -27,36 +27,6 @@ variable "cpu" {
   default = 2
 }
 
-variable "disk_auto_delete" {
-  type    = bool
-  default = true
-}
-
-variable "disk_boot_order" {
-  type    = number
-  default = 1
-}
-
-variable "disk_bus" {
-  type    = string
-  default = "virtio"
-}
-
-variable "disk_name" {
-  type    = string
-  default = "rootdisk"
-}
-
-variable "disk_size" {
-  type    = string
-  default = "30Gi"
-}
-
-variable "disk_type" {
-  type    = string
-  default = "disk"
-}
-
 variable "efi_boot" {
   type    = bool
   default = false
@@ -91,6 +61,19 @@ variable "memory" {
   default = "16Gi"
 }
 
+variable "primary_disk" {
+  type = object({
+    auto_delete     = optional(bool, true)
+    boot_order      = optional(number, 1)
+    bus             = optional(string, "virtio")
+    image           = optional(string, "")
+    image_namespace = optional(string, "")
+    name            = optional(string, "rootdisk")
+    size            = optional(string, "30Gi")
+    type            = optional(string, "disk")
+  })
+}
+
 variable "run_strategy" {
   type    = string
   default = "RerunOnFailure"
@@ -116,16 +99,6 @@ variable "vm_description" {
   type        = string
   description = "Description of the VM"
   default     = ""
-}
-
-variable "vm_image" {
-  type        = string
-  description = "OS image to use"
-}
-
-variable "vm_image_namespace" {
-  type        = string
-  description = "OS image namespace to use"
 }
 
 variable "vm_tags" {

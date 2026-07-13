@@ -18,22 +18,6 @@ write_files:
     permissions: '0644'
 %{ endif }
 
-%{ if additional_disks != ""}
-fs_setup:
-%{ for disk in additional_disks }
-  - cmd: mkfs -t %(filesystem)s -L %(label)s %(device)s
-    label: ${disk.name}
-    filesystem: xfs
-    overwrite: false
-    device: /dev/sda
-%{ endfor ~}
-
-mounts:
-%{ for disk in additional_disks }
-  - [/dev/sda, ${disk.mount}, xfs, "defaults,nofail", "0", "2"]
-%{ endfor ~}
-%{ endif ~}
-
 package_update: true
 
 packages:

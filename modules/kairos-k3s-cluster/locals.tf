@@ -1,11 +1,11 @@
 locals {
-  additional_disks = concat(var.additional_disks, [{
+  additional_disks = var.iso_disk_image != "" ? [{
     boot_order = 1
     bus        = "virtio"
     name       = "rootdisk"
     type       = "disk"
     size       = var.root_disk_size
-  }])
+  }] : []
 
   bundles = concat(var.additional_bundles, [{
     target = "ghcr.io/ucl-arc-environments/kairos-operator-bundle:0.0.1"
@@ -19,6 +19,24 @@ locals {
       vault_auth_sa = var.vault_auth_service_account
     })
   }])
+
+  primary_disk = var.iso_disk_image != "" ? {
+    boot_order      = 2
+    bus             = "scsi"
+    name            = var.iso_disk_name
+    size            = var.iso_disk_size
+    type            = "cd-rom"
+    image           = var.iso_disk_image
+    image_namespace = var.iso_disk_image_namespace
+    } : {
+    boot_order      = 1
+    bus             = "virtio"
+    name            = "rootdisk"
+    size            = var.root_disk_size
+    type            = "disk"
+    image           = var.root_disk_image
+    image_namespace = var.root_disk_image_namespace
+  }
 
   vm_count = var.control_nodes + var.worker_nodes
 }

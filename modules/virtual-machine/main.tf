@@ -1,6 +1,6 @@
-data "harvester_image" "vm_image" {
-  display_name = var.vm_image
-  namespace    = var.vm_image_namespace
+data "harvester_image" "primary_disk" {
+  display_name = var.primary_disk.image
+  namespace    = var.primary_disk.image_namespace
 }
 
 resource "harvester_cloudinit_secret" "user_data_secret" {
@@ -17,7 +17,7 @@ resource "harvester_virtualmachine" "vm" {
   namespace            = var.namespace
   restart_after_update = true
   run_strategy         = var.run_strategy
-  description          = var.vm_description != "" ? var.vm_description : "${data.harvester_image.vm_image.display_name}"
+  description          = var.vm_description != "" ? var.vm_description : "${var.name} created by Terraform"
   tags                 = var.vm_tags
 
   cpu    = var.cpu
@@ -42,14 +42,14 @@ resource "harvester_virtualmachine" "vm" {
   }
 
   disk {
-    name       = var.disk_name
-    type       = var.disk_type
-    size       = var.disk_size
-    bus        = var.disk_bus
-    boot_order = var.disk_boot_order
+    name       = var.primary_disk.name
+    type       = var.primary_disk.type
+    size       = var.primary_disk.size
+    bus        = var.primary_disk.bus
+    boot_order = var.primary_disk.boot_order
 
-    image       = data.harvester_image.vm_image.id
-    auto_delete = var.disk_auto_delete
+    image       = data.harvester_image.primary_disk.id
+    auto_delete = var.primary_disk.auto_delete
   }
 
   dynamic "disk" {

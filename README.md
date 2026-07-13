@@ -8,7 +8,7 @@ clusters on Harvester.
 The `virtual-machine` module allows you to create and manage virtual machines on
 Harvester. The minimum supported version of the [Harvester Terraform
 Provider](https://registry.terraform.io/providers/harvester/harvester/latest/docs)
-is `0.6.6` and the minimum Harvester version supported is `1.3.0`. To deploy a
+is `1.6.0` and the minimum Harvester version supported is `1.6.0`. To deploy a
 basic VM with a single boot disk and an IP provided by DHCP:
 
 ```hcl
@@ -26,8 +26,13 @@ module "vm" {
       network = "default/net"
     }
   ]
-  vm_image           = "almalinux-9.5"
-  vm_image_namespace = "harvester-public"
+  primary_disk = {
+    boot_order      = 1
+    image           = "almalinux-9.5"
+    image_namespace = "harvester-public"
+    name            = "rootdisk"
+    size            = var.root_disk_size
+  }
   vm_username        = "almalinux"
 }
 ```
@@ -63,9 +68,14 @@ address and an SSH key:
       network = "default/net"
     }
   ]
+  primary_disk = {
+    boot_order      = 1
+    image           = "almalinux-9.5"
+    image_namespace = "harvester-public"
+    name            = "rootdisk"
+    size            = var.root_disk_size
+  }
   ssh_public_key     = file("~/.ssh/id_rsa")
-  vm_image           = "almalinux-9.5"
-  vm_image_namespace = "harvester-public"
   vm_username        = "almalinux"
 ```
 
@@ -118,9 +128,11 @@ deployed using an immutable operating system. [kairos](https://kairos.io/)
 provides a means to turn a Linux system, and preferred Kubernetes distribution,
 into a secure bootable image. Here users of the module can specify both the
 kairos ISO and container image to be deployed, forming the final OS running in
-the VMs. Although this supports multiple different Kubernetes distributions we
-strongly encourage the use of k3s. In the example below the kairos Alpine ISO is
-used to deploy a Rocky Linux container image which has k3s baked in. The
+the VMs. Alternatively, a Kairos VM image in `qcow2` format can be specified in
+the `root_disk_image` variable (with `iso_disk_image` unset). Although this
+supports multiple different Kubernetes distributions we strongly encourage the
+use of `k3s`. In the example below the kairos Alpine ISO is used to deploy a
+Rocky Linux container image which has k3s baked in. The
 [kairos-operator](https://github.com/kairos-io/kairos-operator) is installed in
 the cluster to provide a means to manage OS and Kubernetes distribution upgrades
 in a zero-downtime manner. Either a `NodeOp` or `NodeOpUpgrade` resource needs
@@ -215,9 +227,9 @@ module "cluster" {
       network = "default/net"
     }
   }
-  root_disk_container_image = "docker:quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
-  ssh_public_key            = file("${path.root}/ssh-key.pub")
-  vm_username               = "kairos"
+  root_disk_image = "quay.io/kairos/rockylinux:9-standard-amd64-generic-v3.4.2-k3sv1.32.3-k3s1"
+  ssh_public_key  = file("${path.root}/ssh-key.pub")
+  vm_username     = "kairos"
   vm_tags = {
       ssh-user = "kairos"
   }
