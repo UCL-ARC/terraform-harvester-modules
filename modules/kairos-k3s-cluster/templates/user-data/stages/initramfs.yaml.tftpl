@@ -76,8 +76,8 @@ initramfs:
       - path: /etc/ssh/trusted_users_ca.pub
         permissions: 0644
         content: |
-          ${ssh_ca_public_key~}
-      %{~ if length(ssh_admin_principals) > 0 }
+          ${ssh_ca_public_key}
+      %{~ if length(ssh_admin_principals) > 0 ~}
       - path: /etc/ssh/auth_principals/kairos
         permissions: 0555
         content: |+
