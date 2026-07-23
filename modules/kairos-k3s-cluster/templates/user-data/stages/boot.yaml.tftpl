@@ -1,3 +1,8 @@
+boot:
+- name: Enable and start qemu-guest-agent service
+  commands:
+    - systemctl enable qemu-guest-agent
+    - systemctl start qemu-guest-agent
 %{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
 boot:
   - name: OIDC Config

@@ -5,9 +5,3 @@ write_files:
     content: |
       ${indent(6, file.content)}
 %{endfor~}
-
-runcmd:
-  - - systemctl
-    - enable
-    - --now
-    - qemu-guest-agent.service
