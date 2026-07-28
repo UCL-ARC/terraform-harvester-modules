@@ -1,13 +1,15 @@
+hostname: ${hostname}
+
 install:
   device: auto
   auto: true
   reboot: true
-  %{ if kairos_os_image != "" }
+  %{~ if kairos_os_image != "" ~}
   source: ${kairos_os_image}
-  %{ endif ~}
+  %{~ endif ~}
   %{~ if length(bind_mounts) > 0 ~}
   bind_mounts:
     %{~ for mount in bind_mounts ~}
     - ${mount}
-    %{~ endfor ~}
-  %{~ endif ~}
+    %{ endfor }
+  %{ endif }
