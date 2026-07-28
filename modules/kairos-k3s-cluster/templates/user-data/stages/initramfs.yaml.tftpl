@@ -104,8 +104,6 @@ initramfs:
       - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
         permissions: 0644
         content: |+
-          PubkeyAuthentication yes
-          PasswordAuthentication no
           TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
           %{~ if length(ssh_admin_principals) > 0 ~}
           AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
