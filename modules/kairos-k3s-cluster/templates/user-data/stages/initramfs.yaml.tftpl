@@ -70,6 +70,15 @@ initramfs:
   %{~ endif ~}
   %{~ endfor ~}
 
+  - name: Write default SSH config
+    files:
+      - path: /etc/ssh/sshd_config.d/99-ssh-defaults.conf
+        permissions: 0644
+        content: |+
+          ChallengeResponseAuthentication no
+          PubkeyAuthentication yes
+          PasswordAuthentication no
+
   %{~ if ssh_ca_public_key != "" ~}
   - name: Write sshd config
     files:
