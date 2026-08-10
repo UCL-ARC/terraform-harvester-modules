@@ -10,7 +10,7 @@ repos:
         args:
           - --tf-init-args=-upgrade
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v26.4.0
+    rev: v26.6.0
     hooks:
       - id: ansible-lint
         args:
