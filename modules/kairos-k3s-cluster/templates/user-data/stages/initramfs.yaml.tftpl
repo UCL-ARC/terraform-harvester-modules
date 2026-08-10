@@ -1,9 +1,11 @@
 initramfs:
   - name: Setup hostname
     hostname: ${hostname}
+
   - name: Disallow root login
     commands:
       - rm /etc/ssh/sshd_config.d/25-permitrootlogin.conf
+
   - name: Write the connman network config
     files:
       - path: /var/lib/connman/default.config
@@ -21,7 +23,8 @@ initramfs:
           %{~ if network.dns != "" ~}
           Nameservers = ${network.dns}
           %{~ endif ~}
-        %{ endfor }
+        %{ endfor ~}
+
   - name: Write the systemd-networkd config
     files:
       - path: /etc/systemd/network/01-man.network
@@ -44,8 +47,8 @@ initramfs:
           DNS=${network.dns}
           %{~ endif ~}
         %{~ endfor ~}
+
   %{~ for network in networks ~}
-  %{~ if network.ip != "" ~}
   - name: Write the ${network.alias} NetworkManager config
     commands:
       - nmcli connection reload
@@ -60,15 +63,26 @@ initramfs:
           type=ethernet
 
           [ipv4]
+          %{~ if network.ip != "" ~}
           addresses=${network.ip}/${network.cidr}
-          dns=${network.dns};
+          method=manual
+          %{~else~}
+          method=auto
+          %{~ endif ~}
+          dns=${network.dns}
           %{~ if network.gateway != "" ~}
           gateway=${network.gateway}
           %{~ endif ~}
-          method=manual
-
-  %{~ endif ~}
   %{~ endfor ~}
+
+  - name: Write default SSH config
+    files:
+      - path: /etc/ssh/sshd_config.d/99-ssh-defaults.conf
+        permissions: 0644
+        content: |+
+          ChallengeResponseAuthentication no
+          PubkeyAuthentication yes
+          PasswordAuthentication no
 
   %{~ if ssh_ca_public_key != "" ~}
   - name: Write sshd config
@@ -77,6 +91,7 @@ initramfs:
         permissions: 0644
         content: |
           ${ssh_ca_public_key}
+
       %{~ if length(ssh_admin_principals) > 0 ~}
       - path: /etc/ssh/auth_principals/kairos
         permissions: 0555
@@ -85,11 +100,10 @@ initramfs:
           ${principal}
           %{~ endfor ~}
       %{~ endif ~}
+
       - path: /etc/ssh/sshd_config.d/00-trusted-keys.conf
         permissions: 0644
         content: |+
-          PubkeyAuthentication yes
-          PasswordAuthentication no
           TrustedUserCAKeys /etc/ssh/trusted_users_ca.pub
           %{~ if length(ssh_admin_principals) > 0 ~}
           AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u

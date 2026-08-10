@@ -1,5 +1,10 @@
-%{~ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
 boot:
+  - name: Enable and start qemu-guest-agent service
+    commands:
+      - systemctl enable --now qemu-guest-agent.service
+    if: "[ -f /run/cos/active_mode ]"
+
+%{ if length(k3s_oidc_args) > 0 && k3s_oidc_admin_group != "" ~}
   - name: OIDC Config
     files:
       - path: /var/lib/rancher/k3s/server/manifests/oidc-cluster-role-binding.yaml
@@ -16,4 +21,4 @@ boot:
           - apiGroup: rbac.authorization.k8s.io
             kind: Group
             name: ${k3s_oidc_admin_group}
-%{~ endif ~}
+%{~ endif }

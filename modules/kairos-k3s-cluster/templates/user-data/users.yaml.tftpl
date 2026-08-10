@@ -5,4 +5,4 @@ users:
     %{~ if ssh_public_key != "" ~}
     ssh_authorized_keys:
       - ${ssh_public_key}
-    %{~ endif ~}
+    %{ endif }
