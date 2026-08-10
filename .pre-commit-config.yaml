@@ -23,7 +23,7 @@ repos:
           - --force-exclude
           - --hidden
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.49.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint
         args:
