@@ -15,4 +15,5 @@ p2p:
 kubevip:
   enabled: true
   eip: ${cluster_vip}
+  enableServices: ${kubevip_manage_services}
 %{ endif }
