@@ -1,4 +1,25 @@
 ---
+- name: Install kernel-modules-extra package
+  ansible.builtin.package:
+    name: kernel-modules-extra
+    state: present
+  when:
+    ansible_facts['os_family'] == "RedHat" and
+    ansible_facts['distribution_major_version'] == "10"
+
+- name: Load required kernel modules
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+    persistent: present
+  loop:
+    - br_netfilter
+    - xt_conntrack
+    - xt_comment
+  when:
+    ansible_facts['os_family'] == "RedHat" and
+    ansible_facts['distribution_major_version'] == "10"
+
 - name: Install git
   ansible.builtin.package:
     name: git
