@@ -73,7 +73,7 @@ variable "local_storage_path" {
 
 variable "memory" {
   type    = string
-  default = "32Gi"
+  default = "16Gi"
 }
 
 variable "networks" {
