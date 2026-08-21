@@ -38,11 +38,6 @@ variable "cluster_additional_vips" {
   default     = []
 }
 
-variable "cpu" {
-  type    = number
-  default = 4
-}
-
 variable "data_dir" {
   type    = string
   default = "/var/lib/rancher/k3s"
@@ -69,11 +64,6 @@ variable "local_storage_path" {
   type        = string
   description = "Path to use for local storage on Harvester VMs"
   default     = "/var/lib/rancher/k3s/storage"
-}
-
-variable "memory" {
-  type    = string
-  default = "16Gi"
 }
 
 variable "networks" {
@@ -137,6 +127,11 @@ variable "vm_count" {
   description = "How many VMs to create"
 }
 
+variable "vm_cpu" {
+  type    = number
+  default = 4
+}
+
 variable "vm_image" {
   type        = string
   description = "OS image to use"
@@ -145,6 +140,11 @@ variable "vm_image" {
 variable "vm_image_namespace" {
   type        = string
   description = "OS image  namespace to use"
+}
+
+variable "vm_memory" {
+  type    = string
+  default = "16Gi"
 }
 
 variable "vm_tags" {
