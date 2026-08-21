@@ -14,7 +14,7 @@
     name: virt_use_samba
     state: true
     persistent: true
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts['os_family'] == "RedHat"
 
 - name: Install python3-pip
   ansible.builtin.package:
