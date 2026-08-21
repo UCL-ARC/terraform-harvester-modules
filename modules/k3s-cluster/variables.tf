@@ -13,7 +13,7 @@ variable "baseos_repo_url" {
 variable "calico_version" {
   type        = string
   description = "Version of Calico to install. See: https://github.com/projectcalico/calico/releases"
-  default     = "v3.28.1"
+  default     = "v3.31.7"
 }
 
 variable "control_nodes" {
