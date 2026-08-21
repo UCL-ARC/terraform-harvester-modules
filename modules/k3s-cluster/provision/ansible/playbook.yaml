@@ -5,7 +5,7 @@
   tasks:
     - name: Wait for VM
       ansible.builtin.wait_for_connection:
-        timeout: 120
+        timeout: 300
 
 - name: Provision nodes
   hosts: k3s
