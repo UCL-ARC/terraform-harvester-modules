@@ -45,7 +45,7 @@
 | <a name="input_k3s_version"></a> [k3s\_version](#input\_k3s\_version) | Version of k3s to install on Harvester VMs. See: https://github.com/k3s-io/k3s/releases | `string` | `"v1.35.7+k3s1"` | no |
 | <a name="input_local_storage_path"></a> [local\_storage\_path](#input\_local\_storage\_path) | Path to use for local storage on Harvester VMs | `string` | `"/var/lib/rancher/k3s/storage"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"16Gi"` | no |
-| <a name="input_metallb_version"></a> [metallb\_version](#input\_metallb\_version) | Version of metallb to install on Harvester VMs. | `string` | `"v0.14.8"` | no |
+| <a name="input_metallb_version"></a> [metallb\_version](#input\_metallb\_version) | Version of metallb to install on Harvester VMs. | `string` | `"v0.16.0"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the namespace into which the VMs with be deployed. It must exist | `string` | n/a | yes |
 | <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_openiscsi_version"></a> [openiscsi\_version](#input\_openiscsi\_version) | Version of openiscsi to install on Harvester VMs. | `string` | `""` | no |

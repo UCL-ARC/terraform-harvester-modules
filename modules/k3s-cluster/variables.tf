@@ -95,7 +95,7 @@ variable "namespace" {
 variable "metallb_version" {
   type        = string
   description = "Version of metallb to install on Harvester VMs."
-  default     = "v0.14.8"
+  default     = "v0.16.0"
 }
 
 variable "openiscsi_version" {
