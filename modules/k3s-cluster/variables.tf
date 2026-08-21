@@ -13,7 +13,7 @@ variable "baseos_repo_url" {
 variable "calico_version" {
   type        = string
   description = "Version of Calico to install. See: https://github.com/projectcalico/calico/releases"
-  default     = "v3.28.1"
+  default     = "v3.31.7"
 }
 
 variable "control_nodes" {
@@ -38,11 +38,6 @@ variable "cluster_additional_vips" {
   default     = []
 }
 
-variable "cpu" {
-  type    = number
-  default = 4
-}
-
 variable "data_dir" {
   type    = string
   default = "/var/lib/rancher/k3s"
@@ -56,7 +51,7 @@ variable "efi_boot" {
 variable "k3s_version" {
   type        = string
   description = "Version of k3s to install on Harvester VMs. See: https://github.com/k3s-io/k3s/releases"
-  default     = "v1.30.2+k3s1"
+  default     = "v1.35.7+k3s1"
 }
 
 variable "k3s_extra_install_args_control" {
@@ -69,11 +64,6 @@ variable "local_storage_path" {
   type        = string
   description = "Path to use for local storage on Harvester VMs"
   default     = "/var/lib/rancher/k3s/storage"
-}
-
-variable "memory" {
-  type    = string
-  default = "32Gi"
 }
 
 variable "networks" {
@@ -95,7 +85,7 @@ variable "namespace" {
 variable "metallb_version" {
   type        = string
   description = "Version of metallb to install on Harvester VMs."
-  default     = "v0.14.8"
+  default     = "v0.16.0"
 }
 
 variable "openiscsi_version" {
@@ -137,6 +127,11 @@ variable "vm_count" {
   description = "How many VMs to create"
 }
 
+variable "vm_cpu" {
+  type    = number
+  default = 4
+}
+
 variable "vm_image" {
   type        = string
   description = "OS image to use"
@@ -145,6 +140,11 @@ variable "vm_image" {
 variable "vm_image_namespace" {
   type        = string
   description = "OS image  namespace to use"
+}
+
+variable "vm_memory" {
+  type    = string
+  default = "16Gi"
 }
 
 variable "vm_tags" {

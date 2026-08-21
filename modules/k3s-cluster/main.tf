@@ -2,9 +2,9 @@ module "k3s_server_vm" {
   count  = local.vm_count
   source = "../virtual-machine"
 
-  cpu       = var.cpu
+  cpu       = var.vm_cpu
   efi_boot  = var.efi_boot
-  memory    = var.memory
+  memory    = var.vm_memory
   name      = local.vm_names[count.index]
   namespace = var.namespace
   networks = [
