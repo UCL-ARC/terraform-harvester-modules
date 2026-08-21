@@ -1,7 +1,6 @@
 ---
 - name: Install kernel-modules-extra package
-  ansible.builtin.command:
-    cmd: dnf install -y kernel-modules-extra-$(uname -r)
+  ansible.builtin.shell: dnf install -y kernel-modules-extra-$(uname -r)
   changed_when: false
   when:
     ansible_facts['os_family'] == "RedHat" and
