@@ -56,7 +56,7 @@ variable "efi_boot" {
 variable "k3s_version" {
   type        = string
   description = "Version of k3s to install on Harvester VMs. See: https://github.com/k3s-io/k3s/releases"
-  default     = "v1.30.2+k3s1"
+  default     = "v1.35.7+k3s1"
 }
 
 variable "k3s_extra_install_args_control" {
