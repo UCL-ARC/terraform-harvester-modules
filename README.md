@@ -93,9 +93,12 @@ uses the `virtual-machine` module to create the necessary VMs. This module
 provides `user_data` to the virtual machines, and is configured to install k3s
 using the default operating system user in the machine image being used (set
 using the `vm_image` variable). As such the `vm_username` variable must be set
-accordingly (e.g. `cloud-user` for a RHEL machine image).
+accordingly (e.g. `cloud-user` for a RHEL machine image). The IP addresses are
+illustrative only and will need updating to values appropriate for the Condenser
+tenancy VM network in use.
 
-Example usage which would deploy a 3-node cluster:
+Example usage which would deploy a 3-node cluster (inputs are required unless
+indicated):
 
 ```hcl
 module "k3s_cluster" {
@@ -103,20 +106,24 @@ module "k3s_cluster" {
 
   cluster_name            = "my-cluster"
   cluster_api_vip         = "10.0.0.5"
-  cluster_additional_vips = ["10.0.0.6"] # additional VIPs for services like ingress
-  namespace           = "default"
+  cluster_additional_vips = ["10.0.0.6"] # Optional: additional VIPs for services like ingress
+  k3s_version             = "v1.35.7+k3s1" # Optional: the current default is v1.35.7+k3s1
+  namespace               = "default" # Update this to Condenser tenancy namespace
   networks = {
     eth0 = {
       ips     = ["10.0.0.2", "10.0.0.3", "10.0.0.4"]
       cidr    = 24
       gateway = "10.0.0.1"
       dns     = "10.0.0.1"
-      network = "default/net"
+      network = "default/net" # Format is <namespace>/<vm network name>
     }
   }
-  vm_image           = "rhel-9.4"
-  vm_image_namespace = "default"
-  vm_username        = "cloud-user"
+  vm_image           = "rhel-9.4" # A VM image available within the Condenser tenancy namespace
+  vm_image_namespace = "default" # Update this to Condenser tenancy namespace
+  vm_tags            = {
+    ssh-user = "cloud-user" # Illustrative only - can be any set of key/value pairs
+  }
+  vm_username = "cloud-user" # Update to the default OS user in your chose distribution
 }
 ```
 

@@ -1,4 +1,17 @@
 ---
+- name: Download tigera-operator CRDs
+  ansible.builtin.get_url:
+    url:
+      https://raw.githubusercontent.com/projectcalico/calico/{{ calico_version
+      }}/manifests/operator-crds.yaml
+    dest: /tmp/tigera-operator-crds.yaml
+    mode: "0440"
+
+- name: Install tigera-operator CRDs
+  kubernetes.core.k8s:
+    state: present
+    src: /tmp/tigera-operator-crds.yaml
+
 - name: Download tigera-operator manifest
   ansible.builtin.get_url:
     url:
