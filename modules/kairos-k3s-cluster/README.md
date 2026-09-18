@@ -58,10 +58,14 @@
 | <a name="input_root_disk_size"></a> [root\_disk\_size](#input\_root\_disk\_size) | n/a | `string` | `"30Gi"` | no |
 | <a name="input_ssh_admin_principals"></a> [ssh\_admin\_principals](#input\_ssh\_admin\_principals) | List of SSH principals to use for the VMs | `list(string)` | `[]` | no |
 | <a name="input_ssh_ca_public_key"></a> [ssh\_ca\_public\_key](#input\_ssh\_ca\_public\_key) | SSH CA public key to use for the VMs | `string` | `""` | no |
+| <a name="input_ssh_ca_public_key_path"></a> [ssh\_ca\_public\_key\_path](#input\_ssh\_ca\_public\_key\_path) | Path to write the SSH CA public key to on the VMs | `string` | `"/etc/ssh/trusted_users_ca.pub"` | no |
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | n/a | `string` | `""` | no |
+| <a name="input_ssh_krl_url"></a> [ssh\_krl\_url](#input\_ssh\_krl\_url) | URL to the SSH KRL to use for the VMs | `string` | `""` | no |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | SSH public key to use for the VMs | `string` | `""` | no |
+| <a name="input_vault_addr"></a> [vault\_addr](#input\_vault\_addr) | Vault address | `string` | `""` | no |
 | <a name="input_vault_auth_service_account"></a> [vault\_auth\_service\_account](#input\_vault\_auth\_service\_account) | Service account to use for the vault auth | `string` | `"vault-auth"` | no |
 | <a name="input_vault_auto_ca"></a> [vault\_auto\_ca](#input\_vault\_auto\_ca) | n/a | `map(any)` | <pre>{<br/>  "default_ca": "",<br/>  "enabled": false,<br/>  "krl_url": "",<br/>  "vault_addr": "",<br/>  "vault_ssh_mount_path": ""<br/>}</pre> | no |
+| <a name="input_vault_ssh_mount_path"></a> [vault\_ssh\_mount\_path](#input\_vault\_ssh\_mount\_path) | Vault SSH mount path | `string` | `""` | no |
 | <a name="input_vm_tags"></a> [vm\_tags](#input\_vm\_tags) | n/a | `map(any)` | n/a | yes |
 | <a name="input_vm_username"></a> [vm\_username](#input\_vm\_username) | n/a | `string` | n/a | yes |
 | <a name="input_worker_nodes"></a> [worker\_nodes](#input\_worker\_nodes) | Number of worker nodes to deploy | `number` | `0` | no |

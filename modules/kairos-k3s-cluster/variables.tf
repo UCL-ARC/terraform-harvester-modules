@@ -148,9 +148,15 @@ variable "ssh_ca_public_key" {
   description = "SSH CA public key to use for the VMs"
   default     = ""
   validation {
-    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != "" || var.vault_auto_ca.enabled
-    error_message = "Set ssh_ca_public_key or ssh_public_key or enable auto fetching CA from Vault."
+    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
+    error_message = "Set ssh_ca_public_key or ssh_public_key."
   }
+}
+
+variable "ssh_ca_public_key_path" {
+  type        = string
+  description = "Path to write the SSH CA public key to on the VMs"
+  default     = "/etc/ssh/trusted_users_ca.pub"
 }
 
 variable "ssh_public_key" {
@@ -162,6 +168,24 @@ variable "ssh_public_key" {
 variable "ssh_common_args" {
   type    = string
   default = ""
+}
+
+variable "ssh_krl_url" {
+  type        = string
+  description = "URL to the SSH KRL to use for the VMs"
+  default     = ""
+}
+
+variable "vault_addr" {
+  type        = string
+  description = "Vault address"
+  default     = ""
+}
+
+variable "vault_ssh_mount_path" {
+  type        = string
+  description = "Vault SSH mount path"
+  default     = ""
 }
 
 variable "vault_auth_service_account" {

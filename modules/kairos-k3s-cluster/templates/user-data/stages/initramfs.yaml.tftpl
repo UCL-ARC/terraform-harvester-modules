@@ -110,6 +110,6 @@ initramfs:
           %{~ endif ~}
   %{~ endif ~}
 
-%{ if vault_auto_ca ~}
+%{ if ssh_ca_public_key != ""~}
   ${indent(2, vault_ca_service)}
 %{~ endif ~}
