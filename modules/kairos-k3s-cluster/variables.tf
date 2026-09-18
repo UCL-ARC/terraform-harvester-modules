@@ -37,11 +37,6 @@ variable "cluster_vip" {
   description = "KubeVip virtual IP address"
 }
 
-variable "cpu" {
-  type    = number
-  default = 4
-}
-
 variable "efi_boot" {
   type    = bool
   default = false
@@ -103,11 +98,6 @@ variable "kairos_operator_version" {
   type        = string
   description = "Version of the kairos operator to install in the cluster."
   default     = "v0.0.3"
-}
-
-variable "memory" {
-  type    = string
-  default = "32Gi"
 }
 
 variable "networks" {
@@ -209,6 +199,16 @@ variable "vault_auto_ca" {
     vault_addr           = ""
     vault_ssh_mount_path = ""
   }
+}
+
+variable "vm_cpu" {
+  type    = number
+  default = 4
+}
+
+variable "vm_memory" {
+  type    = string
+  default = "16Gi"
 }
 
 variable "vm_tags" {

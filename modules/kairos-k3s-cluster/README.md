@@ -39,7 +39,6 @@
 | <a name="input_cluster_namespace"></a> [cluster\_namespace](#input\_cluster\_namespace) | Name of the namespace into which the VMs with be deployed. It must exist | `string` | n/a | yes |
 | <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | KubeVip virtual IP address | `string` | n/a | yes |
 | <a name="input_control_nodes"></a> [control\_nodes](#input\_control\_nodes) | Number of control plane nodes to deploy | `number` | `3` | no |
-| <a name="input_cpu"></a> [cpu](#input\_cpu) | n/a | `number` | `4` | no |
 | <a name="input_efi_boot"></a> [efi\_boot](#input\_efi\_boot) | n/a | `bool` | `false` | no |
 | <a name="input_iso_disk_image"></a> [iso\_disk\_image](#input\_iso\_disk\_image) | OS image to use | `string` | `""` | no |
 | <a name="input_iso_disk_image_namespace"></a> [iso\_disk\_image\_namespace](#input\_iso\_disk\_image\_namespace) | OS image  namespace to use | `string` | `""` | no |
@@ -51,7 +50,6 @@
 | <a name="input_k3s_oidc_args"></a> [k3s\_oidc\_args](#input\_k3s\_oidc\_args) | Extra arguments to pass to k3s | `list(string)` | `[]` | no |
 | <a name="input_kairos_bind_mounts"></a> [kairos\_bind\_mounts](#input\_kairos\_bind\_mounts) | List paths to make persistent on the hosts. | `list(string)` | `[]` | no |
 | <a name="input_kairos_operator_version"></a> [kairos\_operator\_version](#input\_kairos\_operator\_version) | Version of the kairos operator to install in the cluster. | `string` | `"v0.0.3"` | no |
-| <a name="input_memory"></a> [memory](#input\_memory) | n/a | `string` | `"32Gi"` | no |
 | <a name="input_networks"></a> [networks](#input\_networks) | Map of harvester VM networks to add NICs for. Key should be interface name. | <pre>map(object({<br/>    alias   = string<br/>    ips     = optional(list(string), [])<br/>    cidr    = number<br/>    gateway = string<br/>    dns     = string<br/>    network = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_root_disk_image"></a> [root\_disk\_image](#input\_root\_disk\_image) | n/a | `string` | `""` | no |
 | <a name="input_root_disk_image_namespace"></a> [root\_disk\_image\_namespace](#input\_root\_disk\_image\_namespace) | n/a | `string` | `"harvester-public"` | no |
@@ -67,6 +65,8 @@
 | <a name="input_vault_auth_service_account"></a> [vault\_auth\_service\_account](#input\_vault\_auth\_service\_account) | Service account to use for the vault auth | `string` | `"vault-auth"` | no |
 | <a name="input_vault_auto_ca"></a> [vault\_auto\_ca](#input\_vault\_auto\_ca) | n/a | `map(any)` | <pre>{<br/>  "default_ca": "",<br/>  "enabled": false,<br/>  "krl_url": "",<br/>  "vault_addr": "",<br/>  "vault_ssh_mount_path": ""<br/>}</pre> | no |
 | <a name="input_vault_ssh_mount_path"></a> [vault\_ssh\_mount\_path](#input\_vault\_ssh\_mount\_path) | Vault SSH mount path | `string` | `""` | no |
+| <a name="input_vm_cpu"></a> [vm\_cpu](#input\_vm\_cpu) | n/a | `number` | `4` | no |
+| <a name="input_vm_memory"></a> [vm\_memory](#input\_vm\_memory) | n/a | `string` | `"16Gi"` | no |
 | <a name="input_vm_tags"></a> [vm\_tags](#input\_vm\_tags) | n/a | `map(any)` | n/a | yes |
 | <a name="input_vm_username"></a> [vm\_username](#input\_vm\_username) | n/a | `string` | n/a | yes |
 | <a name="input_worker_nodes"></a> [worker\_nodes](#input\_worker\_nodes) | Number of worker nodes to deploy | `number` | `0` | no |

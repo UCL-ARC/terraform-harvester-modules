@@ -3,9 +3,9 @@ module "k3s_server_vm" {
   source = "../virtual-machine"
 
   additional_disks = local.additional_disks
-  cpu              = var.cpu
+  cpu              = var.vm_cpu
   efi_boot         = var.efi_boot
-  memory           = var.memory
+  memory           = var.vm_memory
   name             = "${var.cluster_name}-vm-${count.index}"
   namespace        = var.cluster_namespace
   networks = [
