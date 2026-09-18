@@ -77,7 +77,7 @@ initramfs:
 
   - name: Write default SSH config
     files:
-      - path: /etc/ssh/sshd_config.d/99-ssh-defaults.conf
+      - path: /etc/ssh/sshd_config.d/00-ssh-defaults.conf
         permissions: 0644
         content: |+
           ChallengeResponseAuthentication no
