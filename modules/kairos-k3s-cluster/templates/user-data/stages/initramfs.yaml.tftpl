@@ -77,7 +77,7 @@ initramfs:
 
   - name: Write default SSH config
     files:
-      - path: /etc/ssh/sshd_config.d/99-ssh-defaults.conf
+      - path: /etc/ssh/sshd_config.d/00-ssh-defaults.conf
         permissions: 0644
         content: |+
           ChallengeResponseAuthentication no
@@ -110,6 +110,6 @@ initramfs:
           %{~ endif ~}
   %{~ endif ~}
 
-%{ if vault_auto_ca ~}
+%{ if ssh_ca_public_key != "" && ssh_ca_auto_fetch_enabled ~}
   ${indent(2, vault_ca_service)}
 %{~ endif ~}

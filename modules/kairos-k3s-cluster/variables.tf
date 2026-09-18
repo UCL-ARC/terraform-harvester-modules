@@ -37,11 +37,6 @@ variable "cluster_vip" {
   description = "KubeVip virtual IP address"
 }
 
-variable "cpu" {
-  type    = number
-  default = 4
-}
-
 variable "efi_boot" {
   type    = bool
   default = false
@@ -105,11 +100,6 @@ variable "kairos_operator_version" {
   default     = "v0.0.3"
 }
 
-variable "memory" {
-  type    = string
-  default = "32Gi"
-}
-
 variable "networks" {
   type = map(object({
     alias   = string
@@ -143,14 +133,26 @@ variable "ssh_admin_principals" {
   default     = []
 }
 
+variable "ssh_ca_auto_fetch_enabled" {
+  type        = bool
+  description = "Whether to enable auto-fetching of the SSH CA from Vault"
+  default     = true
+}
+
 variable "ssh_ca_public_key" {
   type        = string
   description = "SSH CA public key to use for the VMs"
   default     = ""
   validation {
-    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != "" || var.vault_auto_ca.enabled
-    error_message = "Set ssh_ca_public_key or ssh_public_key or enable auto fetching CA from Vault."
+    condition     = var.ssh_ca_public_key != "" || var.ssh_public_key != ""
+    error_message = "Set ssh_ca_public_key or ssh_public_key."
   }
+}
+
+variable "ssh_ca_public_key_path" {
+  type        = string
+  description = "Path to write the SSH CA public key to on the VMs"
+  default     = "/etc/ssh/trusted_users_ca.pub"
 }
 
 variable "ssh_public_key" {
@@ -162,6 +164,24 @@ variable "ssh_public_key" {
 variable "ssh_common_args" {
   type    = string
   default = ""
+}
+
+variable "ssh_krl_url" {
+  type        = string
+  description = "URL to the SSH KRL to use for the VMs"
+  default     = ""
+}
+
+variable "vault_addr" {
+  type        = string
+  description = "Vault address"
+  default     = ""
+}
+
+variable "vault_ssh_mount_path" {
+  type        = string
+  description = "Vault SSH mount path"
+  default     = ""
 }
 
 variable "vault_auth_service_account" {
@@ -179,6 +199,16 @@ variable "vault_auto_ca" {
     vault_addr           = ""
     vault_ssh_mount_path = ""
   }
+}
+
+variable "vm_cpu" {
+  type    = number
+  default = 4
+}
+
+variable "vm_memory" {
+  type    = string
+  default = "16Gi"
 }
 
 variable "vm_tags" {
