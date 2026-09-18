@@ -57,6 +57,7 @@
 | <a name="input_root_disk_image_namespace"></a> [root\_disk\_image\_namespace](#input\_root\_disk\_image\_namespace) | n/a | `string` | `"harvester-public"` | no |
 | <a name="input_root_disk_size"></a> [root\_disk\_size](#input\_root\_disk\_size) | n/a | `string` | `"30Gi"` | no |
 | <a name="input_ssh_admin_principals"></a> [ssh\_admin\_principals](#input\_ssh\_admin\_principals) | List of SSH principals to use for the VMs | `list(string)` | `[]` | no |
+| <a name="input_ssh_ca_auto_fetch_enabled"></a> [ssh\_ca\_auto\_fetch\_enabled](#input\_ssh\_ca\_auto\_fetch\_enabled) | Whether to enable auto-fetching of the SSH CA from Vault | `bool` | `true` | no |
 | <a name="input_ssh_ca_public_key"></a> [ssh\_ca\_public\_key](#input\_ssh\_ca\_public\_key) | SSH CA public key to use for the VMs | `string` | `""` | no |
 | <a name="input_ssh_ca_public_key_path"></a> [ssh\_ca\_public\_key\_path](#input\_ssh\_ca\_public\_key\_path) | Path to write the SSH CA public key to on the VMs | `string` | `"/etc/ssh/trusted_users_ca.pub"` | no |
 | <a name="input_ssh_common_args"></a> [ssh\_common\_args](#input\_ssh\_common\_args) | n/a | `string` | `""` | no |

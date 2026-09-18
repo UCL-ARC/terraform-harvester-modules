@@ -143,6 +143,12 @@ variable "ssh_admin_principals" {
   default     = []
 }
 
+variable "ssh_ca_auto_fetch_enabled" {
+  type        = bool
+  description = "Whether to enable auto-fetching of the SSH CA from Vault"
+  default     = true
+}
+
 variable "ssh_ca_public_key" {
   type        = string
   description = "SSH CA public key to use for the VMs"
