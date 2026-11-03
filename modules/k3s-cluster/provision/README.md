@@ -7,7 +7,7 @@
 | <a name="requirement_ansible"></a> [ansible](#requirement\_ansible) | 1.5.0 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | 2.9.1 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.3.1 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | 3.9.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.9.1 |
 
 ## Providers
 
@@ -31,8 +31,8 @@ No modules.
 | [ansible_playbook.k3s_worker](https://registry.terraform.io/providers/ansible/ansible/1.5.0/docs/resources/playbook) | resource |
 | [local_sensitive_file.ssh_key](https://registry.terraform.io/providers/hashicorp/local/2.9.1/docs/resources/sensitive_file) | resource |
 | [null_resource.galaxy](https://registry.terraform.io/providers/hashicorp/null/3.3.1/docs/resources/resource) | resource |
-| [random_string.token_id](https://registry.terraform.io/providers/hashicorp/random/3.9.0/docs/resources/string) | resource |
-| [random_string.token_secret](https://registry.terraform.io/providers/hashicorp/random/3.9.0/docs/resources/string) | resource |
+| [random_string.token_id](https://registry.terraform.io/providers/hashicorp/random/3.9.1/docs/resources/string) | resource |
+| [random_string.token_secret](https://registry.terraform.io/providers/hashicorp/random/3.9.1/docs/resources/string) | resource |
 | [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/2.9.1/docs/data-sources/file) | data source |
 
 ## Inputs
