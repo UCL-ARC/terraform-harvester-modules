@@ -19,7 +19,7 @@
     wait: true
     wait_condition:
       type: Ready
-    wait_timeout: 90
+    wait_timeout: 300
 
 - name: Wait for metallb controller
   kubernetes.core.k8s_info:
@@ -29,7 +29,7 @@
     wait: true
     wait_condition:
       type: Available
-    wait_timeout: 90
+    wait_timeout: 300
 
 - name: Wait for metallb apiservice
   kubernetes.core.k8s_info:
@@ -39,7 +39,7 @@
     wait: true
     wait_condition:
       type: Available
-    wait_timeout: 90
+    wait_timeout: 300
 
 - name: Combine cluster VIPs
   ansible.builtin.set_fact:

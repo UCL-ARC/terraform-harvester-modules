@@ -1,10 +1,19 @@
 ---
 - name: Install kernel-modules-extra package
-  ansible.builtin.shell: dnf install -y kernel-modules-extra-$(uname -r)
-  changed_when: false
+  ansible.builtin.dnf:
+    name:
+      - kernel
+      - kernel-modules-extra
+    state: latest
+  register: kernel_modules_extra
   when:
     ansible_facts['os_family'] == "RedHat" and
     ansible_facts['distribution_major_version'] == "10"
+
+- name: Reboot into the kernel that matches kernel-modules-extra
+  ansible.builtin.reboot:
+    reboot_timeout: 600
+  when: kernel_modules_extra is changed
 
 - name: Load required kernel modules
   community.general.modprobe:
