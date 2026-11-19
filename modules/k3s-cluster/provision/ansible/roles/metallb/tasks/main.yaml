@@ -22,12 +22,14 @@
       type: Available
     wait_timeout: 180
 
-- name: Wait for metallb speaker
+- name: Wait for metallb apiservice
   kubernetes.core.k8s_info:
-    kind: DaemonSet
-    name: speaker
+    kind: APIService
+    name: v1beta1.metallb.io
     namespace: metallb-system
     wait: true
+    wait_condition:
+      type: Available
     wait_timeout: 180
 
 - name: Combine cluster VIPs
