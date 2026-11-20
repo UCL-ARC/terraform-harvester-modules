@@ -65,12 +65,12 @@
 
 | Name | Description |
 | ---- | ----------- |
+| <a name="output_api_vip"></a> [api\_vip](#output\_api\_vip) | n/a |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | n/a |
 | <a name="output_ips"></a> [ips](#output\_ips) | n/a |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | n/a |
 | <a name="output_leader_ip"></a> [leader\_ip](#output\_leader\_ip) | n/a |
 | <a name="output_ssh_private_key"></a> [ssh\_private\_key](#output\_ssh\_private\_key) | n/a |
-| <a name="output_cluster_name"></a> [cluster\_name](#output\cluster\_name) | n/a |
-| <a name="output_api_vip"></a> [api\_vip](#output\api\_vip) | n/a |
-| <a name="output_vm_names"></a> [vm\_names](#output\vm\_names) | n/a |
-| <a name="output_vm_username"></a> [vm\_username](#output\vm\_username) | n/a |
+| <a name="output_vm_names"></a> [vm\_names](#output\_vm\_names) | n/a |
+| <a name="output_vm_username"></a> [vm\_username](#output\_vm\_username) | n/a |
 <!-- END_TF_DOCS -->

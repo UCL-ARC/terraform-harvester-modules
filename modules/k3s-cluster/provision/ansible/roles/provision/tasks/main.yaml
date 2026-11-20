@@ -77,3 +77,4 @@
   environment:
     HELM_INSTALL_DIR: /usr/bin
   changed_when: false
+  
