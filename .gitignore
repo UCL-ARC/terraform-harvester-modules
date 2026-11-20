@@ -44,6 +44,8 @@ id_*
 *kube*.y*ml
 k3s.y*ml
 .terraformrc
+ssh-key*
+ssh-private-key
 
 # Mac
 .DS_Store

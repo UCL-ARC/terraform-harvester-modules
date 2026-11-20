@@ -1,10 +1,24 @@
 ---
 - name: Install kernel-modules-extra package
-  ansible.builtin.shell: dnf install -y kernel-modules-extra-$(uname -r)
-  changed_when: false
+  ansible.builtin.package:
+    name: kernel-modules-extra
+    state: present
+  register: kernel_modules_extra
   when:
     ansible_facts['os_family'] == "RedHat" and
     ansible_facts['distribution_major_version'] == "10"
+
+- name: Check whether a reboot is required
+  ansible.builtin.command: dnf needs-restarting -r
+  register: needs_restarting
+  changed_when: false
+  failed_when: needs_restarting.rc not in [0, 1]
+  when: kernel_modules_extra is changed
+
+- name: Reboot into the kernel that matches kernel-modules-extra
+  ansible.builtin.reboot:
+    reboot_timeout: 600
+  when: needs_restarting.rc | default(0) == 1
 
 - name: Load required kernel modules
   community.general.modprobe:
@@ -63,3 +77,4 @@
   environment:
     HELM_INSTALL_DIR: /usr/bin
   changed_when: false
+  
